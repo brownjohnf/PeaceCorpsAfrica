@@ -1,4 +1,13 @@
+// used the color for $grayLight
 $navbarSearchBackgroundFocus: #999;
+// used the collor for $blue
+$navbarBrandColor: #049cdb;
+
+
+// load bootstrap
 @import "bootstrap";
+// allow padding at the top of the body for the fixed header
 body { padding-top: 60px; }
+
+// load the responsive version
 @import "bootstrap-responsive";

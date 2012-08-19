@@ -12,7 +12,7 @@
   @include center-block();
 }
 
-.hero-unit {
+.hero-unit, .well {
   &.purple {
     color: $white;
     background-color: $purple;

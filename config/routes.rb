@@ -1,5 +1,7 @@
 PeaceCorpsAfrica::Application.routes.draw do
 
+  resources :countries
+
   authenticated :user do
     root :to => 'home#index'
   end

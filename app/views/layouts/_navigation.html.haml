@@ -7,10 +7,27 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to "Peace Corps|Africa", root_path, :class => 'brand'
+          = link_to "Peace Corps | Africa", root_path, :class => 'brand'
           .nav-collapse
             %ul.nav
-              %li= link_to 'Countries', ''
+              %li.dropdown
+                %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
+                  Countries
+                  %b.caret
+                %ul.dropdown-menu
+                  - if can? :create, Country
+                    %li
+                      = link_to new_country_path do
+                        %span.icon-plus
+                        New country
+                    %li.divider
+                  %li
+                    = link_to countries_path do
+                      %span.icon-globe
+                      Overview Map
+                  %li.divider
+                  - for country in Country.all do
+                    %li= link_to country.name, country
           .nav-collapse.pull-right
             = form_tag '', :method => :get, :class => 'navbar-search' do
               = text_field_tag 'q', nil, :class => 'search-query', 'placeholder' => 'search'

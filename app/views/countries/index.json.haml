@@ -1,0 +1,29 @@
+:erb
+  {
+    "cols": [
+        {
+            "id": 0,
+            "label": "Country",
+            "type": "string"
+        },
+        {
+            "id": 1,
+            "label": "PC Since",
+            "type": "number"
+        }
+    ],
+    "rows": [
+        <% for country in Country.all do %>
+          {
+            "c": [
+                {
+                    "v": "<%= country.name %>"
+                },
+                {
+                    "v": 3
+                }
+            ]
+          }<%= ',' unless country == Country.last %>
+        <% end %>
+    ]
+  }
