@@ -1,18 +1,25 @@
 .container
+  .row.visible-desktop
+    .span6
+      .hero-unit.red
+        %h1 Peace Corps
+        -#%p 25 countries, 2 Initiatives, reaching a continent.
+    .span2
+      = image_tag 'pc_logo.png'
+    .span4
+      .hero-unit.red
+        %h1.center Africa
   .row
     .span12
-      .hero-unit
-        %h1 Peace Corps | Africa
-        %p 25 countries, 2 Initiatives, reaching a continent.
       .carousel.slide#splash
         .carousel-inner
           .item.active
-            = image_tag 'http://placehold.it/1170x400'
+            = image_tag 'http://placehold.it/1170x400/08c'
             .carousel-caption
               %h4 Caption 1
               %p Description...
           .item
-            = image_tag 'http://placehold.it/1170x400'
+            = image_tag 'http://placehold.it/1170x400/c3325f'
             .carousel-caption
               %h4 Caption 1
               %p Description...
@@ -20,24 +27,24 @@
         %a.carousel-control.right{'href' => '#splash', 'data-slide' => 'prev'} &rsaquo;
   .row
     .span6
-      .hero-unit
+      .hero-unit.blue
         %h1 Big title
         %p And a bunch of copy
     .span6
-      .hero-unit
+      .hero-unit.orange
         %h1 Big title
         %p And a bunch of copy
   .row
     .span4
-      = image_tag 'http://placehold.it/370x250'
+      = image_tag 'http://placehold.it/370x250/7a43b6'
       %h4 Info about...
       %p And a little description...
     .span4
-      = image_tag 'http://placehold.it/370x250'
+      = image_tag 'http://placehold.it/370x250/51a351'
       %h4 Info about...
       %p And a little description...
     .span4
-      = image_tag 'http://placehold.it/370x250'
+      = image_tag 'http://placehold.it/370x250/9d261d'
       %h4 Info about...
       %p And a little description...
       %h3 Home

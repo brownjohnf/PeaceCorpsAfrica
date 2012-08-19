@@ -17,9 +17,9 @@
     #main{:role => "main"}
       = render 'layouts/messages' if flash.any?
       = yield
-    %footer
       .container-fluid
         - if Rails.env.development?
           .row-fluid
             .span12= debug(params)
+    %footer
       = render 'layouts/footer'

@@ -1,0 +1,61 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'bootstrap_and_overrides';
+
+.center {
+  text-align: center;
+}
+
+.center-block {
+  @include center-block();
+}
+
+.hero-unit {
+  &.purple {
+    color: $white;
+    background-color: $purple;
+  }
+  &.green {
+    color: $white;
+    background-color: $green;
+  }
+  &.red {
+    color: $white;
+    background-color: $red;
+  }
+  &.blue {
+    color: $white;
+    background-color: $blue;
+  }
+  &.orange {
+    color: $white;
+    background-color: lighten($orange, 10%)
+  }
+}
+
+footer {
+  @include box-shadow(0 0 5px black);
+  color: $navbarText;
+  background-color: $navbarBackground;
+  hr {
+    border-top: 1px solid $navbarText;
+    border-bottom: 1px solid $navbarBackgroundHighlight;
+  }
+  .nav {
+    &.nav-list {
+      li {
+        &.nav-header {
+          text-shadow: none;
+        }
+        a {
+          text-shadow: none;
+          &:hover {
+            background: none;
+          }
+        }
+      }
+    }
+  }
+}

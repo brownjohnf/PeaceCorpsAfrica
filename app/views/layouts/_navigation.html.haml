@@ -3,18 +3,24 @@
     .container-fluid
       .row-fluid
         .span12
+          %a.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
           = link_to "Peace Corps|Africa", root_path, :class => 'brand'
           .nav-collapse
             %ul.nav
               %li= link_to 'Countries', ''
           .nav-collapse.pull-right
+            = form_tag '', :method => :get, :class => 'navbar-search' do
+              = text_field_tag 'q', nil, :class => 'search-query', 'placeholder' => 'search'
             %ul.nav
               - if user_signed_in?
                 %li
-                  = link_to 'Logout', destroy_user_session_path, :method=>'delete'
+                  = link_to 'Sign out', destroy_user_session_path, :method=>'delete'
               - else
                 %li
-                  = link_to 'Login', new_user_session_path
+                  = link_to 'Sign in', new_user_session_path
               - if user_signed_in?
                 %li
                   = link_to 'Edit account', edit_user_registration_path
