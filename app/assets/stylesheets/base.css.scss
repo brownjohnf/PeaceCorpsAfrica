@@ -12,7 +12,22 @@
   @include center-block();
 }
 
+a {
+  &.no-decoration {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 .hero-unit, .well {
+  &.expand {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
   &.purple {
     color: $white;
     background-color: $purple;
@@ -30,13 +45,13 @@
     background-color: $blue;
   }
   &.orange {
-    color: $white;
-    background-color: lighten($orange, 10%)
+    color: $black;
+    background-color: lighten($orange, 10%);
   }
 }
 
 footer {
-  @include box-shadow(0 0 5px black);
+  @include box-shadow(0 0 5px $black);
   color: $navbarText;
   background-color: $navbarBackground;
   hr {

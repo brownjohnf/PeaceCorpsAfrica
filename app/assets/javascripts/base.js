@@ -4,4 +4,9 @@
 
 $(function(){
   $('.carousel').carousel();
+
+  // allow elements in a row to be the same height
+  $('.equal-heights-1').equalHeights();
+  $('.equal-heights-2').equalHeights();
+  $('.equal-heights-3').equalHeights();
 });

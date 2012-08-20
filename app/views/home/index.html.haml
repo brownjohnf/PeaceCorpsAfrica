@@ -14,40 +14,31 @@
       .carousel.slide#splash
         .carousel-inner
           .item.active
-            = image_tag 'http://placehold.it/1170x400/08c'
+            = image_tag 'http://placehold.it/1170x400'
             .carousel-caption
               %h4 Caption 1
               %p Description...
           .item
-            = image_tag 'http://placehold.it/1170x400/c3325f'
+            = image_tag 'http://placehold.it/1170x400'
             .carousel-caption
               %h4 Caption 1
               %p Description...
         %a.carousel-control.left{'href' => '#splash', 'data-slide' => 'prev'} &lsaquo;
         %a.carousel-control.right{'href' => '#splash', 'data-slide' => 'prev'} &rsaquo;
-  .row
+  .row.equal-heights-1
     .span6
-      .hero-unit.blue
-        %h1 Big title
-        %p And a bunch of copy
+      = link_to countries_path, :class => 'no-decoration' do
+        .well.blue.equalize
+          %h1 XX Countries in Africa
+          %p Since 1961, Peace Corps Volunteers have worked in nearly every country in sub-Saharan Africa.
     .span6
-      .hero-unit.orange
-        %h1 Big title
-        %p And a bunch of copy
-  .row
-    .span4
-      = image_tag 'http://placehold.it/370x250/7a43b6'
-      %h4 Info about...
-      %p And a little description...
-    .span4
-      = image_tag 'http://placehold.it/370x250/51a351'
-      %h4 Info about...
-      %p And a little description...
-    .span4
-      = image_tag 'http://placehold.it/370x250/9d261d'
-      %h4 Info about...
-      %p And a little description...
-      %h3 Home
-      - @users.each do |user|
-        %p
-          User: #{link_to user.name, user}
+      = link_to '', :class => 'no-decoration' do
+        .well.orange.equalize
+          %h1 Delivering Results
+          %p Peace Corps has initiated three important continent-wide initiatives in Africa.
+  .row.equal-heights-2
+    .span12
+      %ul.thumbnails.equalize
+        %li.span4= link_to image_tag('http://placehold.it/370x250'), countries_path, :class => 'thumbnail'
+        %li.span4= link_to image_tag('http://placehold.it/370x250'), countries_path, :class => 'thumbnail'
+        %li.span4= link_to image_tag('http://placehold.it/370x250'), countries_path, :class => 'thumbnail'
