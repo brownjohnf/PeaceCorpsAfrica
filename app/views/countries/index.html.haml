@@ -23,13 +23,13 @@
     var geoOptions = {
       'backgroundColor': { fill: 'white', stroke: '#666', strokeWidth: 0 },
       'region': '002',
-      // colors are $blue, $green, $orange, $red
-      'colorAxis': {minValue: 0, maxValue: 3, colors: ['#049cdb', '#46a546', '#f89406', '#9d261d']},
+      // colors are $orange, $btnInfoBackground, spin($btnPrimaryBackground, 15%)
+      'colorAxis': {minValue: 0, maxValue: 300, values: [0,1,300], colors: ['#f89406', '#5bc0de', '#05c']},
       //'colorAxis': {minValue: 2011, maxValue: 2012, values: [2011,2012], colors: ['#FF0000', '#00FF00']},
       'datalessRegionColor': '#f5f5f5',
       'height': 'auto',
       'keepAspectRatio': true,
-      'legend': 'none',//{numberFormat: '', textStyle: {color:'black'}},
+      'legend': {numberFormat: '', textStyle: {color:'black'}},
       'resolution': 'countries',
       'width': '100%',
       'tooltip': {color: 'black'}
@@ -47,11 +47,12 @@
   
     geo_chart.draw(geoData, geoOptions);
     function selectHandler(e) {
-      var countries = {};
-      countries.sn = '1';
       //alert(countries[e.region.toLowerCase()]);
-      if (countries[e.region.toLowerCase()]) {
-        window.location = '/countries/' + countries[e.region.toLowerCase()];
+      var country_id = $.trim($.ajax({url:'/countries/by_code.json?q='+e.region, dataType:'text', async:false}).responseText);
+      //alert('/countries/' + country_id);
+      if (country_id) {
+        window.location = '/countries/' + country_id;
+        //alert('"'+country_id+'"');
       }
     }
   }
@@ -61,7 +62,9 @@
     .span3
       .well.green
         %h1 Where to?
-        %p We work in #{pluralize(Country.count, 'country')} across Africa.
+        %p Currently, the Peace Corps Africa region has Volunteers serving in #{pluralize(Country.active.count, 'nations')}.
+        %p Peace Corps has suspended operations for security reasons in Mali and Niger.
+        %p For more information about Peace Corps Africa programs, past and present, visit the #{link_to 'Peace Corps agency web site', 'http://www.peacecorps.gov/learn/wherepc/africa/'}.
       - for country in @countries do
         = link_to country do
           .well.orange.center

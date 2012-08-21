@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require jQuery.equalHeights
+//= require bootstrap-datepicker
 //= require_tree .

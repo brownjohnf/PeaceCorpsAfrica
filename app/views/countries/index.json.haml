@@ -8,19 +8,19 @@
         },
         {
             "id": 1,
-            "label": "PC Since",
+            "label": "Volunteers",
             "type": "number"
         }
     ],
     "rows": [
-        <% for country in Country.all do %>
+        <% for country in Country.unscoped.order('name ASC').all do %>
           {
             "c": [
                 {
                     "v": "<%= country.name %>"
                 },
                 {
-                    "v": 3
+                    "v": <%= country.num_volunteers.to_i %>
                 }
             ]
           }<%= ',' unless country == Country.last %>

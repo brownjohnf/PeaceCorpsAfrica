@@ -82,4 +82,12 @@ class CountriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def by_code
+    @country = Country.find_by_code(params[:q])
+    respond_to do |format|
+      format.json { render text: (@country ? @country.id : nil) }
+    end
+  end
+
 end

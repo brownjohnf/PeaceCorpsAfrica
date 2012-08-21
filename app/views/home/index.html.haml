@@ -8,7 +8,7 @@
       = image_tag 'pc_logo.png'
     .span4
       .hero-unit.red
-        %h1.center Africa
+        %h1.center= @country ? @country.name : 'Africa'
   .row
     .span12
       .carousel.slide#splash
@@ -29,7 +29,7 @@
     .span6
       = link_to countries_path, :class => 'no-decoration' do
         .well.blue.equalize
-          %h1 XX Countries in Africa
+          %h1 #{Country.active.count} Countries in Africa
           %p Since 1961, Peace Corps Volunteers have worked in nearly every country in sub-Saharan Africa.
     .span6
       = link_to '', :class => 'no-decoration' do

@@ -3,6 +3,41 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'bootstrap_and_overrides';
+@import 'datepicker';
+
+/********************************************************/
+/* Basic styles */
+
+// background colors
+body {
+  background-color: $navbarBackground;
+  #main {
+    background-color: $white;
+  }
+  footer {
+    @include box-shadow(0 -2px 2px $black);
+    color: $navbarText;
+    hr {
+      border-top: 1px solid $navbarText;
+      border-bottom: 1px solid $navbarBackgroundHighlight;
+    }
+    .nav {
+      &.nav-list {
+        li {
+          &.nav-header {
+            text-shadow: none;
+          }
+          a {
+            text-shadow: none;
+            &:hover {
+              background: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 .center {
   text-align: center;
@@ -18,6 +53,18 @@ a {
       text-decoration: none;
     }
   }
+}
+
+.float {
+  &.float-left {
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 1em;
+  }
+}
+
+.clearfix {
+  @include clearfix();
 }
 
 .hero-unit, .well {
@@ -43,6 +90,9 @@ a {
   &.blue {
     color: $white;
     background-color: $blue;
+    small {
+      color: darken($white, 10%);
+    }
   }
   &.orange {
     color: $black;
@@ -50,27 +100,3 @@ a {
   }
 }
 
-footer {
-  @include box-shadow(0 0 5px $black);
-  color: $navbarText;
-  background-color: $navbarBackground;
-  hr {
-    border-top: 1px solid $navbarText;
-    border-bottom: 1px solid $navbarBackgroundHighlight;
-  }
-  .nav {
-    &.nav-list {
-      li {
-        &.nav-header {
-          text-shadow: none;
-        }
-        a {
-          text-shadow: none;
-          &:hover {
-            background: none;
-          }
-        }
-      }
-    }
-  }
-}

@@ -8,6 +8,21 @@
 
   = f.label :name
   = f.country_select :code
-  = f.label :page_id
-  = f.number_field :page_id
+  -#= f.label :page_id
+  -#= f.number_field :page_id
+  = f.label :contact_email
+  = f.text_field :contact_email
+  = f.label :site_url
+  = f.text_field :site_url
+  = f.label :donate_url
+  = f.text_field :donate_url
+  = f.label :num_volunteers, 'Current number of PCVs'
+  = f.text_field :num_volunteers
+  = f.label :num_total_volunteers, 'Total PCVs Served'
+  = f.text_field :num_total_volunteers
+  = f.label :pc_start_date, 'PC Start Date'
+  = f.text_field :pc_start_date, :class => 'datepicker'
+  = f.label :active do
+    = f.check_box :active
+    Active
   = f.submit 'Save'

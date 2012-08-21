@@ -1,0 +1,10 @@
+- if @country && can?(:edit, @country)
+  .subnav
+    %ul.nav.nav-pills.pull-right
+      %li.dropdown
+        %a.dropdown-toggle{'data-toggle' => 'dropdown', :href => '#'}
+          Actions
+          %b.caret
+        %ul.dropdown-menu.pull-right
+          %li= link_to 'edit', edit_country_path(@country)
+          %li= link_to 'new country', new_country_path if can? :create, Country
