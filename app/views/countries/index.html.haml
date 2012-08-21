@@ -61,13 +61,12 @@
   .row-fluid
     .span3
       .well.green
-        %h1 Where to?
-        %p Currently, the Peace Corps Africa region has Volunteers serving in #{pluralize(Country.active.count, 'nations')}.
+        %h1 Where to now?
+        %p Currently, the Peace Corps Africa region has Volunteers serving in #{pluralize(Country.active.count, 'nation')}.
         %p Peace Corps has suspended operations for security reasons in Mali and Niger.
-        %p For more information about Peace Corps Africa programs, past and present, visit the #{link_to 'Peace Corps agency web site', 'http://www.peacecorps.gov/learn/wherepc/africa/'}.
-      - for country in @countries do
-        = link_to country do
-          .well.orange.center
-            %h2= country.name
+        %p For more information about Peace Corps Africa programs, past and present, visit the #{link_to 'Peace Corps agency web site', 'http://www.peacecorps.gov/learn/wherepc/africa/', :target => '_blank'}.
+      %ul.nav.nav-tabs.nav-stacked
+        - for country in @countries do
+          %li= link_to country.name, country
     .span9
       #chart_div_geo

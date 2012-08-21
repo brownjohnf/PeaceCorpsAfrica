@@ -27,18 +27,18 @@
         %a.carousel-control.right{'href' => '#splash', 'data-slide' => 'prev'} &rsaquo;
   .row.equal-heights-1
     .span6
-      = link_to countries_path, :class => 'no-decoration' do
-        .well.blue.equalize
-          %h1 #{Country.active.count} Countries in Africa
-          %p Since 1961, Peace Corps Volunteers have worked in nearly every country in sub-Saharan Africa.
+      .well.blue.equalize
+        %h1 #{Country.active.count} Countries in Africa
+        %p Since 1961, Peace Corps Volunteers have been serving across Africa, working hand in hand with community partners to promote sustainable development and enhance understanding between Americans and Africans.
+        %p We're currently serving in #{link_to pluralize(Country.active.count, 'country'), countries_path} across Africa.
     .span6
-      = link_to '', :class => 'no-decoration' do
-        .well.orange.equalize
-          %h1 Delivering Results
-          %p Peace Corps has initiated three important continent-wide initiatives in Africa.
-  .row.equal-heights-2
+      .well.orange.equalize
+        %h1 Delivering Results
+        %p Volunteers work in education, health, including #{link_to 'HIV/AIDS', ''} and #{link_to 'malaria prevention', ''}, business development, the environment, and agriculture and #{link_to 'food security', ''}.
+        %p For more information about Peace Corps in Africa, see the #{link_to 'Peace Corps agency web site', 'http://www.peacecorps.gov/learn/wherepc/africa/', :target => '_blank'}, individual Peace Corps #{link_to 'country web sites', ''}, and #{link_to 'Initiatives in Africa', ''}.
+  .row
     .span12
-      %ul.thumbnails.equalize
+      %ul.thumbnails
         %li.span4= link_to image_tag('http://placehold.it/370x250'), countries_path, :class => 'thumbnail'
         %li.span4= link_to image_tag('http://placehold.it/370x250'), countries_path, :class => 'thumbnail'
         %li.span4= link_to image_tag('http://placehold.it/370x250'), countries_path, :class => 'thumbnail'

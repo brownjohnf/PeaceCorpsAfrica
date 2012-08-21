@@ -10,7 +10,6 @@
           %small Since #{@country.pc_start_date.year}.
       .row
         .span8
-          = image_tag 'http://placehold.it/370x250', :class => 'float float-left'
           %p Lots of fun info about the country, etc.
     .span4
       .well.orange
@@ -26,9 +25,15 @@
           %dt Contact Email
           %dd= @country.contact_email
           %dt Site URL
-          %dd= link_to truncate(@country.site_url, :length => 25), @country.site_url
+          %dd= link_to truncate(@country.site_url, :length => 25), @country.site_url, :target => '_blank'
           %dt Donate URL
-          %dd= link_to truncate(@country.donate_url, :length => 25), @country.donate_url
+          %dd= link_to truncate(@country.donate_url, :length => 25), @country.donate_url, :target => '_blank'
           %dt Peace Corps Since
           %dd= @country.pc_start_date.year
         %p.center= link_to "Enter Peace Corps | #{@country.name}", (@country.site_url.blank? ? country_home_path(@country) : @country.site_url), :class => 'btn btn-success btn-large'
+  .row
+    .span12
+      %ul.thumbnails
+        %li.span4= link_to image_tag('http://placehold.it/370x250'), '', :class => 'thumbnail'
+        %li.span4= link_to image_tag('http://placehold.it/370x250'), '', :class => 'thumbnail'
+        %li.span4= link_to image_tag('http://placehold.it/370x250'), '', :class => 'thumbnail'
