@@ -15,7 +15,7 @@
                   Countries
                   %b.caret
                 %ul.dropdown-menu
-                  - if can? :create, Country
+                  - if signed_in? && can?(:create, Country)
                     %li
                       = link_to new_country_path do
                         %span.icon-plus
