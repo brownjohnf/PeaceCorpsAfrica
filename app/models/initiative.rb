@@ -10,6 +10,9 @@ class Initiative < ActiveRecord::Base
 
   before_validation :do_before_validation
 
+  has_many :country_initiatives, :dependent => :destroy
+  has_many :countries, :through => :country_initiatives
+
   default_scope :order => 'name ASC'
 
   private

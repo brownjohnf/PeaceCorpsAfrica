@@ -40,6 +40,18 @@
     %label.control-label Active
     .controls
       = f.check_box :active
+  - f.fields_for :country_initiatives, @country.initialized_country_initiatives do |ff|
+    - initiative = ff.object.initiative
+    = ff.hidden_field :initiative_id
+    .control-group
+      %label.control-label= initiative.name
+      .controls
+        = ff.check_box :enable
+        Enable
+    .control-group
+      %label.control-label Join Date
+      .controls
+        = ff.text_field :join_date
   .control-group
     .controls
       = f.submit 'Save', :class => 'btn btn-primary'

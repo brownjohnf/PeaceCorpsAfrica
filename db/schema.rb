@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120825110837) do
+ActiveRecord::Schema.define(:version => 20120825125451) do
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(:version => 20120825110837) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
   end
+
+  create_table "country_initiatives", :force => true do |t|
+    t.integer  "country_id"
+    t.integer  "initiative_id"
+    t.date     "join_date"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "country_initiatives", ["country_id", "initiative_id"], :name => "index_country_initiatives_on_country_id_and_initiative_id", :unique => true
 
   create_table "initiatives", :force => true do |t|
     t.string   "name"
