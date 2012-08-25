@@ -1,4 +1,4 @@
-= form_for @country do |f|
+= form_for @country, :html => {:class => 'form-horizontal'} do |f|
   -if @country.errors.any?
     #error_explanation
       %h2= "#{pluralize(@country.errors.count, "error")} prohibited this country from being saved:"
@@ -6,23 +6,40 @@
         - @country.errors.full_messages.each do |msg|
           %li= msg
 
-  = f.label :name
-  = f.country_select :code
+  .control-group
+    %label.control-label Country Name
+    .controls
+      = f.country_select :code
   -#= f.label :page_id
   -#= f.number_field :page_id
-  = f.label :contact_email
-  = f.text_field :contact_email
-  = f.label :site_url
-  = f.text_field :site_url
-  = f.label :donate_url
-  = f.text_field :donate_url
-  = f.label :num_volunteers, 'Current number of PCVs'
-  = f.text_field :num_volunteers
-  = f.label :num_total_volunteers, 'Total PCVs Served'
-  = f.text_field :num_total_volunteers
-  = f.label :pc_start_date, 'PC Start Date'
-  = f.text_field :pc_start_date, :class => 'datepicker'
-  = f.label :active do
-    = f.check_box :active
-    Active
-  = f.submit 'Save'
+  .control-group
+    %label.control-label Contact Email
+    .controls
+      = f.text_field :contact_email
+  .control-group
+    %label.control-label Site URL
+    .controls
+      = f.text_field :site_url
+  .control-group
+    %label.control-label Donate URL
+    .controls
+      = f.text_field :donate_url
+  .control-group
+    %label.control-label Current Number of Volunteers
+    .controls
+      = f.text_field :num_volunteers
+  .control-group
+    %label.control-label Total PCVs Served
+    .controls
+      = f.text_field :num_total_volunteers
+  .control-group
+    %label.control-label Peace Corps Start Date
+    .controls
+      = f.text_field :pc_start_date, :class => 'datepicker'
+  .control-group
+    %label.control-label Active
+    .controls
+      = f.check_box :active
+  .control-group
+    .controls
+      = f.submit 'Save', :class => 'btn btn-primary'

@@ -6,5 +6,13 @@
           Actions
           %b.caret
         %ul.dropdown-menu.pull-right
-          %li= link_to 'edit', edit_country_path(@country)
-          %li= link_to 'new country', new_country_path if can? :create, Country
+          %li
+            = link_to edit_country_path(@country) do
+              %span.icon-pencil
+              Edit #{@country.name}
+          - if can? :create, Country
+            %li.divider
+            %li
+              = link_to new_country_path do
+                %span.icon-plus
+                New Country
