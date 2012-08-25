@@ -1,7 +1,7 @@
 class Initiative < ActiveRecord::Base
   rolify
   
-  attr_accessible :name, :num_volunteers, :page_id, :start_date, :contact_email, :site_url, :donate_url
+  attr_accessible :name, :num_volunteers, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes
 
   validates :name, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
@@ -12,6 +12,8 @@ class Initiative < ActiveRecord::Base
 
   has_many :country_initiatives, :dependent => :destroy
   has_many :countries, :through => :country_initiatives
+
+  accepts_nested_attributes_for :country_initiatives, :allow_destroy => true
 
   default_scope :order => 'name ASC'
 

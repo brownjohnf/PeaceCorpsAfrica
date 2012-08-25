@@ -1,10 +1,11 @@
-= form_for @initiative, :html => { :class => 'form-horizontal' } do |f|
+= nested_form_for @initiative, :html => { :class => 'form-horizontal' } do |f|
   -if @initiative.errors.any?
     #error_explanation
       %h2= "#{pluralize(@initiative.errors.count, "error")} prohibited this initiative from being saved:"
       %ul
         - @initiative.errors.full_messages.each do |msg|
           %li= msg
+  %legend Initiative Info
   .control-group
     %label.control-label Initiative Name
     .controls
@@ -33,6 +34,15 @@
     %label.control-label Donate URL
     .controls
       = f.text_field :donate_url
+  %legend Countries
+  = f.fields_for :country_initiatives do |ff|
+    .control-group
+      %label.control-label Country/Join date
+      .controls
+        = ff.collection_select :country_id, Country.all, :id, :name
+        = ff.text_field :join_date, :class => 'span1 datepicker'
+        = ff.link_to_remove 'remove'
+  = f.link_to_add 'add a country', :country_initiatives
   .control-group
     %label.control-label
     .controls

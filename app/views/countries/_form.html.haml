@@ -1,11 +1,11 @@
-= form_for @country, :html => {:class => 'form-horizontal'} do |f|
+= nested_form_for @country, :html => {:class => 'form-horizontal'} do |f|
   -if @country.errors.any?
     #error_explanation
       %h2= "#{pluralize(@country.errors.count, "error")} prohibited this country from being saved:"
       %ul
         - @country.errors.full_messages.each do |msg|
           %li= msg
-
+  %legend Country Info
   .control-group
     %label.control-label Country Name
     .controls
@@ -40,18 +40,15 @@
     %label.control-label Active
     .controls
       = f.check_box :active
-  - f.fields_for :country_initiatives, @country.initialized_country_initiatives do |ff|
-    - initiative = ff.object.initiative
-    = ff.hidden_field :initiative_id
+  %legend Initiatives
+  = f.fields_for :country_initiatives do |ff|
     .control-group
-      %label.control-label= initiative.name
+      %span.control-label Initiative/Join Date
       .controls
-        = ff.check_box :enable
-        Enable
-    .control-group
-      %label.control-label Join Date
-      .controls
-        = ff.text_field :join_date
+        = ff.collection_select :initiative_id, Initiative.all, :id, :name
+        = ff.text_field :join_date, :class => 'span1 datepicker'
+        = ff.link_to_remove 'remove'
+  = f.link_to_add 'add an initiative', :country_initiatives
   .control-group
     .controls
       = f.submit 'Save', :class => 'btn btn-primary'

@@ -1,7 +1,7 @@
 class Country < ActiveRecord::Base
   rolify
 
-  attr_accessible :code, :name, :page_id, :active, :num_volunteers, :num_total_volunteers, :contact_email, :site_url, :donate_url, :pc_start_date, :country_initiative_ids
+  attr_accessible :code, :name, :page_id, :active, :num_volunteers, :num_total_volunteers, :contact_email, :site_url, :donate_url, :pc_start_date, :country_initiatives_attributes
 
   validates :name, :code, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
@@ -18,22 +18,10 @@ class Country < ActiveRecord::Base
   default_scope order('name ASC')
   scope :active, where(:active => true)
 
-  def initialized_country_initiatives # this is the key method
-    [].tap do |o|
-      Initiative.all.each do |initiative|
-        if c = country_initiatives.find { |c| c.initiative_id == initiative.id }
-          o << c.tap { |c| c.enable ||= true }
-        else
-          o << CountryInitiative.new(Initiative: initiative)
-        end
-      end
-    end
-  end
-
   private
 
     def valid_date
-      errors.add('PC Start Date', 'must be later than 1963') unless pc_start_date > '1963-01-01'.to_date
+      errors.add('PC Start Date', 'must be later than 1961') unless pc_start_date > '1963-01-01'.to_date
     end
 
     def do_before_validation

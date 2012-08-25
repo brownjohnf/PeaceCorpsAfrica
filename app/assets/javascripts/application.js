@@ -15,4 +15,5 @@
 //= require bootstrap
 //= require jQuery.equalHeights
 //= require bootstrap-datepicker
+//= require jquery_nested_form
 //= require_tree .
