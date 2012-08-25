@@ -8,7 +8,7 @@ class InitiativesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @initiatives }
+      format.json
     end
   end
 
@@ -19,7 +19,7 @@ class InitiativesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @initiative }
+      format.json
     end
   end
 

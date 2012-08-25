@@ -3,7 +3,7 @@ class Initiative < ActiveRecord::Base
   
   attr_accessible :name, :num_volunteers, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes
 
-  validates :name, :presence => true
+  validates :name, :start_date, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
   validates :num_volunteers, :length => { :maximum => 4 }
   validate :valid_date

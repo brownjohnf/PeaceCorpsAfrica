@@ -3,7 +3,7 @@ class Country < ActiveRecord::Base
 
   attr_accessible :code, :name, :page_id, :active, :num_volunteers, :num_total_volunteers, :contact_email, :site_url, :donate_url, :pc_start_date, :country_initiatives_attributes
 
-  validates :name, :code, :presence => true
+  validates :name, :code, :pc_start_date, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
   validates :code, :length => { :minimum => 2, :maximum => 2 }
   validate :valid_date
@@ -17,6 +17,10 @@ class Country < ActiveRecord::Base
 
   default_scope order('name ASC')
   scope :active, where(:active => true)
+
+  def join_date(initiative)
+    country_initiatives.where(:initiative_id => initiative.id).limit(1).first.join_date
+  end  
 
   private
 

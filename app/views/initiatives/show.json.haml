@@ -1,0 +1,29 @@
+:erb
+  {
+    "cols": [
+        {
+            "id": 0,
+            "label": "Country",
+            "type": "string"
+        },
+        {
+            "id": 1,
+            "label": "Volunteers",
+            "type": "number"
+        }
+    ],
+    "rows": [
+        <% for country in @initiative.countries do %>
+          {
+            "c": [
+                {
+                    "v": "<%= country.name %>"
+                },
+                {
+                    "v": <%= country.join_date(@initiative).to_time.to_i %>
+                }
+            ]
+          }<%= ',' unless country == @initiative.countries.last %>
+        <% end %>
+    ]
+  }
