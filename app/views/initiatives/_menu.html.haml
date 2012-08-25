@@ -1,7 +1,7 @@
 .container
   .row
     .span12
-      - if @country && can?(:edit, @country)
+      - if @initiative && can?(:edit, @initiative)
         .subnav
           %ul.nav.nav-pills.pull-right
             %li.dropdown
@@ -10,12 +10,12 @@
                 %b.caret
               %ul.dropdown-menu.pull-right
                 %li
-                  = link_to edit_country_path(@country) do
+                  = link_to edit_initiative_path(@initiative) do
                     %span.icon-pencil
-                    Edit #{@country.name}
+                    Edit #{@initiative.name}
                 - if can? :create, Country
                   %li.divider
                   %li
-                    = link_to new_country_path do
+                    = link_to new_initiative_path do
                       %span.icon-plus
-                      New Country
+                      New Initiative

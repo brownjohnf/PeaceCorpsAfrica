@@ -1,0 +1,39 @@
+= form_for @initiative, :html => { :class => 'form-horizontal' } do |f|
+  -if @initiative.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@initiative.errors.count, "error")} prohibited this initiative from being saved:"
+      %ul
+        - @initiative.errors.full_messages.each do |msg|
+          %li= msg
+  .control-group
+    %label.control-label Initiative Name
+    .controls
+      = f.text_field :name
+  .control-group
+    %label.control-label Starting Date
+    .controls
+      = f.text_field :start_date, :class => 'datepicker'
+  -#.control-group
+    %label.control-label
+    .controls
+      = f.number_field :page_id
+  .control-group
+    %label.control-label Number of Participants
+    .controls
+      = f.number_field :num_volunteers
+  .control-group
+    %label.control-label Contact Email
+    .controls
+      = f.text_field :contact_email
+  .control-group
+    %label.control-label Site URL
+    .controls
+      = f.text_field :site_url
+  .control-group
+    %label.control-label Donate URL
+    .controls
+      = f.text_field :donate_url
+  .control-group
+    %label.control-label
+    .controls
+      = f.submit 'Save', :class => 'btn btn-primary'

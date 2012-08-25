@@ -19,7 +19,7 @@
                     %li
                       = link_to new_country_path do
                         %span.icon-plus
-                        New country
+                        New Country
                     %li.divider
                   %li
                     = link_to countries_path do
@@ -34,19 +34,19 @@
                   Initiatives
                   %b.caret
                 %ul.dropdown-menu
-                  -# if can? :create, Country
+                  - if signed_in? && can?(:create, Initiative)
                     %li
-                      = link_to new_country_path do
+                      = link_to new_initiative_path do
                         %span.icon-plus
-                        New country
+                        New Initiative
                     %li.divider
-                  -#%li
-                    = link_to countries_path do
+                  %li
+                    = link_to initiatives_path do
                       %span.icon-globe
                       Overview Map
                   %li.divider
-                  -# for country in Country.all do
-                    %li= link_to country.name, country
+                  - for initiative in Initiative.all do
+                    %li= link_to initiative.name, initiative
           .nav-collapse.pull-right
             = form_tag '', :method => :get, :class => 'navbar-search' do
               = text_field_tag 'q', nil, :class => 'search-query', 'placeholder' => 'search'

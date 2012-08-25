@@ -1,5 +1,9 @@
 PeaceCorpsAfrica::Application.routes.draw do
 
+  resources :initiatives do
+    match 'home', :to => 'home#index'
+  end
+
   resources :countries do
     collection do
       get :by_code

@@ -16,6 +16,7 @@
       = render 'layouts/navigation'
     #main{:role => "main"}
       = render 'layouts/messages' if flash.any?
+      = render 'menu' rescue nil
       = yield
       .container-fluid
         - if Rails.env.development?

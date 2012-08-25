@@ -1,0 +1,70 @@
+:plain
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+:javascript
+  // Load the Visualization API and the piechart package.
+  google.load('visualization', '1.0', {'packages':['geochart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.setOnLoadCallback(drawChart);
+
+  // Callback that creates and populates a data table, instantiates the pie chart, 
+  // passes in the data and draws it.
+  function drawChart() {
+  
+    // pull the json data from the app/source
+    var jsonGeoData  = $.ajax({
+      url:'/countries.json',
+      dataType:'json',
+      async:false
+      }).responseText;
+
+    // set the options
+    var geoOptions = {
+      'backgroundColor': { fill: 'white', stroke: '#666', strokeWidth: 0 },
+      'region': '002',
+      // colors are $orange, $btnInfoBackground, spin($btnPrimaryBackground, 15%)
+      'colorAxis': {minValue: 0, maxValue: 300, values: [0,1,300], colors: ['#f89406', '#5bc0de', '#05c']},
+      //'colorAxis': {minValue: 2011, maxValue: 2012, values: [2011,2012], colors: ['#FF0000', '#00FF00']},
+      'datalessRegionColor': '#f5f5f5',
+      'height': 'auto',
+      'keepAspectRatio': true,
+      'legend': {numberFormat: '', textStyle: {color:'black'}},
+      'resolution': 'countries',
+      'width': '100%',
+      'tooltip': {color: 'black'}
+    };
+
+    // load the json data source into a datatable for the chart
+    var geoData = new google.visualization.DataTable(jsonGeoData);
+
+    // set the chart target div
+    var geo_chart = new google.visualization.GeoChart(document.getElementById('chart_div_geo'));
+
+    // Every time the geo chart fires the "regionClick" event, it should call our
+    // selectHandler() function.
+    google.visualization.events.addListener(geo_chart, 'regionClick', selectHandler);
+  
+    geo_chart.draw(geoData, geoOptions);
+    function selectHandler(e) {
+      //alert(countries[e.region.toLowerCase()]);
+      var country_id = $.trim($.ajax({url:'/countries/by_code.json?q='+e.region, dataType:'text', async:false}).responseText);
+      //alert('/countries/' + country_id);
+      if (country_id) {
+        window.location = '/countries/' + country_id;
+        //alert('"'+country_id+'"');
+      }
+    }
+  }
+
+.container-fluid
+  .row-fluid
+    .span3
+      .well.blue
+        %h1 What are we up to?
+        %p Peace Corps has initiated #{pluralize(@initiatives.count, 'important continent-wide initiative')} in Africa.  Volunteers work with partners in the following initiatives:
+      %ul.nav.nav-tabs.nav-stacked
+        - for initiative in @initiatives do
+          %li= link_to initiative.name, initiative
+    .span9
+      #chart_div_geo
