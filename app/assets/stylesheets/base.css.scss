@@ -81,6 +81,9 @@ a {
   &.green {
     color: $white;
     background-color: $green;
+    small {
+      color: lighten($black, 20%);
+    }
   }
   &.red {
     color: $white;
@@ -92,6 +95,10 @@ a {
     small {
       color: darken($white, 10%);
     }
+  }
+  &.brown {
+    color: $white;
+    background-color: $brown;
   }
   &.orange {
     color: $black;
