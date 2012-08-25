@@ -46,9 +46,13 @@ ActiveRecord::Schema.define(:version => 20120825125451) do
     t.string   "site_url"
     t.string   "donate_url"
     t.string   "contact_email"
+    t.string   "abbreviation"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  add_index "initiatives", ["abbreviation"], :name => "index_initiatives_on_abbreviation", :unique => true
+  add_index "initiatives", ["name"], :name => "index_initiatives_on_name", :unique => true
 
   create_table "roles", :force => true do |t|
     t.string   "name"

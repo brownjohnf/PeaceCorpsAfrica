@@ -22,6 +22,10 @@ class Country < ActiveRecord::Base
     country_initiatives.where(:initiative_id => initiative.id).limit(1).first.join_date
   end  
 
+  def to_param
+    code.downcase
+  end
+
   private
 
     def valid_date

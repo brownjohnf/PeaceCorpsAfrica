@@ -14,7 +14,7 @@
   
     // pull the json data from the app/source
     var jsonGeoData  = $.ajax({
-      url:'/initiatives.json',
+      url:'#{initiatives_path(:format => :json)}',
       dataType:'json',
       async:false
       }).responseText;

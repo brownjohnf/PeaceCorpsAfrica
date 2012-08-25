@@ -8,8 +8,12 @@ class CreateInitiatives < ActiveRecord::Migration
       t.string :site_url
       t.string :donate_url
       t.string :contact_email
+      t.string :abbreviation
 
       t.timestamps
     end
+    
+    add_index :initiatives, :abbreviation, :unique => true
+    add_index :initiatives, :name, :unique => true
   end
 end

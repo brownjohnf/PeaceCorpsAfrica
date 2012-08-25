@@ -1,10 +1,11 @@
 class InitiativesController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource
 
   # GET /initiatives
   # GET /initiatives.json
   def index
     @initiatives = Initiative.all
+    @countries = Country.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +16,7 @@ class InitiativesController < ApplicationController
   # GET /initiatives/1
   # GET /initiatives/1.json
   def show
-    @initiative = Initiative.find(params[:id])
+    @initiative = Initiative.find_by_abbreviation(params[:id].upcase)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,7 +37,7 @@ class InitiativesController < ApplicationController
 
   # GET /initiatives/1/edit
   def edit
-    @initiative = Initiative.find(params[:id])
+    @initiative = Initiative.find_by_abbreviation(params[:id].upcase)
   end
 
   # POST /initiatives

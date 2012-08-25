@@ -1,16 +1,22 @@
 PeaceCorpsAfrica::Application.routes.draw do
 
   resources :initiatives do
-    resources :countries, :only => [:index, :show]
-    match 'home', :to => 'home#index'
   end
 
   resources :countries do
-    resources :initiatives, :only => [:index, :show]
     collection do
       get :by_code
     end
-    match 'home', :to => 'home#index'
+  end
+
+  namespace :country, :path => '/:country_code' do
+    resources :initiatives
+    get '/' => 'home#index', :as => :home
+  end
+
+  namespace :initiative, :path => '/:abbreviation' do
+    resources :countries
+    get '/' => 'home#index', :as => :home
   end
 
   authenticated :user do

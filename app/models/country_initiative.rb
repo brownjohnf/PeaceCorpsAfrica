@@ -4,7 +4,7 @@ class CountryInitiative < ActiveRecord::Base
   belongs_to :country
   belongs_to :initiative
 
-  validate :valid_date
+  validate :valid_date, :unless => 'join_date.blank?'
 
   private
 

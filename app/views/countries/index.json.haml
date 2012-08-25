@@ -13,7 +13,7 @@
         }
     ],
     "rows": [
-        <% for country in Country.unscoped.order('name ASC').all do %>
+        <% for country in @countries do %>
           {
             "c": [
                 {
@@ -23,7 +23,7 @@
                     "v": <%= country.num_volunteers.to_i %>
                 }
             ]
-          }<%= ',' unless country == Country.last %>
+          }<%= ',' unless country == @countries.last %>
         <% end %>
     ]
   }

@@ -14,7 +14,7 @@
   
     // pull the json data from the app/source
     var jsonGeoData  = $.ajax({
-      url:'/countries.json',
+      url:'#{params[:abbreviation] ? initiative_countries_path(:abbreviation => 'stomp', :format => :json) : countries_path(:format => :json)}',
       dataType:'json',
       async:false
       }).responseText;

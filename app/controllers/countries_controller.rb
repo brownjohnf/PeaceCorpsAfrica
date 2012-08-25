@@ -1,5 +1,5 @@
 class CountriesController < ApplicationController
-  load_and_authorize_resource
+  authorize_resource
 
   # GET /countries
   # GET /countries.json
@@ -15,7 +15,7 @@ class CountriesController < ApplicationController
   # GET /countries/1
   # GET /countries/1.json
   def show
-    @country = Country.find(params[:id])
+    @country = Country.find_by_code(params[:id].upcase)
 
     respond_to do |format|
       format.html # show.html.erb

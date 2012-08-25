@@ -13,7 +13,7 @@
         }
     ],
     "rows": [
-      <% for country in Country.all do %>
+      <% for country in @countries do %>
         {
           "c": [
               {
@@ -23,7 +23,7 @@
                   "v": <%= country.initiatives.count %>
               }
           ]
-        }<%= ',' unless country == Country.last %>
+        }<%= ',' unless country == @countries.last %>
       <% end %>
     ]
   }

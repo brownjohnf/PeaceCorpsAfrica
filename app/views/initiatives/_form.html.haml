@@ -11,6 +11,10 @@
     .controls
       = f.text_field :name
   .control-group
+    %label.control-label Abbreviated Name
+    .controls
+      = f.text_field :abbreviation
+  .control-group
     %label.control-label Starting Date
     .controls
       = f.text_field :start_date, :class => 'datepicker'
