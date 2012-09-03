@@ -15,7 +15,6 @@ PeaceCorpsAfrica::Application.routes.draw do
   end
 
   namespace :initiative, :path => '/:abbreviation' do
-    resources :countries
     get '/' => 'home#index', :as => :home
   end
 
