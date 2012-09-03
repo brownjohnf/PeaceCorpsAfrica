@@ -4,12 +4,13 @@ class CountryInitiative < ActiveRecord::Base
   belongs_to :country
   belongs_to :initiative
 
+  validates :country_id, :initiative_id, :presence => true
   validate :valid_date, :unless => 'join_date.blank?'
 
   private
 
     def valid_date
-      errors.add('Join Date', 'must be later than 1961') unless join_date > '1963-01-01'.to_date
+      errors.add('Join Date', 'must be later than 1961') unless join_date > '1961-01-01'.to_date
     end  
 
     def do_before_validation

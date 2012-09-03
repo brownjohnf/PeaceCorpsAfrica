@@ -3,12 +3,13 @@ class Initiative < ActiveRecord::Base
   
   attr_accessible :name, :num_volunteers, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes, :abbreviation
 
+  # requires name, start_date, abbreviation
   validates :name, :start_date, :abbreviation, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
   validates :abbreviation, :length => { :minimum => 2, :maximum => 16 }, :uniqueness => true
   validates :name, :uniqueness => true
   validates :num_volunteers, :length => { :maximum => 4 }
-  validate :valid_date
+  validate :valid_date, :unless => 'start_date.blank?'
 
   before_validation :do_before_validation
 
@@ -30,7 +31,7 @@ class Initiative < ActiveRecord::Base
     end
 
     def do_before_validation
-      self.start_date = start_date.to_date
+      self.start_date = start_date.to_date unless start_date.blank?
     end
 
 end
