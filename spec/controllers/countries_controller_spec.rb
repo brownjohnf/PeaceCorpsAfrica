@@ -25,8 +25,9 @@ describe CountriesController do
   # update the return value of this method accordingly.
   def valid_attributes
     {
-    :code => 'sn',
-    :pc_start_date => '1963-02-15'.to_date
+      :name => 'Senegal',
+      :code => 'sn',
+      :pc_start_date => '1963-02-15'
     }
   end
 
@@ -40,7 +41,7 @@ describe CountriesController do
   describe "GET index" do
     it "assigns all countries as @countries" do
       country = Country.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {}
       assigns(:countries).should eq([country])
     end
   end
@@ -48,43 +49,49 @@ describe CountriesController do
   describe "GET show" do
     it "assigns the requested country as @country" do
       country = Country.create! valid_attributes
-      get :show, {:id => country.to_param}, valid_session
+      get :show, {:id => country.to_param}
       assigns(:country).should eq(country)
     end
   end
 
   describe "GET new" do
-    login_admin
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      @user.add_role :admin
+      sign_in @user
+    end
     it "assigns a new country as @country" do
-      get :new, {}, valid_session
+      get :new
       assigns(:country).should be_a_new(Country)
     end
   end
 
   describe "GET edit" do
+    login_admin
     it "assigns the requested country as @country" do
       country = Country.create! valid_attributes
-      get :edit, {:id => country.to_param}, valid_session
+      get :edit, {:id => country.to_param}
       assigns(:country).should eq(country)
     end
   end
 
   describe "POST create" do
+    login_admin
     describe "with valid params" do
       it "creates a new Country" do
         expect {
-          post :create, {:country => valid_attributes}, valid_session
+          post :create, {:country => valid_attributes}
         }.to change(Country, :count).by(1)
       end
 
       it "assigns a newly created country as @country" do
-        post :create, {:country => valid_attributes}, valid_session
+        post :create, {:country => valid_attributes}
         assigns(:country).should be_a(Country)
         assigns(:country).should be_persisted
       end
 
       it "redirects to the created country" do
-        post :create, {:country => valid_attributes}, valid_session
+        post :create, {:country => valid_attributes}
         response.should redirect_to(Country.last)
       end
     end
@@ -93,20 +100,21 @@ describe CountriesController do
       it "assigns a newly created but unsaved country as @country" do
         # Trigger the behavior that occurs when invalid params are submitted
         Country.any_instance.stub(:save).and_return(false)
-        post :create, {:country => {}}, valid_session
+        post :create, {:country => {}}
         assigns(:country).should be_a_new(Country)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Country.any_instance.stub(:save).and_return(false)
-        post :create, {:country => {}}, valid_session
+        post :create, {:country => {}}
         response.should render_template("new")
       end
     end
   end
 
   describe "PUT update" do
+    login_admin
     describe "with valid params" do
       it "updates the requested country" do
         country = Country.create! valid_attributes
@@ -115,18 +123,18 @@ describe CountriesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Country.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => country.to_param, :country => {'these' => 'params'}}, valid_session
+        put :update, {:id => country.to_param, :country => {'these' => 'params'}}
       end
 
       it "assigns the requested country as @country" do
         country = Country.create! valid_attributes
-        put :update, {:id => country.to_param, :country => valid_attributes}, valid_session
+        put :update, {:id => country.to_param, :country => valid_attributes}
         assigns(:country).should eq(country)
       end
 
       it "redirects to the country" do
         country = Country.create! valid_attributes
-        put :update, {:id => country.to_param, :country => valid_attributes}, valid_session
+        put :update, {:id => country.to_param, :country => valid_attributes}
         response.should redirect_to(country)
       end
     end
@@ -136,7 +144,7 @@ describe CountriesController do
         country = Country.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Country.any_instance.stub(:save).and_return(false)
-        put :update, {:id => country.to_param, :country => {}}, valid_session
+        put :update, {:id => country.to_param, :country => {}}
         assigns(:country).should eq(country)
       end
 
@@ -144,23 +152,24 @@ describe CountriesController do
         country = Country.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Country.any_instance.stub(:save).and_return(false)
-        put :update, {:id => country.to_param, :country => {}}, valid_session
+        put :update, {:id => country.to_param, :country => {}}
         response.should render_template("edit")
       end
     end
   end
 
   describe "DELETE destroy" do
+    login_admin
     it "destroys the requested country" do
       country = Country.create! valid_attributes
       expect {
-        delete :destroy, {:id => country.to_param}, valid_session
+        delete :destroy, {:id => country.to_param}
       }.to change(Country, :count).by(-1)
     end
 
     it "redirects to the countries list" do
       country = Country.create! valid_attributes
-      delete :destroy, {:id => country.to_param}, valid_session
+      delete :destroy, {:id => country.to_param}
       response.should redirect_to(countries_url)
     end
   end

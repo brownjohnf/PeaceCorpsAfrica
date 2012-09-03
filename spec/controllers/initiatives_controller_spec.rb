@@ -37,7 +37,7 @@ describe InitiativesController do
   describe "GET index" do
     it "assigns all initiatives as @initiatives" do
       initiative = Initiative.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {}
       assigns(:initiatives).should eq([initiative])
     end
   end
@@ -45,14 +45,14 @@ describe InitiativesController do
   describe "GET show" do
     it "assigns the requested initiative as @initiative" do
       initiative = Initiative.create! valid_attributes
-      get :show, {:id => initiative.to_param}, valid_session
+      get :show, {:id => initiative.to_param}
       assigns(:initiative).should eq(initiative)
     end
   end
 
   describe "GET new" do
     it "assigns a new initiative as @initiative" do
-      get :new, {}, valid_session
+      get :new, {}
       assigns(:initiative).should be_a_new(Initiative)
     end
   end
@@ -60,7 +60,7 @@ describe InitiativesController do
   describe "GET edit" do
     it "assigns the requested initiative as @initiative" do
       initiative = Initiative.create! valid_attributes
-      get :edit, {:id => initiative.to_param}, valid_session
+      get :edit, {:id => initiative.to_param}
       assigns(:initiative).should eq(initiative)
     end
   end
@@ -69,18 +69,18 @@ describe InitiativesController do
     describe "with valid params" do
       it "creates a new Initiative" do
         expect {
-          post :create, {:initiative => valid_attributes}, valid_session
+          post :create, {:initiative => valid_attributes}
         }.to change(Initiative, :count).by(1)
       end
 
       it "assigns a newly created initiative as @initiative" do
-        post :create, {:initiative => valid_attributes}, valid_session
+        post :create, {:initiative => valid_attributes}
         assigns(:initiative).should be_a(Initiative)
         assigns(:initiative).should be_persisted
       end
 
       it "redirects to the created initiative" do
-        post :create, {:initiative => valid_attributes}, valid_session
+        post :create, {:initiative => valid_attributes}
         response.should redirect_to(Initiative.last)
       end
     end
@@ -89,14 +89,14 @@ describe InitiativesController do
       it "assigns a newly created but unsaved initiative as @initiative" do
         # Trigger the behavior that occurs when invalid params are submitted
         Initiative.any_instance.stub(:save).and_return(false)
-        post :create, {:initiative => {}}, valid_session
+        post :create, {:initiative => {}}
         assigns(:initiative).should be_a_new(Initiative)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Initiative.any_instance.stub(:save).and_return(false)
-        post :create, {:initiative => {}}, valid_session
+        post :create, {:initiative => {}}
         response.should render_template("new")
       end
     end
@@ -111,18 +111,18 @@ describe InitiativesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Initiative.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => initiative.to_param, :initiative => {'these' => 'params'}}, valid_session
+        put :update, {:id => initiative.to_param, :initiative => {'these' => 'params'}}
       end
 
       it "assigns the requested initiative as @initiative" do
         initiative = Initiative.create! valid_attributes
-        put :update, {:id => initiative.to_param, :initiative => valid_attributes}, valid_session
+        put :update, {:id => initiative.to_param, :initiative => valid_attributes}
         assigns(:initiative).should eq(initiative)
       end
 
       it "redirects to the initiative" do
         initiative = Initiative.create! valid_attributes
-        put :update, {:id => initiative.to_param, :initiative => valid_attributes}, valid_session
+        put :update, {:id => initiative.to_param, :initiative => valid_attributes}
         response.should redirect_to(initiative)
       end
     end
@@ -132,7 +132,7 @@ describe InitiativesController do
         initiative = Initiative.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Initiative.any_instance.stub(:save).and_return(false)
-        put :update, {:id => initiative.to_param, :initiative => {}}, valid_session
+        put :update, {:id => initiative.to_param, :initiative => {}}
         assigns(:initiative).should eq(initiative)
       end
 
@@ -140,7 +140,7 @@ describe InitiativesController do
         initiative = Initiative.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Initiative.any_instance.stub(:save).and_return(false)
-        put :update, {:id => initiative.to_param, :initiative => {}}, valid_session
+        put :update, {:id => initiative.to_param, :initiative => {}}
         response.should render_template("edit")
       end
     end
@@ -150,13 +150,13 @@ describe InitiativesController do
     it "destroys the requested initiative" do
       initiative = Initiative.create! valid_attributes
       expect {
-        delete :destroy, {:id => initiative.to_param}, valid_session
+        delete :destroy, {:id => initiative.to_param}
       }.to change(Initiative, :count).by(-1)
     end
 
     it "redirects to the initiatives list" do
       initiative = Initiative.create! valid_attributes
-      delete :destroy, {:id => initiative.to_param}, valid_session
+      delete :destroy, {:id => initiative.to_param}
       response.should redirect_to(initiatives_url)
     end
   end

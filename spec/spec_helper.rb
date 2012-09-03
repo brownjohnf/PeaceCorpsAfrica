@@ -19,15 +19,13 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-end
-
-Spork.each_run do
-  # This code will be run each time you run your specs.
-
   RSpec.configure do |config|
-    config.include(EmailSpec::Helpers)
-    config.include(EmailSpec::Matchers)
+    config.include FactoryGirl::Syntax::Methods
+    config.include EmailSpec::Helpers
+    config.include EmailSpec::Matchers
+    config.include Devise::TestHelpers, :type => :controller
     config.extend ControllerMacros, :type => :controller
+    config.extend ModelMacros, :type => :model
     # ## Mock Framework
     #
     # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -53,8 +51,13 @@ Spork.each_run do
     # order dependency and want to debug it, you can fix the order by providing
     # the seed, which is printed after each run.
     #     --seed 1234
-    config.order = "random"
+    config.order = "1"
   end
+end
+
+Spork.each_run do
+  # This code will be run each time you run your specs.
+
 
 # --- Instructions ---
 # Sort the contents of this file into a Spork.prefork and a Spork.each_run
@@ -84,9 +87,4 @@ Spork.each_run do
 #
 # These instructions should self-destruct in 10 seconds.  If they don't, feel
 # free to delete them.
-
-
-
-
-
 end
