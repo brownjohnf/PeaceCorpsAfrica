@@ -8,7 +8,6 @@
 /********************************************************/
 /* Basic styles */
 
-// background colors
 body {
   header {
     .navbar {
@@ -18,6 +17,13 @@ body {
     }
   }
   #main {
+    form {
+      input, select, textarea, .controls {
+        &.required {
+          background-color: $requiredColor;
+        }
+      }
+    }
   }
   footer {
     @include box-shadow(0 -2px 2px $black);
