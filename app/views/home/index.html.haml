@@ -28,7 +28,7 @@
   .row.equal-heights-1
     .span6
       .well.blue.equalize
-        %h1 #{Country.active.count} Countries in Africa
+        %h1 #{pluralize(Country.active.count, 'Country')} in Africa
         %p Since 1961, Peace Corps Volunteers have been serving across Africa, working hand in hand with community partners to promote sustainable development and enhance understanding between Americans and Africans.
         %p We're currently serving in #{link_to pluralize(Country.active.count, 'country'), countries_path} across Africa.
     .span6
