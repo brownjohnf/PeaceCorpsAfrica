@@ -51,7 +51,7 @@
       var country_id = $.trim($.ajax({url:'/countries/by_code.json?q='+e.region, dataType:'text', async:false}).responseText);
       //alert('/countries/' + country_id);
       if (country_id) {
-        window.location = '/countries/' + country_id;
+        window.location = '/countries/' + e.region;
         //alert('"'+country_id+'"');
       }
     }
