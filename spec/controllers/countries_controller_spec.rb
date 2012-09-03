@@ -24,7 +24,10 @@ describe CountriesController do
   # Country. As you add validations to Country, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+    :code => 'sn',
+    :pc_start_date => '1963-02-15'.to_date
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -51,6 +54,7 @@ describe CountriesController do
   end
 
   describe "GET new" do
+    login_admin
     it "assigns a new country as @country" do
       get :new, {}, valid_session
       assigns(:country).should be_a_new(Country)

@@ -2,8 +2,7 @@
 
 FactoryGirl.define do
   factory :country do
-    name "MyString"
-    code "MyString"
-    page_id 1
+    code "sn"
+    pc_start_date '1963-02-15'.to_date
   end
 end
