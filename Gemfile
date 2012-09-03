@@ -12,6 +12,7 @@ gem "cancan", ">= 1.6.8"
 gem "rolify", ">= 3.2.0"
 gem 'carmen'
 gem 'nested_form'
+gem 'bootstrap-will_paginate'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
