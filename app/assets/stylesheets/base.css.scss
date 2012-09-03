@@ -108,6 +108,12 @@ a {
     small {
       color: darken($white, 10%);
     }
+    a {
+      color: lighten($black, 10%);
+      &:hover {
+        color: lighten($black, 30%);
+      }
+    }
   }
   &.brown {
     color: $white;
@@ -116,6 +122,12 @@ a {
   &.orange {
     color: $black;
     background-color: lighten($orange, 10%);
+    a {
+      color: $red;
+      &:hover {
+        color: darken($red, 30%);
+      }
+    }
   }
 }
 
