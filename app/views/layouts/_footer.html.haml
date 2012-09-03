@@ -8,10 +8,8 @@
     .span3
       %ul.nav.nav-list
         %li.nav-header Initiatives
-        %li= link_to 'Footer links', ''
-        %li= link_to 'Footer links', ''
-        %li= link_to 'Footer links', ''
-        %li= link_to 'Footer links', ''
+        - for initiative in Initiative.all do
+          %li= link_to initiative.name, initiative
     .span3
       %ul.nav.nav-list
         %li.nav-header Links
