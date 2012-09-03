@@ -1,18 +1,20 @@
 = nested_form_for @country, :html => {:class => 'form-horizontal'} do |f|
   -if @country.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@country.errors.count, "error")} prohibited this country from being saved:"
+    #error_explanation.alert.alert-error
+      %h2= "#{pluralize(@country.errors.count, "form error")}:"
       %ul
         - @country.errors.full_messages.each do |msg|
           %li= msg
   %legend Country Info
-  .control-group
-    .controls.required
-      = render 'shared/form_info'
+  = render 'shared/form_info'
   .control-group
     %label.control-label Country Name
     .controls
       = f.country_select :code, nil, {}, {:class => 'required'}
+  .control-group
+    %label.control-label Peace Corps Start Date
+    .controls
+      = f.text_field :pc_start_date, :class => 'datepicker required'
   -#= f.label :page_id
   -#= f.number_field :page_id
   .control-group
@@ -36,22 +38,32 @@
     .controls
       = f.text_field :num_total_volunteers
   .control-group
-    %label.control-label Peace Corps Start Date
-    .controls
-      = f.text_field :pc_start_date, :class => 'datepicker required'
-  .control-group
     %label.control-label Active
     .controls
       = f.check_box :active
+      %span.help-inline Is this country currently open?
   %legend Initiatives
-  = f.fields_for :country_initiatives do |ff|
+  - if f.object.new_record?
+    .alert Once you've created the country and at least one initiative, you can come back and add initiatives.
+  - elsif !Initiative.any?
+    .alert You must create initiatives before adding them to countries.
+  - else
     .control-group
-      %span.control-label Initiative/Join Date
       .controls
-        = ff.collection_select :initiative_id, Initiative.all, :id, :name
-        = ff.text_field :join_date, :class => 'span1 datepicker'
-        = ff.link_to_remove 'remove'
-  = f.link_to_add 'add an initiative', :country_initiatives
+        %span.help-block
+          All join dates should be in
+          %code yyyy-mm-dd
+          format.    
+    = f.fields_for :country_initiatives do |ff|
+      .control-group
+        %span.control-label Initiative/Join Date
+        .controls
+          = ff.collection_select :initiative_id, Initiative.all, :id, :name, {}, {:class => 'span2'}
+          = ff.text_field :join_date, :class => 'span2 datepicker'
+          = ff.link_to_remove raw('<span class="icon-minus"></span>'), :class => 'btn btn-mini btn-danger'
+    = f.link_to_add :country_initiatives, :class => 'btn btn-mini btn-success' do
+      %span.icon-plus
+      add an initiative
   .control-group
     .controls
       = f.submit 'Save', :class => 'btn btn-primary'
