@@ -5,7 +5,6 @@ module ControllerMacros
       @user = FactoryGirl.create(:user)
       @user.add_role :admin
       sign_in @user
-      puts @user.has_role? :admin
     end
   end
 end

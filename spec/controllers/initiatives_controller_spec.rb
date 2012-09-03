@@ -24,7 +24,11 @@ describe InitiativesController do
   # Initiative. As you add validations to Initiative, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :name => 'Food Security',
+      :abbreviation => 'foodsec',
+      :start_date => '2010-01-01'
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -51,6 +55,7 @@ describe InitiativesController do
   end
 
   describe "GET new" do
+    login_admin
     it "assigns a new initiative as @initiative" do
       get :new, {}
       assigns(:initiative).should be_a_new(Initiative)
@@ -58,6 +63,7 @@ describe InitiativesController do
   end
 
   describe "GET edit" do
+    login_admin
     it "assigns the requested initiative as @initiative" do
       initiative = Initiative.create! valid_attributes
       get :edit, {:id => initiative.to_param}
@@ -66,6 +72,7 @@ describe InitiativesController do
   end
 
   describe "POST create" do
+    login_admin
     describe "with valid params" do
       it "creates a new Initiative" do
         expect {
@@ -86,6 +93,7 @@ describe InitiativesController do
     end
 
     describe "with invalid params" do
+      login_admin
       it "assigns a newly created but unsaved initiative as @initiative" do
         # Trigger the behavior that occurs when invalid params are submitted
         Initiative.any_instance.stub(:save).and_return(false)
@@ -103,6 +111,7 @@ describe InitiativesController do
   end
 
   describe "PUT update" do
+    login_admin
     describe "with valid params" do
       it "updates the requested initiative" do
         initiative = Initiative.create! valid_attributes
@@ -147,6 +156,7 @@ describe InitiativesController do
   end
 
   describe "DELETE destroy" do
+    login_admin
     it "destroys the requested initiative" do
       initiative = Initiative.create! valid_attributes
       expect {

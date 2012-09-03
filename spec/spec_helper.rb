@@ -20,12 +20,9 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   RSpec.configure do |config|
-    config.include FactoryGirl::Syntax::Methods
+    config.include Devise::TestHelpers, :type => :controller
     config.include EmailSpec::Helpers
     config.include EmailSpec::Matchers
-    config.include Devise::TestHelpers, :type => :controller
-    config.extend ControllerMacros, :type => :controller
-    config.extend ModelMacros, :type => :model
     # ## Mock Framework
     #
     # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -58,6 +55,11 @@ end
 Spork.each_run do
   # This code will be run each time you run your specs.
 
+  Rspec.configure do |config|
+    config.include FactoryGirl::Syntax::Methods
+    config.extend ControllerMacros, :type => :controller
+    config.extend ModelMacros, :type => :model
+  end
 
 # --- Instructions ---
 # Sort the contents of this file into a Spork.prefork and a Spork.each_run
