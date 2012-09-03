@@ -43,5 +43,6 @@ group :test do
   gem 'rb-inotify'
   gem 'libnotify'
   gem 'guard-spork'
+  gem 'guard-cucumber'
   gem 'spork'
 end
