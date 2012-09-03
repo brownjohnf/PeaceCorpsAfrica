@@ -8,7 +8,7 @@
       = image_tag 'pc_logo.png'
     .span4
       .hero-unit.red
-        %h1.center= @country ? @country.name : 'Africa'
+        %h1.center= cookies[:country]
   .row
     .span12
       .carousel.slide#splash
