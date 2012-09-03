@@ -12,6 +12,7 @@ class Initiative < ActiveRecord::Base
   validate :valid_date, :unless => 'start_date.blank?'
 
   before_validation :do_before_validation
+  before_save :do_before_save
 
   has_many :country_initiatives, :dependent => :destroy
   has_many :countries, :through => :country_initiatives
@@ -32,6 +33,10 @@ class Initiative < ActiveRecord::Base
 
     def do_before_validation
       self.start_date = start_date.to_date unless start_date.blank?
+    end
+
+    def do_before_save
+      self.abbreviation = abbreviation.upcase
     end
 
 end

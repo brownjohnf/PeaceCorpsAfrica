@@ -10,6 +10,7 @@ class Country < ActiveRecord::Base
   validate :valid_date, :unless => 'pc_start_date.blank?'
 
   before_validation :do_before_validation
+  before_save :do_before_save
 
   has_many :country_initiatives, :dependent => :destroy
   has_many :initiatives, :through => :country_initiatives
@@ -36,6 +37,10 @@ class Country < ActiveRecord::Base
     def do_before_validation
       self.name = Carmen.country_name(code)
       self.pc_start_date = pc_start_date.to_date unless pc_start_date.blank?
+    end
+
+    def do_before_save
+      self.code = code.upcase
     end
 
 end
