@@ -3,6 +3,5 @@ class HomeController < ApplicationController
 
   def index
     @users = User.all
-    @country = Country.find(params[:country_id]) if params[:country_id]
   end
 end
