@@ -7,6 +7,10 @@
           %li= link_to country.name, country
     .span3
       %ul.nav.nav-list
+        %li.nav-header Countries cont.
+        %li= link_to 'more countries...', ''
+    .span3
+      %ul.nav.nav-list
         %li.nav-header Initiatives
         - for initiative in Initiative.all do
           %li= link_to initiative.name, initiative
@@ -17,13 +21,10 @@
         %li= link_to 'Footer links', ''
         %li= link_to 'Footer links', ''
         %li= link_to 'Footer links', ''
-    .span3
-      %ul.nav.nav-list
         %li.nav-header Contact us
-        %li= link_to 'Footer links', ''
-        %li= link_to 'Footer links', ''
-        %li= link_to 'Footer links', ''
-        %li= link_to 'Footer links', ''
+        %li= link_to 'Email', ''
+        %li= link_to 'Facebook', ''
+        %li= link_to 'Twitter', ''
   .row-fluid
     .span12
       %hr

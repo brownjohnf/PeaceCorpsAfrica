@@ -15,6 +15,12 @@
     %header
       = render 'layouts/navigation'
     #main{:role => "main"}
+      .container-fluid
+        .row-fluid
+          .span12
+            .alert.alert-error.alert-block.center
+              %strong WARNING!
+              This app is undergoing heavy development. Any and all data may be destroyed. This notice will be removed when this is no longer the case.
       = render 'layouts/messages' if flash.any?
       = render 'menu' rescue nil
       = yield
