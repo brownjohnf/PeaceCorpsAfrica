@@ -132,3 +132,14 @@ a {
   }
 }
 
+/*****************************************************/
+/* media overrides */
+
+@media (max-width: 767px) {
+  body {
+    footer {
+      margin-left: -20px;
+      margin-right: -20px;
+    }
+  }
+}
