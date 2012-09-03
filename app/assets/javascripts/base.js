@@ -15,4 +15,7 @@ $(function(){
     format: 'yyyy-mm-dd'
   });
 
+  // apply correct bootstrap styles to form error fields
+  $('.field_with_errors').closest('.control-group').addClass('error');
+
 });
