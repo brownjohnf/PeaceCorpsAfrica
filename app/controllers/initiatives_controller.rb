@@ -59,7 +59,7 @@ class InitiativesController < ApplicationController
   # PUT /initiatives/1
   # PUT /initiatives/1.json
   def update
-    @initiative = Initiative.find(params[:id])
+    @initiative = Initiative.find_by_abbreviation(params[:id].upcase)
 
     respond_to do |format|
       if @initiative.update_attributes(params[:initiative])
@@ -75,7 +75,7 @@ class InitiativesController < ApplicationController
   # DELETE /initiatives/1
   # DELETE /initiatives/1.json
   def destroy
-    @initiative = Initiative.find(params[:id])
+    @initiative = Initiative.find_by_abbreviation(params[:id].upcase)
     @initiative.destroy
 
     respond_to do |format|

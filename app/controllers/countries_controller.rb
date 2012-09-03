@@ -36,7 +36,7 @@ class CountriesController < ApplicationController
 
   # GET /countries/1/edit
   def edit
-    @country = Country.find(params[:id])
+    @country = Country.find_by_code(params[:id].upcase)
   end
 
   # POST /countries
@@ -58,7 +58,7 @@ class CountriesController < ApplicationController
   # PUT /countries/1
   # PUT /countries/1.json
   def update
-    @country = Country.find(params[:id])
+    @country = Country.find_by_code(params[:id].upcase)
 
     respond_to do |format|
       if @country.update_attributes(params[:country])
@@ -74,7 +74,7 @@ class CountriesController < ApplicationController
   # DELETE /countries/1
   # DELETE /countries/1.json
   def destroy
-    @country = Country.find(params[:id])
+    @country = Country.find_by_code(params[:id].upcase)
     @country.destroy
 
     respond_to do |format|
@@ -84,7 +84,7 @@ class CountriesController < ApplicationController
   end
 
   def by_code
-    @country = Country.find_by_code(params[:q])
+    @country = Country.find_by_code(params[:q].upcase)
     respond_to do |format|
       format.json { render text: (@country ? @country.id : nil) }
     end
