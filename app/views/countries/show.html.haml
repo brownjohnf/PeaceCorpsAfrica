@@ -20,13 +20,24 @@
           %dt Volunteers Served
           %dd= @country.num_total_volunteers
           %dt Contact Email
-          %dd= @country.contact_email
+          %dd
+            = @country.contact_email
+            &nbsp;
           %dt Site URL
-          %dd= link_to truncate(@country.site_url, :length => 25), @country.site_url, :target => '_blank'
+          %dd
+            = link_to truncate(@country.site_url, :length => 25), @country.site_url, :target => '_blank'
+            &nbsp;
           %dt Donate URL
-          %dd= link_to truncate(@country.donate_url, :length => 25), @country.donate_url, :target => '_blank'
+          %dd
+            = link_to truncate(@country.donate_url, :length => 25), @country.donate_url, :target => '_blank'
+            &nbsp;
           %dt Peace Corps Since
-          %dd= @country.pc_start_date.year
+          %dd= @country.pc_start_date.strftime('%d %b, %Y')
+          %dt Initiatives
+          %dd
+            - for initiative in @country.initiatives do
+              #{link_to initiative.name, initiative},
+            = link_to 'view all', initiatives_path
         %p.center= link_to "Enter Peace Corps | #{@country.name}", (@country.site_url.blank? ? country_home_path(@country) : @country.site_url), :class => 'btn btn-success btn-large'
   .row
     .span12
