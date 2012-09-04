@@ -10,7 +10,11 @@ class CountryInitiative < ActiveRecord::Base
   private
 
     def valid_date
-      errors.add('Join Date', 'must be later than 1961') unless join_date > '1961-01-01'.to_date
+      if join_date < '1961-01-01'.to_date
+        errors.add(:join_date, 'must be later than Jan 1, 1961')
+      elsif join_date > Date.today
+        errors.add(:join_date, "must not be in the future: that just doesn't make sense!")
+      end
     end  
 
     def do_before_validation

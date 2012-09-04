@@ -3,12 +3,12 @@ class Initiative < ActiveRecord::Base
   attr_accessible :name, :num_volunteers, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes, :abbreviation, :num_total_volunteers
 
   # requires name, start_date, abbreviation
-  validates :name, :start_date, :abbreviation, :presence => true
+  validates :name, :abbreviation, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
-  validates :abbreviation, :length => { :minimum => 2, :maximum => 16 }, :uniqueness => true
+  validates :abbreviation, :length => { :minimum => 3, :maximum => 15 }, :uniqueness => true
   validates :name, :uniqueness => true
   validates :num_volunteers, :length => { :maximum => 4 }
-  validate :valid_date, :unless => 'start_date.blank?'
+  validate :valid_date
 
   before_validation :do_before_validation
   before_save :do_before_save
@@ -27,7 +27,15 @@ class Initiative < ActiveRecord::Base
   private
 
     def valid_date
-      errors.add('Start Date', 'must be later than 1961') unless start_date > '1961-01-01'.to_date
+      if start_date.blank?
+        errors.add(:start_date, 'must be present and in the proper format (yyyy-mm-dd)')
+      #elsif ((start_date.to_date rescue ArgumentError) == ArgumentError)
+        #errors.add(:start_date, 'must be a valid date (yyyy-mm-dd)')
+      elsif start_date < '1961-01-01'.to_date
+        errors.add(:start_date, 'must be later than Jan 1, 1961')
+      elsif start_date > Date.today
+        errors.add(:start_date, "must not be in the future: that just doesn't make sense!")
+      end
     end
 
     def do_before_validation

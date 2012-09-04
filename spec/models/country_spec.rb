@@ -91,10 +91,6 @@ describe Country do
       @country = Country.new @attr
     end
 
-    it 'should have a name attribute' do
-      @country.should respond_to :name
-    end
-
     it 'should set the name based on the code' do
       @country.save!
       @country.name.should eq 'Senegal'
@@ -106,6 +102,8 @@ describe Country do
       long = 'a'*256
       Country.new(@attr.merge(:contact_email => long)).should_not be_valid
     end
+
+    pending 'should reject non-valid emails'
   end
 
   describe 'site_urls' do
@@ -113,6 +111,8 @@ describe Country do
       long = 'a'*256
       Country.new(@attr.merge(:site_url => long)).should_not be_valid
     end
+
+    pending 'should reject non-valid site_urls'
   end
 
   describe 'donate_urls' do
@@ -120,6 +120,8 @@ describe Country do
       long = 'a'*256
       Country.new(@attr.merge(:donate_url => long)).should_not be_valid
     end
+
+    pending 'should reject non-valid donate_urls'
   end
 
   describe 'num_volunteers' do
