@@ -27,7 +27,7 @@ describe CountriesController do
     {
       :name => 'Senegal',
       :code => 'sn',
-      :pc_start_date => '1963-02-15'
+      :pc_start_date => '1961-01-02'
     }
   end
 
@@ -55,11 +55,7 @@ describe CountriesController do
   end
 
   describe "GET new" do
-    before(:each) do
-      @user = FactoryGirl.create(:user)
-      @user.add_role :admin
-      sign_in @user
-    end
+    login_admin
     it "assigns a new country as @country" do
       get :new
       assigns(:country).should be_a_new(Country)
@@ -90,9 +86,9 @@ describe CountriesController do
         assigns(:country).should be_persisted
       end
 
-      it "redirects to the created country" do
+      it "redirects to the edit action" do
         post :create, {:country => valid_attributes}
-        response.should redirect_to(Country.last)
+        response.should redirect_to(edit_country_path(Country.last))
       end
     end
 

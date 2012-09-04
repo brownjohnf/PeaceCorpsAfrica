@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :country_initiative do
-    country_id 1
-    initiative_id 1
+    country
+    initiative
     join_date "2012-08-25"
   end
 end

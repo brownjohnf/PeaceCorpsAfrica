@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :initiative do
-    name "MyString"
+    name
     start_date "2012-08-25"
     page_id 1
     num_participants 1

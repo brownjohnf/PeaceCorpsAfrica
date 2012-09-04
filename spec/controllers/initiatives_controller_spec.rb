@@ -44,6 +44,11 @@ describe InitiativesController do
       get :index, {}
       assigns(:initiatives).should eq([initiative])
     end
+    it "assigns all countries as @countries" do
+      country = FactoryGirl.create(:country)
+      get :index, {}
+      assigns(:countries).should eq([country])
+    end
   end
 
   describe "GET show" do
@@ -88,7 +93,7 @@ describe InitiativesController do
 
       it "redirects to the created initiative" do
         post :create, {:initiative => valid_attributes}
-        response.should redirect_to(Initiative.last)
+        response.should redirect_to(edit_initiative_path(Initiative.last))
       end
     end
 
