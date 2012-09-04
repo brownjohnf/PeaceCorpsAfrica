@@ -49,5 +49,6 @@ PeaceCorpsAfrica::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  # COMMENTED OUT by jack because for some reason this breaks dropdowns in bootstrap-sass 2.0.4.2
+  # config.assets.debug = true
 end
