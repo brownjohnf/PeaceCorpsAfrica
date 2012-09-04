@@ -4,7 +4,7 @@
       .hero-unit.blue
         %h1
           #{@country.name}.
-          %small Since #{@country.pc_start_date.year}.
+          %small Since #{@country.start_date.year}.
       .row
         .span8
           %p Lots of fun info about the country, etc.
@@ -32,7 +32,7 @@
             = link_to truncate(@country.donate_url, :length => 25), @country.donate_url, :target => '_blank'
             &nbsp;
           %dt Peace Corps Since
-          %dd= @country.pc_start_date.strftime('%d %b, %Y')
+          %dd= @country.start_date.strftime('%d %b, %Y')
           %dt Initiatives
           %dd
             - for initiative in @country.initiatives do
