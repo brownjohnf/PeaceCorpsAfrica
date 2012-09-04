@@ -13,6 +13,7 @@ gem "rolify", ">= 3.2.0"
 gem 'carmen'
 gem 'nested_form'
 gem 'bootstrap-will_paginate'
+gem 'pony'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
