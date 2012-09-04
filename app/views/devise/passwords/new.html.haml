@@ -1,0 +1,24 @@
+.container
+  .row
+    .span9.offset1
+      .hero-unit.red
+        %h1 Forgot your password?
+  .row
+    .span3.offset1
+      = render 'devise/shared/links'
+    .span6
+      = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'form-horizontal' }) do |f|
+        %legend ... It happens to the best of us.
+        .control-group
+          .controls
+            = devise_error_messages!
+        .control-group
+          = f.label :email, :class => 'control-label'
+          .controls
+            .input-prepend
+              %span.add-on
+                %i.icon-envelope
+              = f.email_field :email
+            %p.help-block enter the email with which you registered
+        .form-actions
+          = f.submit "Send me reset password instructions", :class => 'btn btn-primary'
