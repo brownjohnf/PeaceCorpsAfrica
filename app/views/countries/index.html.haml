@@ -67,6 +67,9 @@
         %p For more information about Peace Corps Africa programs, past and present, visit the #{link_to 'Peace Corps agency web site', 'http://www.peacecorps.gov/learn/wherepc/africa/', :target => '_blank'}.
       %ul.nav.nav-tabs.nav-stacked
         - for country in @countries do
-          %li= link_to country.name, country
+          %li
+            = link_to country do
+              %span.icon-arrow-right
+              = country.name
     .span9
       #chart_div_geo

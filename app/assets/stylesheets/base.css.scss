@@ -98,6 +98,12 @@ a {
     small {
       color: lighten($black, 20%);
     }
+    a {
+      color: lighten($black, 10%);
+      &:hover {
+        color: lighten($black, 20%);
+      }
+    }
   }
   &.red {
     color: $white;

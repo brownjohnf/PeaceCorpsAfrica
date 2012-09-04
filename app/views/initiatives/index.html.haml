@@ -65,6 +65,9 @@
         %p Peace Corps has initiated #{pluralize(@initiatives.count, 'important continent-wide initiative')} in Africa.  Volunteers work with partners in the following initiatives:
       %ul.nav.nav-tabs.nav-stacked
         - for initiative in @initiatives do
-          %li= link_to initiative.name, initiative
+          %li
+            = link_to initiative do
+              %span.icon-arrow-right
+              = initiative.name
     .span9
       #chart_div_geo
