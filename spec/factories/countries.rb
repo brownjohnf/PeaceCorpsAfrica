@@ -4,7 +4,7 @@ FactoryGirl.define do
 
   factory :country do
     code 'SN'
-    pc_start_date '1961-01-02'.to_date
+    start_date '1961-01-02'.to_date
 
     factory :active_country do
       code 'GH'

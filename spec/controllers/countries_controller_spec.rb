@@ -27,7 +27,7 @@ describe CountriesController do
     {
       :name => 'Senegal',
       :code => 'sn',
-      :pc_start_date => '1961-01-02'
+      :start_date => '1961-01-02'
     }
   end
 
