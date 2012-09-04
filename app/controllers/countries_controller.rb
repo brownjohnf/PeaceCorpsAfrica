@@ -46,7 +46,7 @@ class CountriesController < ApplicationController
 
     respond_to do |format|
       if @country.save
-        format.html { redirect_to @country, notice: 'Country was successfully created.' }
+        format.html { redirect_to edit_country_path(@country), notice: 'Country was successfully created.' }
         format.json { render json: @country, status: :created, location: @country }
       else
         format.html { render action: "new" }
@@ -80,13 +80,6 @@ class CountriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to countries_url }
       format.json { head :no_content }
-    end
-  end
-
-  def by_code
-    @country = Country.find_by_code(params[:q].upcase)
-    respond_to do |format|
-      format.json { render text: (@country ? @country.id : nil) }
     end
   end
 

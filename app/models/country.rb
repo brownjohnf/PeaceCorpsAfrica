@@ -1,5 +1,4 @@
 class Country < ActiveRecord::Base
-  rolify
 
   attr_accessible :code, :name, :page_id, :active, :num_volunteers, :num_total_volunteers, :contact_email, :site_url, :donate_url, :pc_start_date, :country_initiatives_attributes
 

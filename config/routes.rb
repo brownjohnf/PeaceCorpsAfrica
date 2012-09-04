@@ -4,9 +4,6 @@ PeaceCorpsAfrica::Application.routes.draw do
   end
 
   resources :countries do
-    collection do
-      get :by_code
-    end
   end
 
   authenticated :user do

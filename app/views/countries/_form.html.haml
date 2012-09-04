@@ -46,7 +46,7 @@
   - if f.object.new_record?
     .alert Once you've created the country and at least one initiative, you can come back and add initiatives.
   - elsif !Initiative.any?
-    .alert You must create initiatives before adding them to countries.
+    .alert You must #{link_to 'create initiatives', new_initiative_path} before adding them to countries.
   - else
     .control-group
       .controls

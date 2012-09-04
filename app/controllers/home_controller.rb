@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   skip_authorization_check
 
   def index
-    @users = User.all
+    @countries = Country.active.all
   end
+
 end

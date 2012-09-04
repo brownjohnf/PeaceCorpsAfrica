@@ -1,5 +1,4 @@
 class Initiative < ActiveRecord::Base
-  rolify
   
   attr_accessible :name, :num_volunteers, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes, :abbreviation
 

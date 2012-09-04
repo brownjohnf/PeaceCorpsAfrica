@@ -47,7 +47,7 @@ class InitiativesController < ApplicationController
 
     respond_to do |format|
       if @initiative.save
-        format.html { redirect_to @initiative, notice: 'Initiative was successfully created.' }
+        format.html { redirect_to edit_initiative_path(@initiative), notice: 'Initiative was successfully created.' }
         format.json { render json: @initiative, status: :created, location: @initiative }
       else
         format.html { render action: "new" }
