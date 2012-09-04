@@ -28,15 +28,15 @@ user.add_role :admin
 puts 'SETTING UP DEFAULT COUNTRIES'
 Country.create!([{
   :code => 'SN',
-  :pc_start_date => '1963-02-15',
+  :start_date => '1963-02-15',
   :active => true
 },{
   :code => 'GH',
-  :pc_start_date => '1961-02-01',
+  :start_date => '1961-02-01',
   :active => true
 },{
   :code => 'ML',
-  :pc_start_date => '1970-03-24',
+  :start_date => '1970-03-24',
   :active => false
 }])
 

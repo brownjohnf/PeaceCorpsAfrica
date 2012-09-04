@@ -1,6 +1,6 @@
 class Initiative < ActiveRecord::Base
   
-  attr_accessible :name, :num_volunteers, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes, :abbreviation
+  attr_accessible :name, :num_volunteers, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes, :abbreviation, :num_total_volunteers
 
   # requires name, start_date, abbreviation
   validates :name, :start_date, :abbreviation, :presence => true

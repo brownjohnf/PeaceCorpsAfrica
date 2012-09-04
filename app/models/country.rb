@@ -1,12 +1,12 @@
 class Country < ActiveRecord::Base
 
-  attr_accessible :code, :name, :page_id, :active, :num_volunteers, :num_total_volunteers, :contact_email, :site_url, :donate_url, :pc_start_date, :country_initiatives_attributes
+  attr_accessible :code, :name, :page_id, :active, :num_volunteers, :num_total_volunteers, :contact_email, :site_url, :donate_url, :start_date, :country_initiatives_attributes
 
   # required: name, pc_start_date
-  validates :name, :code, :pc_start_date, :presence => true
+  validates :name, :code, :start_date, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
   validates :code, :length => { :minimum => 2, :maximum => 2 }
-  validate :valid_date, :unless => 'pc_start_date.blank?'
+  validate :valid_date, :unless => 'start_date.blank?'
 
   before_validation :do_before_validation
   before_save :do_before_save
@@ -30,12 +30,12 @@ class Country < ActiveRecord::Base
   private
 
     def valid_date
-      errors.add('PC Start Date', 'must be later than 1961') unless pc_start_date > '1961-01-01'.to_date
+      errors.add('PC Start Date', 'must be later than 1961') unless start_date > '1961-01-01'.to_date
     end
 
     def do_before_validation
       self.name = Carmen.country_name(code)
-      self.pc_start_date = pc_start_date.to_date unless pc_start_date.blank?
+      self.start_date = start_date.to_date unless start_date.blank?
     end
 
     def do_before_save
