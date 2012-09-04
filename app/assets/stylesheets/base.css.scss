@@ -119,6 +119,12 @@ a {
   &.brown {
     color: $white;
     background-color: $brown;
+    a {
+      color: darken($white, 20%);
+      &:hover {
+        color: $white;
+      }
+    }
   }
   &.orange {
     color: $black;
