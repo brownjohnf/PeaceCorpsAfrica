@@ -57,8 +57,8 @@ describe Initiative do
       Initiative.new(@attr.merge(:name => 'stomp')).should_not be_valid
     end
 
-    it 'should reject abbreviations longer than 15' do
-      long = 'a'*16
+    it 'should reject abbreviations longer than 7' do
+      long = 'a'*8
       Initiative.new(@attr.merge(:abbreviation => long)).should_not be_valid
     end
 

@@ -5,7 +5,7 @@ class Initiative < ActiveRecord::Base
   # requires name, start_date, abbreviation
   validates :name, :abbreviation, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
-  validates :abbreviation, :length => { :minimum => 3, :maximum => 15 }, :uniqueness => true
+  validates :abbreviation, :length => { :minimum => 3, :maximum => 7 }, :uniqueness => true
   validates :name, :uniqueness => true
   validate :valid_date
 
