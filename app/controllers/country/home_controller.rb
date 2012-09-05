@@ -4,7 +4,5 @@ class Country::HomeController < ApplicationController
   def index
     @users = User.all
     @country = Country.find_by_code(params[:country_code].upcase)
-    @title = @country.name
-    render 'home/index'
   end
 end
