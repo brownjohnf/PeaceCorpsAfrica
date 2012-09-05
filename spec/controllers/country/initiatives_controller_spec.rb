@@ -19,25 +19,29 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe Country::InitiativesController do
+  before :each do
+    ci = FactoryGirl.create :country_initiative
+    @initiative = ci.initiative
+    @country = ci.country
+    @rando_initiative = FactoryGirl.create :initiative
+  end
 
   describe "GET index" do
-    it "assigns all initiatives as @initiatives" do
-      initiative = FactoryGirl.create :initiative
-      get :index, {}
-      assigns(:initiatives).should eq([initiative])
+    it "assigns all associated initiatives as @initiatives" do
+      get :index, { :country_code => @country.to_param }
+      assigns(:initiatives).should eq([@initiative])
     end
+
     it "assigns current country as @country" do
-      country = FactoryGirl.create(:country)
-      get :index, {}
-      assigns(:countries).should eq([country])
+      get :index, { :country_code => @country.to_param }
+      assigns(:country).should eq(@country)
     end
   end
 
   describe "GET show" do
     it "assigns the requested initiative as @initiative" do
-      initiative = Initiative.create! valid_attributes
-      get :show, {:id => initiative.to_param}
-      assigns(:initiative).should eq(initiative)
+      get :show, {:id => @initiative.to_param, :country_code => @country.to_param}
+      assigns(:initiative).should eq(@initiative)
     end
   end
 end

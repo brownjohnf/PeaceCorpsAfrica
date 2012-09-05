@@ -3,16 +3,16 @@
 FactoryGirl.define do
 
   factory :country do
-    code 'SN'
+    code
     start_date '1961-01-02'.to_date
 
     factory :active_country do
-      code 'GH'
+      code
       active true
     end
 
     factory :inactive_country do
-      code 'ML'
+      code
       active false
     end
 

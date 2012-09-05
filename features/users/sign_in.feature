@@ -9,6 +9,7 @@ Feature: Sign in
       Then I see an invalid login message
         And I should be signed out
 
+
   Scenario: User has not confirmed account
     Given I exist as an unconfirmed user
     And I am not logged in
