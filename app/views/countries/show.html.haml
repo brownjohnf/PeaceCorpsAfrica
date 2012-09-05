@@ -1,40 +1,20 @@
 .container
   .row
-    .span8
+    .span12
       .hero-unit.blue
         %h1
           #{@country.name}.
           %small Since #{@country.start_date.year}.
-      .row
-        .span8
-          %p Lots of fun info about the country, etc.
+  .row
+    .span8
+      %p Lots of fun info about the country, etc.
     .span4
-      .well.green
-        %h1 Quick Stats
-        %hr
-        %dl.dl-horizontal.clearfix
-          %dt Country Code
-          %dd= @country.code
-          %dt Contact Email
-          %dd
-            = @country.contact_email
-            &nbsp;
-          %dt Site URL
-          %dd
-            = link_to truncate(@country.site_url, :length => 25), @country.site_url, :target => '_blank'
-            &nbsp;
-          %dt Donate URL
-          %dd
-            = link_to truncate(@country.donate_url, :length => 25), @country.donate_url, :target => '_blank'
-            &nbsp;
-          %dt Peace Corps Since
-          %dd= @country.start_date.strftime('%d %b, %Y')
-          %dt Initiatives
-          %dd
-            - for initiative in @country.initiatives do
-              #{link_to initiative.name, initiative},
-            = link_to 'view all', initiatives_path
-        %p.center= link_to "Enter Peace Corps | #{@country.name}", (@country.site_url.blank? ? country_home_path(@country) : @country.site_url), :class => 'btn btn-large'
+      %ul.nav.nav-tabs.nav-stacked
+        %li= link_to "Visit Peace Corps | #{@country.name}", (@country.site_url.blank? ? country_home_path(@country) : @country.site_url), :target => '_blank'
+        %li= link_to 'Donate', @country.donate_url, :target => '_blank' unless @country.donate_url.blank?
+        - for initiative in @country.initiatives do
+          %li= link_to "#{initiative.name} in #{@country.name}", country_initiative_path(@country, initiative)
+        %li= link_to 'View All Initiatives', initiatives_path
   .row
     .span12
       %ul.thumbnails

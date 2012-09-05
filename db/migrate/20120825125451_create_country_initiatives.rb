@@ -4,6 +4,7 @@ class CreateCountryInitiatives < ActiveRecord::Migration
       t.integer :country_id
       t.integer :initiative_id
       t.date :join_date
+      t.string :site_url
 
       t.timestamps
     end

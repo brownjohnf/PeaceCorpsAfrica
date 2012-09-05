@@ -1,6 +1,6 @@
 class Country < ActiveRecord::Base
 
-  attr_accessible :code, :name, :page_id, :active, :contact_email, :site_url, :donate_url, :start_date, :country_initiatives_attributes
+  attr_accessible :code, :name, :page_id, :active, :contact_email, :site_url, :donate_url, :start_date, :country_initiatives_attributes, :info_url
 
   # required: name, start_date
   validates :name, :code, :presence => true
@@ -8,7 +8,7 @@ class Country < ActiveRecord::Base
   validates :code, :length => { :minimum => 2, :maximum => 2 }, :uniqueness => true
   validates :start_date, :date => true
   validates :contact_email, :email => true, :allow_blank => true
-  validates :donate_url, :site_url, :url => true, :allow_blank => true
+  validates :donate_url, :site_url, :info_url, :url => true, :allow_blank => true
   validates :page_id, :numericality => { :only_integer => true }, :allow_blank => true
   validates :code, :iso2 => true
 

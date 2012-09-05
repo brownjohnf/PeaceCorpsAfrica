@@ -33,6 +33,10 @@ describe Country do
       @country.should respond_to(:donate_url)
     end
 
+    it 'should respond to info_url' do
+      @country.should respond_to :info_url
+    end
+
     it 'should respond to name' do
       @country.should respond_to(:name)
     end
@@ -142,6 +146,25 @@ describe Country do
     it 'should reject non-valid hyperlinks' do
       ['www.example.com', 'example.com', 'http/www.example.com', 'http:/www.example.com', 'this is not a link', 'http://www.example.com/this is invalid'].each do |bad_url|
         Country.new(@attr.merge(:donate_url => bad_url)).should_not be_valid
+      end
+    end
+  end
+
+  describe 'info_urls' do
+    it 'should reject donate_urls longer than 255' do
+      long = 'a'*256
+      Country.new(@attr.merge(:info_url => long)).should_not be_valid
+    end
+
+    it 'should allow valid hyperlinks' do
+      ['http://www.example.com', 'https://www.example.com', 'http://example.com', 'http://example.com/test.html', 'http://example.com/test', 'http://example.com/?q=test', 'http://example.com?q=test', 'http://example.com/test/?q=test'].each do |good_url|
+        Country.new(@attr.merge(:info_url => good_url)).should be_valid
+      end
+    end
+
+    it 'should reject non-valid hyperlinks' do
+      ['www.example.com', 'example.com', 'http/www.example.com', 'http:/www.example.com', 'this is not a link', 'http://www.example.com/this is invalid'].each do |bad_url|
+        Country.new(@attr.merge(:info_url => bad_url)).should_not be_valid
       end
     end
   end

@@ -22,6 +22,11 @@
     .controls
       = f.text_field :contact_email
   .control-group
+    %label.control-label Info URL
+    .controls
+      = f.text_field :info_url
+      %span.help-inline PC Page
+  .control-group
     %label.control-label Site URL
     .controls
       = f.text_field :site_url
@@ -50,9 +55,14 @@
       .control-group
         %span.control-label Initiative/Join Date
         .controls
-          = ff.collection_select :initiative_id, Initiative.all, :id, :name, {}, {:class => 'span2'}
+          = ff.collection_select :initiative_id, Initiative.all, :id, :name, {}, {:class => 'span2 required'}
           = ff.text_field :join_date, :class => 'span2 datepicker'
           = ff.link_to_remove raw('<span class="icon-minus"></span>'), :class => 'btn btn-mini btn-danger'
+      .control-group
+        %label.control-label Website URL
+        .controls
+          = ff.text_field :site_url
+      %hr
     = f.link_to_add :country_initiatives, :class => 'btn btn-mini btn-success' do
       %span.icon-plus
       add an initiative

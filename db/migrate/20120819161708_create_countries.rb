@@ -9,6 +9,7 @@ class CreateCountries < ActiveRecord::Migration
       t.string :site_url
       t.string :donate_url
       t.string :contact_email
+      t.string :info_url
 
       t.timestamps
     end

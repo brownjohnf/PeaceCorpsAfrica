@@ -28,6 +28,10 @@ describe CountryInitiative do
     it 'should respond to join_date' do
       @country_initiative.should respond_to :join_date
     end
+
+    it 'should respond to site_url' do
+      @country_initiative.should respond_to :site_url
+    end
   end
 
   describe 'country_ids' do
@@ -60,4 +64,22 @@ describe CountryInitiative do
     end
   end
 
+  describe 'site_urls' do
+    it 'should reject site_urls longer than 255' do
+      long = 'a'*256
+      CountryInitiative.new(@attr.merge(:site_url => long)).should_not be_valid
+    end
+
+    it 'should allow valid hyperlinks' do
+      ['http://www.example.com', 'https://www.example.com', 'http://example.com', 'http://example.com/test.html', 'http://example.com/test', 'http://example.com/?q=test', 'http://example.com?q=test', 'http://example.com/test/?q=test'].each do |good_url|
+        CountryInitiative.new(@attr.merge(:site_url => good_url)).should be_valid
+      end
+    end
+
+    it 'should reject non-valid hyperlinks' do
+      ['www.example.com', 'example.com', 'http/www.example.com', 'http:/www.example.com', 'this is not a link', 'http://www.example.com/this is invalid'].each do |bad_url|
+        CountryInitiative.new(@attr.merge(:site_url => bad_url)).should_not be_valid
+      end
+    end
+  end
 end

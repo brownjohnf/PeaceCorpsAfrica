@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20120825125451) do
     t.string   "site_url"
     t.string   "donate_url"
     t.string   "contact_email"
+    t.string   "info_url"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
   end
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20120825125451) do
     t.integer  "country_id"
     t.integer  "initiative_id"
     t.date     "join_date"
+    t.string   "site_url"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
