@@ -9,19 +9,30 @@
 # create default users
 puts 'SETTING UP DEFAULT USER LOGIN'
 user = User.create!(
-  :name => 'First User',
-  :email => 'user@example.com',
-  :password => 'please',
-  :password_confirmation => 'please'
+  :name => 'Jack Brown',
+  :email => 'jack@brownjohnf.com',
+  :password => 'password',
+  :password_confirmation => 'password'
 )
 puts 'New user created: ' << user.name
-user2 = User.create!(
-  :name => 'Second User',
-  :email => 'user2@example.com',
-  :password => 'please',
-  :password_confirmation => 'please'
+user.add_role :admin
+
+user = User.create!(
+  :name => 'Chris Hedrick',
+  :email => 'chedrick@peacecorps.gov',
+  :password => 'hedrick',
+  :password_confirmation => 'hedrick'
 )
-puts 'New user created: ' << user2.name
+puts 'New user created: ' << user.name
+user.add_role :admin
+
+user = User.create!(
+  :name => 'Andrew Kistler',
+  :email => 'akistler63@gmail.com',
+  :password => 'kistler',
+  :password_confirmation => 'kistler'
+)
+puts 'New user created: ' << user.name
 user.add_role :admin
 
 # create default countries

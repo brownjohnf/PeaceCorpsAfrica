@@ -37,14 +37,6 @@ describe Country do
       @country.should respond_to(:name)
     end
 
-    it 'should respond to num_total_volunteers' do
-      @country.should respond_to(:num_total_volunteers)
-    end
-
-    it 'should respond to num_volunteers' do
-      @country.should respond_to(:num_volunteers)
-    end
-
     it 'should respond to page_id' do
       @country.should respond_to(:page_id)
     end
@@ -122,18 +114,6 @@ describe Country do
     end
 
     pending 'should reject non-valid donate_urls'
-  end
-
-  describe 'num_volunteers' do
-    it 'should default to 0' do
-      Country.new.num_volunteers.should eq 0
-    end
-  end
-
-  describe 'num_total_volunteers' do
-    it 'should default to 0' do
-      Country.new.num_total_volunteers.should eq 0
-    end
   end
 
   describe 'codes' do

@@ -34,14 +34,6 @@ describe Initiative do
       @initiative.should respond_to :name
     end
 
-    it 'should respond to num_total_volunteers' do
-      @initiative.should respond_to :num_total_volunteers
-    end
-
-    it 'should respond to num_volunteers' do
-      @initiative.should respond_to :num_volunteers
-    end
-
     it 'should respond to page_id' do
       @initiative.should respond_to :page_id
     end
@@ -115,18 +107,6 @@ describe Initiative do
     it 'should reject names longer than 255' do
       long = 'a'*256
       Initiative.new(@attr.merge(:name => long)).should_not be_valid
-    end
-  end
-
-  describe 'num_volunteers' do
-    it 'should default to 0' do
-      Initiative.new.num_volunteers.should eq 0
-    end
-  end
-
-  describe 'num_total_volunteers' do
-    it 'should default to 0' do
-      Initiative.new.num_total_volunteers.should eq 0
     end
   end
 

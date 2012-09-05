@@ -4,8 +4,6 @@ class CreateInitiatives < ActiveRecord::Migration
       t.string :name
       t.date :start_date
       t.integer :page_id
-      t.integer :num_volunteers, :default => 0
-      t.integer :num_total_volunteers, :default => 0
       t.string :site_url
       t.string :donate_url
       t.string :contact_email

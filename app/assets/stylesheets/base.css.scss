@@ -12,7 +12,15 @@ body {
   header {
     .navbar {
       .brand {
-        color: $lightBlue;
+        #peacecorps {
+          color: $blue;
+        }
+        #brand-divider {
+          color: $red;
+        }
+        #brand-locale {
+          color: $white;
+        }
       }
     }
   }

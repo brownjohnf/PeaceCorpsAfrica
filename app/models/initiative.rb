@@ -1,13 +1,12 @@
 class Initiative < ActiveRecord::Base
   
-  attr_accessible :name, :num_volunteers, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes, :abbreviation, :num_total_volunteers
+  attr_accessible :name, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes, :abbreviation
 
   # requires name, start_date, abbreviation
   validates :name, :abbreviation, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
   validates :abbreviation, :length => { :minimum => 3, :maximum => 15 }, :uniqueness => true
   validates :name, :uniqueness => true
-  validates :num_volunteers, :length => { :maximum => 4 }
   validate :valid_date
 
   before_validation :do_before_validation

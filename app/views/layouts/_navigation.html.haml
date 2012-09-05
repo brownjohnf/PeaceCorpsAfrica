@@ -7,7 +7,10 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to "Peace Corps | #{cookies[:country]}", root_path, :class => 'brand'
+          = link_to root_path, :class => 'brand' do
+            %span#peacecorps Peace Corps
+            %span#brand-divider= '|'
+            %span#brand-locale= cookies[:country]
           .nav-collapse
             %ul.nav
               %li.dropdown

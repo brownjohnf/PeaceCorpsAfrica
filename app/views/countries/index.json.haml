@@ -8,7 +8,7 @@
         },
         {
             "id": 1,
-            "label": "Volunteers",
+            "label": "Year",
             "type": "number"
         }
     ],
@@ -20,7 +20,7 @@
                     "v": "<%= country.name %>"
                 },
                 {
-                    "v": <%= country.num_volunteers.to_i %>
+                    "v": <%= country.start_date.year %>
                 }
             ]
           }<%= ',' unless country == @countries.last %>

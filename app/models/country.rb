@@ -1,6 +1,6 @@
 class Country < ActiveRecord::Base
 
-  attr_accessible :code, :name, :page_id, :active, :num_volunteers, :num_total_volunteers, :contact_email, :site_url, :donate_url, :start_date, :country_initiatives_attributes
+  attr_accessible :code, :name, :page_id, :active, :contact_email, :site_url, :donate_url, :start_date, :country_initiatives_attributes
 
   # required: name, start_date
   validates :name, :code, :presence => true
