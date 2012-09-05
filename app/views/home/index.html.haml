@@ -1,14 +1,10 @@
 .container
   .row.visible-desktop
-    .span6
-      .hero-unit.red
-        %h1 Peace Corps
-        -#%p 25 countries, 2 Initiatives, reaching a continent.
     .span2
       = image_tag 'pc_logo.png'
-    .span4
-      .hero-unit.red
-        %h1.center= cookies[:country]
+    .span10
+      #splash_title.full-height-text.right
+        = cookies[:country].upcase
   .row
     .span12
       .carousel.slide#splash
@@ -32,7 +28,7 @@
         %p Since 1961, Peace Corps Volunteers have been serving across Africa, working hand in hand with community partners to promote sustainable development and enhance understanding between Americans and Africans.
         %p We're currently serving in #{link_to pluralize(@countries.count, 'country'), countries_path} across Africa.
     .span6
-      .well.orange.equalize
+      .well.red.equalize
         %h1 Delivering Results
         %p Volunteers work in education, health, including #{link_to 'HIV/AIDS', ''} and #{link_to 'malaria prevention', ''}, business development, the environment, and agriculture and #{link_to 'food security', ''}.
         %p For more information about Peace Corps in Africa, see the #{link_to 'Peace Corps agency web site', 'http://www.peacecorps.gov/learn/wherepc/africa/', :target => '_blank'}, individual Peace Corps #{link_to 'country web sites', countries_path}, and #{link_to 'Initiatives in Africa', initiatives_path}.

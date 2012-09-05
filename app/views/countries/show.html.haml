@@ -9,7 +9,7 @@
         .span8
           %p Lots of fun info about the country, etc.
     .span4
-      .well.orange
+      .well.green
         %h1 Quick Stats
         %hr
         %dl.dl-horizontal.clearfix
@@ -38,7 +38,7 @@
             - for initiative in @country.initiatives do
               #{link_to initiative.name, initiative},
             = link_to 'view all', initiatives_path
-        %p.center= link_to "Enter Peace Corps | #{@country.name}", (@country.site_url.blank? ? country_home_path(@country) : @country.site_url), :class => 'btn btn-success btn-large'
+        %p.center= link_to "Enter Peace Corps | #{@country.name}", (@country.site_url.blank? ? country_home_path(@country) : @country.site_url), :class => 'btn btn-large'
   .row
     .span12
       %ul.thumbnails

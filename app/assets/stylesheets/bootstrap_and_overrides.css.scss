@@ -1,9 +1,28 @@
+// Obama colors by Antar Dayal, light to dark
+// using names of closest martha stewart paint store colors
+$macadamia: #f5e6c9;
+$cotton_candy: #cdc4d5;
+$shale: #7b8191;
+$wrought_iron: #40445f; //blue-ish
+$saffron: #aa2c1d;
+// Obama colors from obama website
+$obama_red: #ac3433;
+$obama_light_blue: #8fbfe2;
+$obama_med_blue: #2575ad;
+$obama_dark_blue: #0d5d9b;
+
 // used the color for $grayLight
-$navbarSearchBackgroundFocus: #999;
+$navbarSearchBackgroundFocus: #ccc;
 // define a nice brown color
 $brown: #7f462c;
 // light yellow, defined for required form fields
 $requiredColor: #ffffe0;
+
+// color overrides for obama theme
+$red: $obama_red;
+$blue: $obama_med_blue;
+$lightBlue: $obama_light_blue;
+$darkBlue: $obama_dark_blue;
 
 // load bootstrap
 @import "bootstrap";

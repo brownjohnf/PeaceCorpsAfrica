@@ -12,11 +12,19 @@ body {
   header {
     .navbar {
       .brand {
-        color: $blue;
+        color: $lightBlue;
       }
     }
   }
   #main {
+    .full-height-text {
+      font-size: 15em;
+      line-height: 100%;
+      font-weight: bold;
+    }
+    #splash_title {
+      //color: darken($darkBlue, 10%);
+    }
     form {
       input, select, textarea, .controls {
         &.required {
@@ -54,6 +62,9 @@ body {
 
 .center {
   text-align: center;
+}
+.right {
+  text-align: right;
 }
 
 .center-block {
@@ -106,8 +117,11 @@ a {
     }
   }
   &.red {
-    color: $white;
+    color: $macadamia;
     background-color: $red;
+    a {
+      color: darken($macadamia, 20%);
+    }
   }
   &.blue {
     color: $white;
@@ -116,9 +130,12 @@ a {
       color: darken($white, 10%);
     }
     a {
-      color: lighten($black, 10%);
+      color: darken($white, 20%);
       &:hover {
         color: lighten($black, 30%);
+      }
+      &.btn {
+        color: black;
       }
     }
   }
