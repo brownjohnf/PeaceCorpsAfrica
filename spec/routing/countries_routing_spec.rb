@@ -12,7 +12,7 @@ describe CountriesController do
     end
 
     it "routes to #show" do
-      get("/countries/1").should route_to("countries#show", :id => "1")
+      get("/countries/sn").should route_to("countries#show", :id => "sn")
     end
 
     it "routes to #edit" do
