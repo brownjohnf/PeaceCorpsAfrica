@@ -14,7 +14,7 @@ PeaceCorpsAfrica::Application.routes.draw do
   
   resources :users, :only => [:show, :index]
 
-  namespace :country, :path => '/:country_code', :constraints => { :country_code => /[A-Za-z]{2}/ } do
+  namespace :country, :path => '/:country_code', :constraints => { :country_code => /[a-z]{2}/i } do
     resources :initiatives
     get '/' => 'home#index', :as => :home
   end

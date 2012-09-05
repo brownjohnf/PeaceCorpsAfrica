@@ -95,7 +95,17 @@ describe Country do
       Country.new(@attr.merge(:contact_email => long)).should_not be_valid
     end
 
-    pending 'should reject non-valid emails'
+    it 'should accept valid contact_emails' do
+      ['user@example.com','user_user@example.com','user-user@example.com','232@example.com', 'user@234.com', 'user@example-2.com', '_user@example.com', '-user@example.com'].each do |good_email|
+        Country.new(@attr.merge(:contact_email => good_email)).should be_valid
+      end
+    end
+
+    it 'should reject non-valid contact_emails' do
+      ['userexample.com','user@example','userexample','user 2@example.com'].each do |bad_email|
+        Country.new(@attr.merge(:contact_email => bad_email)).should_not be_valid
+      end
+    end
   end
 
   describe 'site_urls' do
@@ -104,7 +114,17 @@ describe Country do
       Country.new(@attr.merge(:site_url => long)).should_not be_valid
     end
 
-    pending 'should reject non-valid site_urls'
+    it 'should allow valid hyperlinks' do
+      ['http://www.example.com', 'https://www.example.com', 'http://example.com', 'http://example.com/test.html', 'http://example.com/test', 'http://example.com/?q=test', 'http://example.com?q=test', 'http://example.com/test/?q=test'].each do |good_url|
+        Country.new(@attr.merge(:site_url => good_url)).should be_valid
+      end
+    end
+
+    it 'should reject non-valid hyperlinks' do
+      ['www.example.com', 'example.com', 'http/www.example.com', 'http:/www.example.com', 'this is not a link', 'http://www.example.com/this is invalid'].each do |bad_url|
+        Country.new(@attr.merge(:site_url => bad_url)).should_not be_valid
+      end
+    end
   end
 
   describe 'donate_urls' do
@@ -113,10 +133,23 @@ describe Country do
       Country.new(@attr.merge(:donate_url => long)).should_not be_valid
     end
 
-    pending 'should reject non-valid donate_urls'
+    it 'should allow valid hyperlinks' do
+      ['http://www.example.com', 'https://www.example.com', 'http://example.com', 'http://example.com/test.html', 'http://example.com/test', 'http://example.com/?q=test', 'http://example.com?q=test', 'http://example.com/test/?q=test'].each do |good_url|
+        Country.new(@attr.merge(:donate_url => good_url)).should be_valid
+      end
+    end
+
+    it 'should reject non-valid hyperlinks' do
+      ['www.example.com', 'example.com', 'http/www.example.com', 'http:/www.example.com', 'this is not a link', 'http://www.example.com/this is invalid'].each do |bad_url|
+        Country.new(@attr.merge(:donate_url => bad_url)).should_not be_valid
+      end
+    end
   end
 
   describe 'codes' do
+    before :each do
+      @attr[:name] = 'Senegal'
+    end
     it 'should require a code' do
       country = Country.new @attr.merge(:code => '')
       country.should_not be_valid
@@ -124,6 +157,7 @@ describe Country do
     
     it 'should reject fake codes' do
       country = Country.new @attr.merge(:code => 'oe')
+      country.should_not be_valid
     end
 
     it 'should reject duplicate codes' do
@@ -145,4 +179,11 @@ describe Country do
     end
   end
 
+  describe 'page_ids' do
+    pending 'should require a page_id'
+
+    it 'should reject non-numeric ids' do
+      Country.new(@attr.merge(:page_id => 'a')).should_not be_valid
+    end
+  end
 end

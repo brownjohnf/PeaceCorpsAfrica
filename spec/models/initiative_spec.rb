@@ -73,7 +73,11 @@ describe Initiative do
       initiative.abbreviation.should == 'FOODSEC'
     end
 
-    pending 'should reject non-alphanumeric characters'
+    it 'should reject non-alphanumeric characters' do
+      [' foodsec', 'foodsec ', 'food sec', 'food-sec', 'food_sec', 'foodsec1', 'food1sec', '1foodsec','1234'].each do |bad_abb|
+        Initiative.new(@attr.merge(:abbreviation => bad_abb)).should_not be_valid
+      end
+    end
   end
 
   describe 'contact_emails' do
@@ -82,16 +86,36 @@ describe Initiative do
       Initiative.new(@attr.merge(:contact_email => long)).should_not be_valid
     end
 
-    pending 'should reject non-valid emails'
+    it 'should accept valid contact_emails' do
+      ['user@example.com','user_user@example.com','user-user@example.com','232@example.com', 'user@234.com', 'user@example-2.com', '_user@example.com', '-user@example.com'].each do |good_email|
+        Initiative.new(@attr.merge(:contact_email => good_email)).should be_valid
+      end
+    end
+
+    it 'should reject non-valid contact_emails' do
+      ['userexample.com','user@example','userexample','user 2@example.com'].each do |bad_email|
+        Initiative.new(@attr.merge(:contact_email => bad_email)).should_not be_valid
+      end
+    end
   end
 
   describe 'donate_urls' do
     it 'should reject donate_urls longer than 255 chars' do
       long = 'a'*256
-      Initiative.new(@attr.merge(:donate_url => long)).should_not be_valid
+      Initiative.new(@attr.merge(:name => '')).should_not be_valid
     end
 
-    pending 'should reject non-valid hyperlinks'
+    it 'should allow valid hyperlinks' do
+      ['http://www.example.com', 'https://www.example.com', 'http://example.com', 'http://example.com/test.html', 'http://example.com/test', 'http://example.com/?q=test', 'http://example.com?q=test', 'http://example.com/test/?q=test'].each do |good_url|
+        Initiative.new(@attr.merge(:donate_url => good_url)).should be_valid
+      end
+    end
+
+    it 'should reject non-valid hyperlinks' do
+      ['www.example.com', 'example.com', 'http/www.example.com', 'http:/www.example.com', 'this is not a link', 'http://www.example.com/this is invalid'].each do |bad_url|
+        Initiative.new(@attr.merge(:donate_url => bad_url)).should_not be_valid
+      end
+    end
   end
 
   describe 'names' do
@@ -110,13 +134,31 @@ describe Initiative do
     end
   end
 
+  describe 'page_ids' do
+    pending 'should require a page_id'
+
+    it 'should reject non-numeric ids' do
+      Initiative.new(@attr.merge(:page_id => 'a')).should_not be_valid
+    end
+  end
+
   describe 'site_urls' do
     it 'should reject site_urls longer than 255 chars' do
       long = 'a'*256
       Initiative.new(@attr.merge(:site_url => long)).should_not be_valid
     end
 
-    pending 'should reject non-valid hyperlinks'
+    it 'should allow valid hyperlinks' do
+      ['http://www.example.com', 'https://www.example.com', 'http://example.com', 'http://example.com/test.html', 'http://example.com/test', 'http://example.com/?q=test', 'http://example.com?q=test', 'http://example.com/test/?q=test'].each do |good_url|
+        Initiative.new(@attr.merge(:site_url => good_url)).should be_valid
+      end
+    end
+
+    it 'should reject non-valid hyperlinks' do
+      ['www.example.com', 'example.com', 'http/www.example.com', 'http:/www.example.com', 'this is not a link', 'http://www.example.com/this is invalid'].each do |bad_url|
+        Initiative.new(@attr.merge(:site_url => bad_url)).should_not be_valid
+      end
+    end
   end
 
   describe 'start_dates' do

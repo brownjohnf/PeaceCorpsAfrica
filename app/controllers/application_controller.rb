@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     if params[:country_code]
       cookies[:country] = Carmen.country_name(params[:country_code])
     elsif params[:abbreviation]
-      cookies[:country] = params[:abbreviation].upcase
+      cookies[:country] = params[:abbreviation]
     else
       cookies[:country] = 'Africa'
     end
