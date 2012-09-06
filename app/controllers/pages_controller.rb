@@ -37,6 +37,11 @@ class PagesController < ApplicationController
   # GET /pages/1/edit
   def edit
     @page = Page.find(params[:id])
+    if @page.locked?
+      redirect_to @page unless @page.editor == current_user
+    else
+      @page.lock(current_user)
+    end
   end
 
   # POST /pages
@@ -62,6 +67,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.update_attributes(params[:page])
+        @page.unlock
         format.html { redirect_to @page, notice: 'Page was successfully updated.' }
         format.json { head :no_content }
       else

@@ -33,13 +33,15 @@
     %label.control-label Site URL
     .controls
       = f.text_field :site_url
+      %span.help-inline http://example.url
   .control-group
     %label.control-label Donate URL
     .controls
       = f.text_field :donate_url
+      %span.help-inline http://example.url
   %legend Countries
   - if f.object.new_record?
-    .alert Once you've created the initiative, you can come back and add countries.
+    .alert Once you've created the initiative and at least one country, you can come back and add countries.
   - elsif !Country.any?
     .alert You must #{link_to 'create countries', new_country_path} before adding them to initiatives
   - else

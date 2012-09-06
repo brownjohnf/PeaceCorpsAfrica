@@ -7,13 +7,13 @@ describe UsersController do
   describe "GET 'show'" do
     
     it "should be successful" do
-      get :show, :id => @user.id
+      get :show, :id => @admin.id
       response.should be_success
     end
     
     it "should find the right user" do
-      get :show, :id => @user.id
-      assigns(:user).should == @user
+      get :show, :id => @admin.id
+      assigns(:user).should == @admin
     end
     
   end

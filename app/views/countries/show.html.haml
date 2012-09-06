@@ -10,8 +10,8 @@
       %address
         %strong= @country.contact_email
     .span6
-      %h1= @country.page.title
-      = raw @country.page.html
+      %h1= @page.title
+      = raw @page.html
     .span4
       %ul.nav.nav-tabs.nav-stacked
         %li= link_to "Visit Peace Corps | #{@country.name}", (@country.site_url.blank? ? country_home_path(@country) : @country.site_url), :target => '_blank'

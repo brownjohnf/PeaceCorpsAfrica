@@ -25,3 +25,8 @@
                     = link_to @country.page do
                       %span.icon-list-alt
                       View Page
+                - if can? :edit, @country.page
+                  %li
+                    = link_to edit_page_path(@country.page) do
+                      %span.icon-pencil
+                      Edit Page

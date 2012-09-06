@@ -25,9 +25,9 @@ describe CountriesController do
   # update the return value of this method accordingly.
   def valid_attributes
     {
-      :name => 'Senegal',
       :code => 'sn',
-      :start_date => '1961-01-02'
+      :start_date => '1961-01-02',
+      :page_id => 1
     }
   end
 
@@ -47,10 +47,18 @@ describe CountriesController do
   end
 
   describe "GET show" do
+    before :each do
+      @country = FactoryGirl.create(:country, :page => @page = FactoryGirl.create(:page))
+    end
+
     it "assigns the requested country as @country" do
-      country = Country.create! valid_attributes
-      get :show, {:id => country.to_param}
-      assigns(:country).should eq(country)
+      get :show, {:id => @country.to_param}
+      assigns(:country).should eq(@country)
+    end
+
+    it 'assigns the country.page as @page' do
+      get :show, :id => @country.to_param
+      assigns(:page).should eq @page
     end
   end
 

@@ -63,10 +63,43 @@ describe PagesController do
 
   describe "GET edit" do
     login_admin
+    before :each do
+      @page = FactoryGirl.create :page
+    end
+
     it "assigns the requested page as @page" do
       page = Page.create! valid_attributes
       get :edit, {:id => page.to_param}
       assigns(:page).should eq(page)
+    end
+
+    describe 'unlocked' do
+      it 'should be successful' do
+        post :edit, :id => @page.to_param
+        response.should be_success
+      end
+
+      it 'should lock the page' do
+        post :edit, :id => @page.to_param
+        @page.reload.locked?.should be_true
+      end
+    end
+
+    describe 'locked' do
+      before :each do
+        @page.lock(FactoryGirl.create(:user))
+      end
+
+      it 'should redirect to the page if current_user is not editor' do
+        post :edit, :id => @page.to_param
+        response.should redirect_to @page
+      end
+
+      it 'renders the edit view if current_user is editor' do
+        @page.lock(@admin)
+        post :edit, :id => @page.to_param
+        response.should be_success
+      end
     end
   end
 

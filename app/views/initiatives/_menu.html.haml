@@ -13,9 +13,20 @@
                   = link_to edit_initiative_path(@initiative) do
                     %span.icon-pencil
                     Edit #{@initiative.name}
-                - if can? :create, Country
+                - if can? :create, Initiative
                   %li.divider
                   %li
                     = link_to new_initiative_path do
                       %span.icon-plus
                       New Initiative
+                - if can? :read, @initiative.page
+                  %li.divider
+                  %li
+                    = link_to @initiative.page do
+                      %span.icon-list-alt
+                      View Page
+                - if can? :edit, @initiative.page
+                  %li
+                    = link_to edit_page_path(@initiative.page) do
+                      %span.icon-pencil
+                      Edit Page

@@ -51,6 +51,10 @@ describe Page do
       @page.should respond_to :countries
     end
 
+    it 'should respond to editor' do
+      @page.should respond_to :editor
+    end
+
     it 'should respond to initiatives' do
       @page.should respond_to :initiatives
     end
@@ -75,6 +79,26 @@ describe Page do
       end
     end
 
+    describe 'editor' do
+      before :each do
+        @page = FactoryGirl.create :page
+        @user = FactoryGirl.create :user
+      end
+
+      it 'should have no editor by default' do
+        @page.editor.should be_nil
+      end
+
+      it 'should have an editor after locking' do
+        @page.lock(@user).editor.should be @user
+      end
+
+      it 'should have an editer after unlocking' do
+        @page.lock(@user)
+        @page.unlock.editor.should be @user
+      end
+    end
+
     describe 'initiatives' do
       before :each do
         @initiative = FactoryGirl.create(:initiative, :page => @page = FactoryGirl.create(:page))
@@ -82,6 +106,104 @@ describe Page do
 
       it 'should return the correct initiatives' do
         @page.initiatives.should eq [@initiative]
+      end
+    end
+  end
+
+  describe 'methods' do
+    it 'should respond to lock(user)' do
+      Page.new(@attr).should respond_to(:lock).with(1).argument
+    end
+
+    it 'should respond to locked?' do
+      Page.new(@attr).should respond_to :locked?
+    end
+
+    it 'should respond to unlock' do
+      Page.new(@attr).should respond_to :unlock
+    end
+
+    describe 'lock(user)' do
+      before :each do
+        @page = FactoryGirl.create :page
+        @user = FactoryGirl.create :user
+      end
+
+      it 'should set locked_at' do
+        locked_at = @page.locked_at
+        @page.lock(@user)
+        @page.reload
+        @page.locked_at.should_not be_blank
+      end
+
+      it 'should return itself' do
+        @page.lock(@user).should be @page
+      end
+
+      it 'should update locked_at' do
+        locked_at = @page.lock(@user).locked_at
+        @page.lock(@user).locked_at.should be > locked_at
+      end
+
+      it 'should set locked_at to Time.now' do
+        @time = Time.now
+        @page.lock(@user)
+        @page.reload.locked_at.should be > @time
+      end
+
+      it 'should set locked_by' do
+        locked_by = @page.locked_by
+        @page.lock(@user).locked_by.should_not eq locked_by
+      end
+
+      it 'should update locked_by' do
+        locked_by = @page.lock(@user).locked_by
+        @page.lock(FactoryGirl.create(:user)).locked_by.should_not eq locked_by
+      end
+    end
+
+    describe 'locked?' do
+      before :each do
+        @page = FactoryGirl.create :page
+      end
+
+      it 'should return false by default' do
+        @page.locked?.should_not be_true
+      end
+
+      it 'should return true after locking' do
+        @page.lock(FactoryGirl.create(:user)).locked?.should be_true
+      end
+
+      it 'should return false 15 min after locking' do
+        @page.update_attribute(:locked_at, Time.now - 15.minutes - 1.second)
+        @page.locked?.should_not be_true
+      end
+
+      it 'should return false after unlocking' do
+        @page.lock(FactoryGirl.create(:user))
+        @page.unlock.locked?.should_not be_true
+      end
+    end
+
+    describe 'unlock' do
+      before :each do
+        @page = FactoryGirl.create :page
+      end
+
+      it 'should return itself' do
+        @page.unlock.should be @page
+      end
+
+      it 'should clear locked_at' do
+        @page.lock(@user)
+        @page.unlock
+        @page.reload.locked_at.should be_blank
+      end
+
+      it 'should not clear locked_by' do
+        @page.lock(@user)
+        @page.unlock.locked_at.should be_blank
       end
     end
   end
@@ -106,6 +228,13 @@ describe Page do
   end
 
   describe 'locked_ats' do
+    it 'should not be set by default' do
+      Page.new(@attr).locked_at.should be_blank
+    end
+
+    it 'should be a datetime' do
+      Page.new(@attr.merge(:locked_at => Time.now)).locked_at.should be_an_instance_of(ActiveSupport::TimeWithZone)
+    end
   end
 
   describe 'locked_by' do

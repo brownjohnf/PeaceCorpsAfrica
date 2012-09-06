@@ -16,6 +16,7 @@ class CountriesController < ApplicationController
   # GET /countries/1.json
   def show
     @country = Country.find_by_code(params[:id].upcase)
+    @page = @country.page
 
     respond_to do |format|
       format.html # show.html.erb
