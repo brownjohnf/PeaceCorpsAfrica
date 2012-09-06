@@ -107,6 +107,57 @@ describe Country do
     end
   end
 
+  describe 'associations' do
+    before :each do
+      @country = Country.new @attr
+    end
+
+    it 'should respond to page' do
+      @country.should respond_to :page
+    end
+
+    it 'should respond country_initiatives' do
+      @country.should respond_to :country_initiatives
+    end
+
+    it 'should respond to initiatives' do
+      @country.should respond_to :initiatives
+    end
+
+    describe 'country_initiatives' do
+      before :each do
+        @ci = FactoryGirl.create :country_initiative
+        @country = @ci.country
+      end
+
+      it 'should return the correct country_initiatives' do
+        @country.country_initiatives.should eq [@ci]
+      end
+    end
+
+    describe 'initiatives' do
+      before :each do
+        ci = FactoryGirl.create :country_initiative
+        @country = ci.country
+        @initiative = ci.initiative
+      end
+
+      it 'should return the correct initiatives' do
+        @country.initiatives.should eq [@initiative]
+      end
+    end
+
+    describe 'page' do
+      before :each do
+        @country = FactoryGirl.create(:country, :page => @page = FactoryGirl.create(:page))
+      end
+
+      it 'should return the correct page' do
+        @country.page.should eq @page
+      end
+    end
+  end
+
   describe 'actives' do
     it 'should be active by default' do
       Country.new.active.should be_true

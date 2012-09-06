@@ -38,6 +38,54 @@ describe Page do
     end
   end
 
+  describe 'associations' do
+    before :each do
+      @page = FactoryGirl.create(:page)
+    end
+
+    it 'should respond to country' do
+      @page.should respond_to :country
+    end
+
+    it 'should respond to countries' do
+      @page.should respond_to :countries
+    end
+
+    it 'should respond to initiatives' do
+      @page.should respond_to :initiatives
+    end
+
+    describe 'country' do
+      before :each do
+        @page = FactoryGirl.create(:page, :country => @country = FactoryGirl.create(:country))
+      end
+
+      it 'should return the correct country' do
+        @page.country.should eq @country
+      end
+    end
+
+    describe 'countries' do
+      before :each do
+        @country = FactoryGirl.create(:country, :page => @page = FactoryGirl.create(:page))
+      end
+
+      it 'should return the correct countries' do
+        @page.countries.should eq [@country]
+      end
+    end
+
+    describe 'initiatives' do
+      before :each do
+        @initiative = FactoryGirl.create(:initiative, :page => @page = FactoryGirl.create(:page))
+      end
+
+      it 'should return the correct initiatives' do
+        @page.initiatives.should eq [@initiative]
+      end
+    end
+  end
+
   describe 'country_ids' do
     it 'should require a country_id' do
       Page.new(@attr.merge(:country_id => '')).should_not be_valid
@@ -79,16 +127,6 @@ describe Page do
     it 'should reject titles shorter than 3 chars' do
       short_title = 'a'*2
       Page.new(@attr.merge(:title => short_title)).should_not be_valid
-    end
-  end
-
-  describe 'associations' do
-    before :each do
-      @page = FactoryGirl.create(:page)
-    end
-
-    it 'should respond to country' do
-      @page.should respond_to :country
     end
   end
 end

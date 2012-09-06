@@ -2,6 +2,8 @@ class Page < ActiveRecord::Base
   attr_accessible :html, :locked_at, :locked_by, :title, :country_id
 
   belongs_to :country
+  has_many :countries
+  has_many :initiatives
   
   validates :country_id, :title, :presence => true
   validates :country_id, :numericality => { :is_integer => true }

@@ -82,6 +82,57 @@ describe Initiative do
       end
     end
   end
+
+  describe 'associations' do
+    before :each do
+      @initiative = Initiative.new @attr
+    end
+
+    it 'should respond to page' do
+      @initiative.should respond_to :page
+    end
+
+    it 'should respond country_initiatives' do
+      @initiative.should respond_to :country_initiatives
+    end
+
+    it 'should respond to countries' do
+      @initiative.should respond_to :countries
+    end
+
+    describe 'country_initiatives' do
+      before :each do
+        @ci = FactoryGirl.create :country_initiative
+        @initiative = @ci.initiative
+      end
+
+      it 'should return the correct country_initiatives' do
+        @initiative.country_initiatives.should eq [@ci]
+      end
+    end
+
+    describe 'countries' do
+      before :each do
+        ci = FactoryGirl.create :country_initiative
+        @country = ci.country
+        @initiative = ci.initiative
+      end
+
+      it 'should return the correct initiatives' do
+        @initiative.countries.should eq [@country]
+      end
+    end
+
+    describe 'page' do
+      before :each do
+        @initiative = FactoryGirl.create(:initiative, :page => @page = FactoryGirl.create(:page))
+      end
+
+      it 'should return the correct page' do
+        @initiative.page.should eq @page
+      end
+    end
+  end
     
   describe 'abbreviations' do
     it 'should require an abbreviation' do

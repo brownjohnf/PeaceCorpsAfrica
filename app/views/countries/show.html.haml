@@ -7,7 +7,7 @@
           %small Since #{@country.start_date.year}.
   .row
     .span8
-      %p Lots of fun info about the country, etc.
+      = raw @country.page.html
     .span4
       %ul.nav.nav-tabs.nav-stacked
         %li= link_to "Visit Peace Corps | #{@country.name}", (@country.site_url.blank? ? country_home_path(@country) : @country.site_url), :target => '_blank'

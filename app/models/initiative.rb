@@ -2,6 +2,11 @@ class Initiative < ActiveRecord::Base
   
   attr_accessible :name, :page_id, :start_date, :contact_email, :site_url, :donate_url, :country_initiatives_attributes, :abbreviation
 
+  belongs_to :page
+
+  has_many :country_initiatives, :dependent => :destroy
+  has_many :countries, :through => :country_initiatives
+
   # requires name, start_date, abbreviation
   validates :name, :abbreviation, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
@@ -14,9 +19,6 @@ class Initiative < ActiveRecord::Base
 
   before_validation :do_before_validation
   before_save :do_before_save
-
-  has_many :country_initiatives, :dependent => :destroy
-  has_many :countries, :through => :country_initiatives
 
   accepts_nested_attributes_for :country_initiatives, :allow_destroy => true
 
