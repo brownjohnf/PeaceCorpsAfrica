@@ -201,11 +201,17 @@ puts 'SETTING UP DEFOULT INITIATIVES'
 Initiative.create!([{
   :name => 'Stomping Out Malaria in Africa',
   :abbreviation => 'STOMP',
-  :start_date => '2011-01-01'
+  :start_date => '2011-04-25',
+  :donate_url => 'https://donate.peacecorps.gov/index.cfm?shell=donate.contribute.projDetail&projdesc=SPF-MLR',
+  :site_url => 'http://www.stompoutmalaria.org'
 },{
   :name => 'Food Security',
   :abbreviation => 'FOODSEC',
   :start_date => '2009-08-28'
+},{
+  :name => 'HIV?AIDS Prevention',
+  :abbreviation => 'HIVAIDS',
+  :start_date => '1995-03-24'
 }])
 
 # create country/initiative associations
