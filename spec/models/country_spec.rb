@@ -4,7 +4,8 @@ describe Country do
   before :each do
     @attr = {
       :code => 'SN',
-      :start_date => '1961-01-02'
+      :start_date => '1961-01-02',
+      :page_id => 1
     }
   end
 
@@ -307,7 +308,9 @@ describe Country do
   end
 
   describe 'page_ids' do
-    pending 'should require a page_id'
+    it 'should require a page_id' do
+      Country.new(@attr.merge(:page_id => '')).should_not be_valid
+    end
 
     it 'should reject non-numeric ids' do
       Country.new(@attr.merge(:page_id => 'a')).should_not be_valid

@@ -8,13 +8,13 @@ class Country < ActiveRecord::Base
   has_many :initiatives, :through => :country_initiatives
 
   # required: name, start_date
-  validates :name, :code, :presence => true
+  validates :name, :code, :page_id, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
   validates :code, :length => { :minimum => 2, :maximum => 2 }, :uniqueness => true
   validates :start_date, :date => true
   validates :contact_email, :email => true, :allow_blank => true
   validates :donate_url, :site_url, :info_url, :url => true, :allow_blank => true
-  validates :page_id, :numericality => { :only_integer => true }, :allow_blank => true
+  validates :page_id, :numericality => { :only_integer => true }
   validates :code, :iso2 => true
 
   before_validation :do_before_validation
