@@ -19,3 +19,9 @@
                     = link_to new_country_path do
                       %span.icon-plus
                       New Country
+                - if can? :read, @country.page
+                  %li.divider
+                  %li
+                    = link_to @country.page do
+                      %span.icon-list-alt
+                      View Page
