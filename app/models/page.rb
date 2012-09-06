@@ -8,5 +8,8 @@ class Page < ActiveRecord::Base
   validates :locked_by, :numericality => { :is_integer => true }, :allow_blank => true
   validates :title, :length => { :minimum => 3, :maximum => 255 }
 
-  
+  def to_param
+    "#{id}-#{title.parameterize}"
+  end
+
 end
