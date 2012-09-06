@@ -127,6 +127,7 @@ Country.create!([{
   :site_url => '',
   :donate_url => '',
   :contact_email => '',
+  :active => false
 },{
   :code => 'MZ',
   :start_date => '1998-01-01',
