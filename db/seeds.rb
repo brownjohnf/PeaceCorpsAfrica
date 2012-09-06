@@ -209,7 +209,7 @@ Initiative.create!([{
   :abbreviation => 'FOODSEC',
   :start_date => '2009-08-28'
 },{
-  :name => 'HIV?AIDS Prevention',
+  :name => 'HIV/AIDS Prevention',
   :abbreviation => 'HIVAIDS',
   :start_date => '1995-03-24'
 }])
