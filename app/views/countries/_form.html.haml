@@ -10,6 +10,8 @@
     %label.control-label Peace Corps Start Date
     .controls
       = f.text_field :start_date, :class => 'datepicker required'
+      %span.help-inline
+        %code yyyy-mm-dd
   -#= f.label :page_id
   -#= f.number_field :page_id
   .control-group
@@ -20,15 +22,17 @@
     %label.control-label Info URL
     .controls
       = f.text_field :info_url
-      %span.help-inline PC Page
+      %span.help-inline PC Page, http://example.url
   .control-group
     %label.control-label Site URL
     .controls
       = f.text_field :site_url
+      %span.help-inline http://example.url
   .control-group
     %label.control-label Donate URL
     .controls
       = f.text_field :donate_url
+      %span.help-inline http://example.url
   .control-group
     %label.control-label Active
     .controls
