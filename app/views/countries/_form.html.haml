@@ -1,10 +1,5 @@
 = nested_form_for @country, :html => {:class => 'form-horizontal'} do |f|
-  -if @country.errors.any?
-    #error_explanation.alert.alert-error
-      %h2= "#{pluralize(@country.errors.count, "form error")}:"
-      %ul
-        - @country.errors.full_messages.each do |msg|
-          %li= msg
+  = render 'shared/form_errors', :item => @country if @country.errors.any?
   %legend Country Info
   = render 'shared/form_info'
   .control-group

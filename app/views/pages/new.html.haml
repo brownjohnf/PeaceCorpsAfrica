@@ -1,5 +1,8 @@
-%h1 New page
-
-= render 'form'
-
-= link_to 'Back', pages_path
+.container
+  .row
+    .span9
+      .hero-unit.blue
+        %h1 Add a page
+  .row
+    .span6.offset3
+      = render 'form'

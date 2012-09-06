@@ -1,22 +1,14 @@
-= form_for @page do |f|
-  -if @page.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@page.errors.count, "error")} prohibited this page from being saved:"
-      %ul
-        - @page.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :html
-    = f.text_area :html
-  .field
-    = f.label :locked_by
-    = f.number_field :locked_by
-  .field
-    = f.label :locked_at
-    = f.datetime_select :locked_at
-  .actions
-    = f.submit 'Save'
+= form_for @page, :html => { :class => 'form-horizontal' } do |f|
+  = render 'shared/form_errors', :item => @page if @page.errors.any?
+  %legend The basics
+  = render 'shared/form_info'
+  .control-group
+    %label.control-label Country
+    .controls
+      = f.collection_select :country_id, Country.all, :id, :name, {}, { :class => 'required' }
+  .control-group
+    %label.control-label Page Title
+    .controls
+      = f.text_field :title, :class => 'required'
+  .form-actions
+    = f.submit 'Save', :class => 'btn btn-primary'

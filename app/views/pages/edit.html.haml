@@ -1,7 +1,8 @@
-%h1 Editing page
-
-= render 'form'
-
-= link_to 'Show', @page
-\|
-= link_to 'Back', pages_path
+.container
+  .row
+    .span12
+      .hero-unit.red
+        %h1 Edit page
+  .row
+    .span9.offset3
+      = render 'form'

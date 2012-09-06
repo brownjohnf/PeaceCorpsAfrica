@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120825125451) do
+ActiveRecord::Schema.define(:version => 20120905222829) do
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -55,6 +55,19 @@ ActiveRecord::Schema.define(:version => 20120825125451) do
 
   add_index "initiatives", ["abbreviation"], :name => "index_initiatives_on_abbreviation", :unique => true
   add_index "initiatives", ["name"], :name => "index_initiatives_on_name", :unique => true
+
+  create_table "pages", :force => true do |t|
+    t.string   "title"
+    t.text     "html",       :default => "<p>No content.</p>"
+    t.integer  "country_id"
+    t.integer  "locked_by"
+    t.datetime "locked_at"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+  end
+
+  add_index "pages", ["title", "country_id"], :name => "index_pages_on_title_and_country_id", :unique => true
+  add_index "pages", ["title"], :name => "index_pages_on_title"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
