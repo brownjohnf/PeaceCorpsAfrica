@@ -47,6 +47,42 @@ describe Initiative do
     end
   end
 
+  describe 'methods' do
+    describe 'initiative_url_fors' do
+      it 'should respond to initiative_url_for(initiative)' do
+        Initiative.new.should respond_to(:initiative_url_for).with(1).argument
+      end
+      
+      describe 'given a country_initiative without an initiative_url' do
+        before :each do
+          @ci = FactoryGirl.create :country_initiative
+          @country = @ci.country
+          @initiative = @ci.initiative
+        end
+
+        it 'should be blank' do
+          @initiative.initiative_url_for(@country).should be_blank
+        end
+      end
+
+      describe 'given a country_initiative with a valid initiative_url_for' do
+        before :each do
+          @ci = FactoryGirl.create :country_initiative, :initiative_url => 'http://www.example.com'
+          @country = @ci.country
+          @initiative = @ci.initiative
+        end
+
+        it 'should not be blank' do
+          @initiative.initiative_url_for(@country).should_not be_blank
+        end
+        
+        it 'should return the correct country_url' do
+          @initiative.initiative_url_for(@country).should eq @ci.initiative_url
+        end
+      end
+    end
+  end
+    
   describe 'abbreviations' do
     it 'should require an abbreviation' do
       Initiative.new(@attr.merge(:abbreviation => '')).should_not be_valid

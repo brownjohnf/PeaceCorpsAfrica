@@ -40,12 +40,7 @@
   - elsif !Initiative.any?
     .alert You must #{link_to 'create initiatives', new_initiative_path} before adding them to countries.
   - else
-    .control-group
-      .controls
-        %span.help-block
-          All join dates should be in
-          %code yyyy-mm-dd
-          format.    
+    = render 'country_initiatives/help_text'
     = f.fields_for :country_initiatives do |ff|
       .control-group
         %span.control-label Initiative/Join Date
@@ -53,10 +48,7 @@
           = ff.collection_select :initiative_id, Initiative.all, :id, :name, {}, {:class => 'span2 required'}
           = ff.text_field :join_date, :class => 'span2 datepicker'
           = ff.link_to_remove raw('<span class="icon-minus"></span>'), :class => 'btn btn-mini btn-danger'
-      .control-group
-        %label.control-label Website URL
-        .controls
-          = ff.text_field :site_url
+      = render 'country_initiatives/shared_fields', :f => ff
       %hr
     = f.link_to_add :country_initiatives, :class => 'btn btn-mini btn-success' do
       %span.icon-plus

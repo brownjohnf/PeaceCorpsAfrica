@@ -85,7 +85,7 @@ describe PagesController do
         assigns(:page).should be_persisted
       end
 
-      it "redirects to the created page" do
+      it "redirects to the new page" do
         post :create, {:page => valid_attributes}
         response.should redirect_to(Page.last)
       end

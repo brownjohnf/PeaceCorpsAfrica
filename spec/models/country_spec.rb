@@ -54,6 +54,59 @@ describe Country do
     end
   end
 
+  describe 'methods' do
+    describe 'country_url_fors' do
+      it 'should respond to country_url_for(initiative)' do
+        #@country.country_url(initiative).should be_valid
+        Country.new.should respond_to(:country_url_for).with(1).argument
+      end
+      
+      describe 'given a country_initiative without a country_url' do
+        before :each do
+          @ci = FactoryGirl.create :country_initiative
+          @country = @ci.country
+          @initiative = @ci.initiative
+        end
+
+        it 'should be blank' do
+          @country.country_url_for(@initiative).should be_blank
+        end
+      end
+
+      describe 'given a country_initiative with a country_url' do
+        before :each do
+          @ci = FactoryGirl.create :country_initiative, :country_url => 'http://www.example.com'
+          @country = @ci.country
+          @initiative = @ci.initiative
+        end
+
+        it 'should not be blank' do
+          @country.country_url_for(@initiative).should_not be_blank
+        end
+        
+        it 'should return the correct country_url' do
+          @country.country_url_for(@initiative).should eq @ci.country_url
+        end
+      end
+    end
+    
+    describe 'join_dates' do
+      before :each do
+        @ci = FactoryGirl.create :country_initiative
+        @country = @ci.country
+        @initiative = @ci.initiative
+      end
+
+      it 'should respond to join_date(initiative)' do
+        @country.should respond_to(:join_date).with(1).argument
+      end
+
+      it 'sholud return the correct join_date' do
+        @country.join_date(@initiative).should eq @ci.join_date
+      end
+    end
+  end
+
   describe 'actives' do
     it 'should be active by default' do
       Country.new.active.should be_true

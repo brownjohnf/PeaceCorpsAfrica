@@ -31,7 +31,6 @@
                   %li.divider
                   - for country in Country.all do
                     %li= link_to country.name, country
-            %ul.nav
               %li.dropdown
                 %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
                   Initiatives
@@ -50,6 +49,21 @@
                   %li.divider
                   - for initiative in Initiative.all do
                     %li= link_to initiative.name, initiative
+              %li.dropdown
+                %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
+                  Pages
+                  %b.caret
+                %ul.dropdown-menu
+                  - if signed_in? && can?(:create, Page)
+                    %li
+                      = link_to new_page_path do
+                        %span.icon-plus
+                        New Page
+                    %li.divider
+                  %li
+                    = link_to pages_path do
+                      %span.icon-list-alt
+                      All Pages
           .nav-collapse.pull-right
             = form_tag '', :method => :get, :class => 'navbar-search' do
               = text_field_tag 'q', nil, :class => 'search-query', 'placeholder' => 'search'

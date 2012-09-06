@@ -2,9 +2,10 @@ class CreateCountryInitiatives < ActiveRecord::Migration
   def change
     create_table :country_initiatives do |t|
       t.integer :country_id
+      t.string :country_url
       t.integer :initiative_id
+      t.string :initiative_url
       t.date :join_date
-      t.string :site_url
 
       t.timestamps
     end

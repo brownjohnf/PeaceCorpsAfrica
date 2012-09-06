@@ -1,11 +1,11 @@
 class CountryInitiative < ActiveRecord::Base
-  attr_accessible :country_id, :initiative_id, :join_date, :site_url
+  attr_accessible :country_id, :initiative_id, :join_date, :country_url, :initiative_url
 
   belongs_to :country
   belongs_to :initiative
 
   validates :country_id, :initiative_id, :presence => true
-  validates :site_url, :url => true, :allow_blank => true
+  validates :country_url, :initiative_url, :url => true, :allow_blank => true
   validates :join_date, :date => true, :allow_blank => true
 
   private

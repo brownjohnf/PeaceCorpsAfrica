@@ -32,11 +32,12 @@ ActiveRecord::Schema.define(:version => 20120905222829) do
 
   create_table "country_initiatives", :force => true do |t|
     t.integer  "country_id"
+    t.string   "country_url"
     t.integer  "initiative_id"
+    t.string   "initiative_url"
     t.date     "join_date"
-    t.string   "site_url"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "country_initiatives", ["country_id", "initiative_id"], :name => "index_country_initiatives_on_country_id_and_initiative_id", :unique => true

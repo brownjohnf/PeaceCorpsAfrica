@@ -25,7 +25,11 @@ class Country < ActiveRecord::Base
 
   def join_date(initiative)
     country_initiatives.where(:initiative_id => initiative.id).limit(1).first.join_date
-  end  
+  end
+
+  def country_url_for(initiative)
+    country_initiatives.where(:initiative_id => initiative.id).limit(1).first.country_url
+  end
 
   def to_param
     code.downcase

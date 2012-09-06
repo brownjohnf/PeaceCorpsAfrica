@@ -22,6 +22,10 @@ class Initiative < ActiveRecord::Base
 
   default_scope :order => 'name ASC'
 
+  def initiative_url_for(country)
+    country_initiatives.find_by_country_id(country.id).initiative_url
+  end
+
   def to_param
     abbreviation.downcase
   end
