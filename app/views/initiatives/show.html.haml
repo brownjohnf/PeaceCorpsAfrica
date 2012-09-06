@@ -6,8 +6,12 @@
           #{@initiative.name}
           %small a Peace Corps Initiative.
   .row
-    .span8
-      %p Lots of fun info about the initiative, etc.
+    .span2
+      %address
+        %strong= @initiative.contact_email
+    .span6
+      %h1= @initiative.page.title
+      = raw @initiative.page.html
     .span4
       %ul.nav.nav-tabs.nav-stacked
         %li= link_to "Visit #{@initiative.name}", (@initiative.site_url.blank? ? initiative_home_path(@initiative) : @initiative.site_url), :target => '_blank'

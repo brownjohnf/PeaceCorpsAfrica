@@ -4,6 +4,7 @@ FactoryGirl.define do
 
   factory :country do
     code
+    page_id 1
     start_date '1961-01-02'.to_date
 
     factory :active_country do

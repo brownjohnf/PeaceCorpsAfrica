@@ -21,10 +21,10 @@
     .controls
       = f.text_field :start_date, :class => 'datepicker required'
       %span.help-inline yyyy-mm-dd
-  -#.control-group
-    %label.control-label
+  .control-group
+    %label.control-label Default Page
     .controls
-      = f.number_field :page_id
+      = f.collection_select :page_id, Page.all, :id, :title, {}, {:class => 'required'}
   .control-group
     %label.control-label Contact Email
     .controls

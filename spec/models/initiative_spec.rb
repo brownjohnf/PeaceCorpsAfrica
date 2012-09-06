@@ -5,7 +5,8 @@ describe Initiative do
     @attr = {
       :name => 'Food Security',
       :abbreviation => 'FOODSEC',
-      :start_date => '1961-01-02'
+      :start_date => '1961-01-02',
+      :page_id => 1
     }
   end
   
@@ -222,7 +223,9 @@ describe Initiative do
   end
 
   describe 'page_ids' do
-    pending 'should require a page_id'
+    it 'should require a page_id' do
+      Initiative.new(@attr.merge(:page_id => '')).should_not be_valid
+    end
 
     it 'should reject non-numeric ids' do
       Initiative.new(@attr.merge(:page_id => 'a')).should_not be_valid

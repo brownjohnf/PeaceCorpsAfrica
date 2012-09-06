@@ -6,7 +6,11 @@
           #{@country.name}.
           %small Since #{@country.start_date.year}.
   .row
-    .span8
+    .span2
+      %address
+        %strong= @country.contact_email
+    .span6
+      %h1= @country.page.title
       = raw @country.page.html
     .span4
       %ul.nav.nav-tabs.nav-stacked

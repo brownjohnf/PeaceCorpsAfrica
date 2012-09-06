@@ -27,7 +27,8 @@ describe InitiativesController do
     {
       :name => 'Food Security',
       :abbreviation => 'foodsec',
-      :start_date => '2010-01-01'
+      :start_date => '2010-01-01',
+      :page_id => 1
     }
   end
 

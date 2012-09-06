@@ -8,12 +8,12 @@ class Initiative < ActiveRecord::Base
   has_many :countries, :through => :country_initiatives
 
   # requires name, start_date, abbreviation
-  validates :name, :abbreviation, :presence => true
+  validates :name, :abbreviation, :page_id, :presence => true
   validates :name, :contact_email, :site_url, :donate_url, :length => { :maximum => 255 }
   validates :abbreviation, :length => { :minimum => 3, :maximum => 7 }, :uniqueness => true, :alphanumeric => true
   validates :name, :uniqueness => true
   validates :contact_email, :email => true, :allow_blank => true
-  validates :page_id, :numericality => { :only_integer => true }, :allow_blank => true
+  validates :page_id, :numericality => { :only_integer => true }
   validates :start_date, :date => true
   validates :donate_url, :site_url, :url => true, :allow_blank => true
 

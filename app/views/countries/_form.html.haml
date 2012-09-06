@@ -13,12 +13,9 @@
       %span.help-inline
         %code yyyy-mm-dd
   .control-group
-    %label.control-label Page
+    %label.control-label Default Page
     .controls
-      - if Page.any?
-        = f.collection_select :page_id, Page.all, :id, :title
-      - else
-        .alert You must #{link_to 'create at least one page', new_page_path} before adding it to a country.
+      = f.collection_select :page_id, Page.all, :id, :title, {}, {:class => 'required'}
   .control-group
     %label.control-label Contact Email
     .controls
