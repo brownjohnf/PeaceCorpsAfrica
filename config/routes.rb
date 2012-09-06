@@ -1,5 +1,7 @@
 PeaceCorpsAfrica::Application.routes.draw do
 
+  resources :revisions
+
   resources :pages
 
   resources :initiatives
