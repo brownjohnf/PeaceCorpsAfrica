@@ -18,4 +18,7 @@ $(function(){
   // apply correct bootstrap styles to form error fields
   $('.field_with_errors').closest('.control-group').addClass('error');
 
+  $('[rel=tooltip]').tooltip({
+  });
+
 });

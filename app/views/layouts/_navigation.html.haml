@@ -70,8 +70,8 @@
             %ul.nav
               - if @page
                 %li.divider-vertical
-                %li= link_to raw('<span class="icon-lock icon-white"></span>&nbsp;') + @page.editor.name, '' if @page.locked?
-                %li= link_to raw('<span class="icon-thumbs-up icon-white"></span>'), edit_page_path(@page) unless @page.locked?
+                %li= link_to (raw('<span class="icon-lock icon-white"></span>&nbsp;') + @page.editor.name), @page, :rel => 'tooltip', :title => "page locked for editing", 'data-placement' => 'bottom' if @page.locked?
+                %li= link_to raw('<span class="icon-thumbs-up icon-white"></span><span class="icon-pencil icon-white"></span>'), edit_page_path(@page), :rel => 'tooltip', 'data-placement' => 'bottom', :title => "available to edit" unless @page.locked?
               %li.divider-vertical
             %ul.nav
               %li.dropdown
