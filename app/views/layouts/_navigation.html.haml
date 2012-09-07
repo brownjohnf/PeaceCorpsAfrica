@@ -62,20 +62,7 @@
                 = link_to pages_path do
                   %span.icon-list-alt
                   All Pages
-        = form_tag '', :method => :get, :class => 'navbar-search' do
-          = text_field_tag 'q', nil, :class => 'search-query', 'placeholder' => 'search'
-        %ul.nav
-          - if @country
-            %li= link_to (raw('<span class="icon-globe icon-white"></span>')), countries_path, :rel => 'tooltip', 'data-placement' => 'bottom', :title => "you're in a country"
-          - if @initiative
-            %li= link_to (raw('<span class="icon-flag icon-white"></span>')), initiatives_path, :rel => 'tooltip', 'data-placement' => 'bottom', :title => "you're in an initiative"
-          - if signed_in?
-            - if @page && !@page.new_record?
-              %li.divider-vertical
-                %li= link_to raw('<span class="icon-lock icon-white"></span>&nbsp;'), @page, :rel => 'tooltip', :title => "#{@page.editor.name} is editing", 'data-placement' => 'bottom' if @page.locked?
-              %li= link_to raw('<span class="icon-pencil icon-white"></span>'), edit_page_path(@page), :rel => 'tooltip', 'data-placement' => 'bottom', :title => "available to edit" unless @page.locked?
-          %li.divider-vertical
-        %ul.nav
+        %ul.nav.pull-right
           %li.dropdown
             - if user_signed_in?
               %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
@@ -101,5 +88,24 @@
                 Sign in
                 %b.caret
               %ul.dropdown-menu.pull-right
-                %li= link_to 'Sign in', new_user_session_path
-                %li= link_to 'Sign up', new_user_registration_path
+                %li
+                  = link_to new_user_session_path do
+                    %span.icon-plus
+                    Sign in
+                %li
+                  = link_to new_user_registration_path do
+                    %span.icon-plus
+                    Sign up
+        %ul.nav.pull-right
+          - if @country
+            %li= link_to (raw('<span class="icon-globe icon-white"></span>')), countries_path, :rel => 'tooltip', 'data-placement' => 'bottom', :title => "you're in a country"
+          - if @initiative
+            %li= link_to (raw('<span class="icon-flag icon-white"></span>')), initiatives_path, :rel => 'tooltip', 'data-placement' => 'bottom', :title => "you're in an initiative"
+          - if signed_in?
+            - if @page && !@page.new_record?
+              %li.divider-vertical
+                %li= link_to raw('<span class="icon-lock icon-white"></span>&nbsp;'), @page, :rel => 'tooltip', :title => "#{@page.editor.name} is editing", 'data-placement' => 'bottom' if @page.locked?
+              %li= link_to raw('<span class="icon-pencil icon-white"></span>'), edit_page_path(@page), :rel => 'tooltip', 'data-placement' => 'bottom', :title => "available to edit" unless @page.locked?
+          %li.divider-vertical
+        = form_tag '', :method => :get, :class => 'navbar-search pull-right' do
+          = text_field_tag 'q', nil, :class => 'search-query', 'placeholder' => 'search'
