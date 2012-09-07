@@ -1,13 +1,16 @@
 .container
   .row
     .span9.offset1
-      .hero-unit.green
+      .hero-unit.red
         %h1 Sign in? Yes, please.
   .row
-    .span3.offset1
+    .span2.offset1
       = render "devise/shared/links"
-    .span6
+    .span7
       = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-horizontal' }) do |f|
+        .control-group
+          .controls
+            = devise_error_messages!
         .control-group
           = f.label :email, :class => 'control-label'
           .controls
