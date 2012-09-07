@@ -75,13 +75,31 @@ describe PagesController do
 
     describe 'unlocked' do
       it 'should be successful' do
-        post :edit, :id => @page.to_param
+        get :edit, :id => @page.to_param
         response.should be_success
       end
 
       it 'should lock the page' do
-        post :edit, :id => @page.to_param
+        get :edit, :id => @page.to_param
         @page.reload.locked?.should be_true
+      end
+
+      it 'should build a revision' do
+        get :edit, :id => @page.to_param
+        assigns(:page).should have(1).revisions
+      end
+
+      describe 'revision' do
+        it 'should set the content blank if no prior revision' do
+          get :edit, :id => @page.to_param
+          assigns(:page).revisions.first.content.should be_blank
+        end
+
+        it 'should set content equal to prior revision if prior revision' do
+          @revision = FactoryGirl.create(:revision, :page => @page)
+          get :edit, :id => @page.to_param
+          assigns(:page).revisions.first.content.should eq @revision.content
+        end
       end
     end
 
@@ -91,13 +109,13 @@ describe PagesController do
       end
 
       it 'should redirect to the page if current_user is not editor' do
-        post :edit, :id => @page.to_param
+        get :edit, :id => @page.to_param
         response.should redirect_to @page
       end
 
       it 'renders the edit view if current_user is editor' do
         @page.lock(@admin)
-        post :edit, :id => @page.to_param
+        get :edit, :id => @page.to_param
         response.should be_success
       end
     end

@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   load_and_authorize_resource
+  before_filter :locked, :only => [:edit, :update, :destroy]
+  after_filter :unlock, :only => [:edit, :update]
 
   # GET /pages
   # GET /pages.json
@@ -36,12 +38,7 @@ class PagesController < ApplicationController
 
   # GET /pages/1/edit
   def edit
-    @page = Page.find(params[:id])
-    if @page.locked?
-      redirect_to @page unless @page.editor == current_user
-    else
-      @page.lock(current_user)
-    end
+    @page.revisions.build(:content => (@page.current_revision.nil? ? '' : @page.current_revision.content))
   end
 
   # POST /pages
@@ -67,7 +64,6 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.update_attributes(params[:page])
-        @page.unlock
         format.html { redirect_to @page, notice: 'Page was successfully updated.' }
         format.json { head :no_content }
       else
@@ -88,4 +84,19 @@ class PagesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+    def locked
+      if @page.locked?
+        redirect_to @page unless @page.editor == current_user
+      else
+        @page.lock(current_user)
+      end
+    end
+
+    def unlock
+      @page.unlock
+    end
+
 end
