@@ -71,7 +71,7 @@
               - if @page
                 %li.divider-vertical
                 %li= link_to raw('<span class="icon-lock icon-white"></span>&nbsp;') + @page.editor.name, '' if @page.locked?
-                %li= link_to raw('<span class="icon-thumbs-up icon-white"></span>'), '' unless @page.locked?
+                %li= link_to raw('<span class="icon-thumbs-up icon-white"></span>'), edit_page_path(@page) unless @page.locked?
               %li.divider-vertical
             %ul.nav
               %li.dropdown
