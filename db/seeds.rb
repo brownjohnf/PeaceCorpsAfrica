@@ -238,6 +238,7 @@ Initiative.create!([{
   :start_date => '2011-04-25',
   :donate_url => 'https://donate.peacecorps.gov/index.cfm?shell=donate.contribute.projDetail&projdesc=SPF-MLR',
   :site_url => 'http://www.stompoutmalaria.org',
+  :contact_email => 'stompoutmalaria@gmail.com',
   :page_id => 1
 },{
   :name => 'Food Security',
@@ -287,7 +288,9 @@ end
 puts 'ADDING COUNTRIES TO INITIATIVES'
 CountryInitiative.create!([{
   :country_id => Country.find_by_code('SN').id,
-  :initiative_id => Initiative.find_by_abbreviation('STOMP').id
+  :initiative_id => Initiative.find_by_abbreviation('STOMP').id,
+  :country_url => 'http://www.pcsenegal.org',
+  :initiative_url => 'http://stompoutmalaria.org'
 },{
   :country_id => Country.find_by_code('SN').id,
   :initiative_id => Initiative.find_by_abbreviation('FOODSEC').id
