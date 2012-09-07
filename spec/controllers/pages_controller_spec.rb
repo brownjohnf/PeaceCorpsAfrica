@@ -174,13 +174,9 @@ describe PagesController do
 
     describe "with valid params" do
       it "updates the requested page" do
-        page = Page.create! valid_attributes
-        # Assuming there are no other pages in the database, this
-        # specifies that the Page created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Page.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => page.to_param, :page => {'these' => 'params'}}
+        updated_at = @page.updated_at
+        put :update, :id => @page.to_param, :page => valid_attributes
+        assigns(:page).updated_at.should be > updated_at
       end
 
       it "assigns the requested page as @page" do
