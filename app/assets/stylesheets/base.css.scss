@@ -54,7 +54,7 @@ body {
   }
   footer {
     @include box-shadow(0 -2px 2px $black);
-    background-color: $navbarBackground;
+    background-color: $navbarInverseBackground;
     color: $navbarText;
     padding-top: 2em;
     hr {
@@ -104,10 +104,6 @@ a {
     margin-right: 1em;
     margin-bottom: 1em;
   }
-}
-
-.clearfix {
-  @include clearfix();
 }
 
 .hero-unit, .well {

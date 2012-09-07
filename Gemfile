@@ -4,7 +4,8 @@ gem 'pg'
 gem 'jquery-rails'
 gem "thin", ">= 1.4.1"
 gem "haml", ">= 3.1.7"
-gem "bootstrap-sass", '2.0.4.2'
+# important to set bootstrap-sass manually
+gem "bootstrap-sass", '2.1.0.0'
 gem "sendgrid", ">= 1.0.1"
 gem "devise", ">= 2.1.2"
 gem "devise_invitable", ">= 1.0.3"

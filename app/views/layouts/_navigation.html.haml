@@ -1,97 +1,96 @@
-.navbar.navbar-fixed-top
+.navbar.navbar-inverse.navbar-fixed-top
   %nav.navbar-inner
     .container-fluid
-      .row-fluid
-        .span12
-          %a.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to root_path, :class => 'brand' do
-            %span#peacecorps Peace Corps
-            %span#brand-divider= '|'
-            %span#brand-locale= cookies[:country]
-          .nav-collapse
-            %ul.nav
-              %li.dropdown
-                %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
-                  Countries
-                  %b.caret
-                %ul.dropdown-menu
-                  - if signed_in? && can?(:create, Country)
-                    %li
-                      = link_to new_country_path do
-                        %span.icon-plus
-                        New Country
-                    %li.divider
-                  %li
-                    = link_to countries_path do
-                      %span.icon-globe
-                      Overview Map
-                  %li.divider
-                  - for country in Country.all do
-                    %li= link_to country.name, country
-              %li.dropdown
-                %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
-                  Initiatives
-                  %b.caret
-                %ul.dropdown-menu
-                  - if signed_in? && can?(:create, Initiative)
-                    %li
-                      = link_to new_initiative_path do
-                        %span.icon-plus
-                        New Initiative
-                    %li.divider
-                  %li
-                    = link_to initiatives_path do
-                      %span.icon-globe
-                      Overview Map
-                  %li.divider
-                  - for initiative in Initiative.all do
-                    %li= link_to initiative.name, initiative
-              %li.dropdown
-                %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
-                  Pages
-                  %b.caret
-                %ul.dropdown-menu
-                  - if signed_in? && can?(:create, Page)
-                    %li
-                      = link_to new_page_path do
-                        %span.icon-plus
-                        New Page
-                    %li.divider
-                  %li
-                    = link_to pages_path do
-                      %span.icon-list-alt
-                      All Pages
-          .nav-collapse.pull-right
-            = form_tag '', :method => :get, :class => 'navbar-search' do
-              = text_field_tag 'q', nil, :class => 'search-query', 'placeholder' => 'search'
-            %ul.nav
-              - if @country
-                %li= link_to (raw('<span class="icon-globe icon-white"></span>')), countries_path, :rel => 'tooltip', 'data-placement' => 'bottom', :title => "you're in a country"
-              - if @initiative
-                %li= link_to (raw('<span class="icon-flag icon-white"></span>')), initiatives_path, :rel => 'tooltip', 'data-placement' => 'bottom', :title => "you're in an initiative"
-              - if @page && !@page.new_record?
-                %li.divider-vertical
-                %li= link_to (raw('<span class="icon-lock icon-white"></span>&nbsp;') + @page.editor.name), @page, :rel => 'tooltip', :title => "page locked for editing", 'data-placement' => 'bottom' if @page.locked?
-                %li= link_to raw('<span class="icon-thumbs-up icon-white"></span><span class="icon-pencil icon-white"></span>'), edit_page_path(@page), :rel => 'tooltip', 'data-placement' => 'bottom', :title => "available to edit" unless @page.locked?
+      %a.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to root_path, :class => 'brand' do
+        %span#peacecorps Peace Corps
+        %span#brand-divider= '|'
+        %span#brand-locale= cookies[:country]
+      .nav-collapse
+        %ul.nav
+          %li.dropdown
+            %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
+              Countries
+              %b.caret
+            %ul.dropdown-menu
+              - if signed_in? && can?(:create, Country)
+                %li
+                  = link_to new_country_path do
+                    %span.icon-plus
+                    New Country
+                %li.divider
+              %li
+                = link_to countries_path do
+                  %span.icon-globe
+                  Overview Map
+              %li.divider
+              - for country in Country.all do
+                %li= link_to country.name, country
+          %li.dropdown
+            %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
+              Initiatives
+              %b.caret
+            %ul.dropdown-menu
+              - if signed_in? && can?(:create, Initiative)
+                %li
+                  = link_to new_initiative_path do
+                    %span.icon-plus
+                    New Initiative
+                %li.divider
+              %li
+                = link_to initiatives_path do
+                  %span.icon-globe
+                  Overview Map
+              %li.divider
+              - for initiative in Initiative.all do
+                %li= link_to initiative.name, initiative
+          %li.dropdown
+            %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
+              Pages
+              %b.caret
+            %ul.dropdown-menu
+              - if signed_in? && can?(:create, Page)
+                %li
+                  = link_to new_page_path do
+                    %span.icon-plus
+                    New Page
+                %li.divider
+              %li
+                = link_to pages_path do
+                  %span.icon-list-alt
+                  All Pages
+      .nav-collapse.pull-right
+        = form_tag '', :method => :get, :class => 'navbar-search' do
+          = text_field_tag 'q', nil, :class => 'search-query', 'placeholder' => 'search'
+        %ul.nav
+          - if @country
+            %li= link_to (raw('<span class="icon-globe icon-white"></span>')), countries_path, :rel => 'tooltip', 'data-placement' => 'bottom', :title => "you're in a country"
+          - if @initiative
+            %li= link_to (raw('<span class="icon-flag icon-white"></span>')), initiatives_path, :rel => 'tooltip', 'data-placement' => 'bottom', :title => "you're in an initiative"
+          - if signed_in?
+            - if @page && !@page.new_record?
               %li.divider-vertical
-            %ul.nav
-              %li.dropdown
-                - if user_signed_in?
-                  %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
-                    = current_user.name
-                    %b.caret
-                  %ul.dropdown-menu
-                    %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
-                    %li= link_to 'Edit account', edit_user_registration_path
-                    - if current_user.has_role? :admin
-                      %li= link_to 'Admin', users_path
-                - else
-                  %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
-                    Sign in
-                    %b.caret
-                  %ul.dropdown-menu
-                    %li= link_to 'Sign in', new_user_session_path
-                    %li= link_to 'Sign up', new_user_registration_path
+              %li= link_to (raw('<span class="icon-lock icon-white"></span>&nbsp;') + @page.editor.name), @page, :rel => 'tooltip', :title => "page locked for editing", 'data-placement' => 'bottom' if @page.locked?
+              %li= link_to raw('<span class="icon-thumbs-up icon-white"></span><span class="icon-pencil icon-white"></span>'), edit_page_path(@page), :rel => 'tooltip', 'data-placement' => 'bottom', :title => "available to edit" unless @page.locked?
+          %li.divider-vertical
+        %ul.nav
+          %li.dropdown
+            - if user_signed_in?
+              %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
+                = current_user.name
+                %b.caret
+              %ul.dropdown-menu.pull-right
+                %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
+                %li= link_to 'Edit account', edit_user_registration_path
+                - if current_user.has_role? :admin
+                  %li= link_to 'Admin', users_path
+            - else
+              %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
+                Sign in
+                %b.caret
+              %ul.dropdown-menu.pull-right
+                %li= link_to 'Sign in', new_user_session_path
+                %li= link_to 'Sign up', new_user_registration_path

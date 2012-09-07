@@ -26,6 +26,7 @@ $darkBlue: $obama_dark_blue;
 
 // load bootstrap
 @import "bootstrap";
+
 // allow padding at the top of the body for the fixed header
 body { padding-top: 60px; }
 
@@ -35,12 +36,3 @@ body { padding-top: 60px; }
 /****************************************/
 /* Bootstrap fixes */
 
-// shift right-pulled dropdown menus
-.dropdown-menu.pull-right {
-  right: 0;
-  left: auto;
-}
-.navbar .pull-right .dropdown-menu::after, .navbar .dropdown-menu.pull-right::after {
-  right: 13px;
-  left: auto;
-}
