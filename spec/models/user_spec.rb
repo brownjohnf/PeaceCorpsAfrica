@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cancan/matchers'
 
 describe User do
   
@@ -97,7 +98,23 @@ describe User do
     it "should set the encrypted password attribute" do
       @user.encrypted_password.should_not be_blank
     end
-
   end
 
+  describe 'abilities' do
+    context 'guest' do
+      before :each do
+        @ability = Ability.new(User.new)
+      end
+
+      describe 'countries' do
+        it 'should read' do
+          @ability.should be_able_to :read, Country
+        end
+
+        it 'should not create' do
+          @ability.should_not be_able_to :create, Country
+        end
+      end
+    end
+  end
 end

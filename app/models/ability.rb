@@ -9,7 +9,7 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
     else
-      can :read, [ Country, Initiative, Page ]
+      can :read, [ Country, Initiative, Page, Revision ]
     end
 
     # Define abilities for the passed in user here. For example:

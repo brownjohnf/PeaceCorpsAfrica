@@ -51,12 +51,20 @@ describe Page do
       @page.should respond_to :countries
     end
 
+    it 'should respond to current_revision' do
+      Page.new(@attr).should respond_to :current_revision
+    end
+
     it 'should respond to editor' do
       @page.should respond_to :editor
     end
 
     it 'should respond to initiatives' do
       @page.should respond_to :initiatives
+    end
+
+    it 'should respond to revisions' do
+      Page.new(@attr).should respond_to :revisions
     end
 
     describe 'country' do
@@ -76,6 +84,21 @@ describe Page do
 
       it 'should return the correct countries' do
         @page.countries.should eq [@country]
+      end
+    end
+
+    describe 'current_revision' do
+      before :each do
+        @revision = FactoryGirl.create(:revision, :page => @page = FactoryGirl.create(:page))
+        @revision2 = FactoryGirl.create(:revision, :page => @page)
+      end
+
+      it 'should be an instance of Revision' do
+        @page.current_revision.should be_an_instance_of Revision
+      end
+
+      it 'should return the correct revision' do
+        @page.current_revision.should eq @revision2
       end
     end
 
@@ -104,8 +127,38 @@ describe Page do
         @initiative = FactoryGirl.create(:initiative, :page => @page = FactoryGirl.create(:page))
       end
 
+      it 'should be an instance of Initiative' do
+        @page.initiatives.first.should be_an_instance_of Initiative
+      end
+
       it 'should return the correct initiatives' do
         @page.initiatives.should eq [@initiative]
+      end
+    end
+
+    describe 'revisions' do
+      before :each do
+        @revision = FactoryGirl.create(:revision, :page => @page = FactoryGirl.create(:page))
+      end
+
+      it 'should be an instance of Revision' do
+        @page.revisions.first.should be_an_instance_of Revision
+      end
+
+      it 'should return the correct revision' do
+        @page.revisions.should eq [@revision]
+      end
+
+      it 'should accept nested attributes' do
+        lambda do
+          @page.update_attributes!(:revisions_attributes => [{:content => 'test', :author_id => 1}])
+        end.should change(Revision, :count).by(1)
+      end
+
+      it 'should destroy revisions on destroy' do
+        lambda do
+          @page.destroy
+        end.should change(Revision, :count).by(-1)
       end
     end
   end
@@ -146,7 +199,7 @@ describe Page do
       end
 
       it 'should set locked_at to Time.now' do
-        @time = Time.now
+        @time = Time.now - 1.second
         @page.lock(@user)
         @page.reload.locked_at.should be > @time
       end
@@ -223,8 +276,6 @@ describe Page do
       page = Page.new @attr
       page.html.should =~ /no content/i
     end
-
-    pending 'should reject excessively long html'
   end
 
   describe 'locked_ats' do

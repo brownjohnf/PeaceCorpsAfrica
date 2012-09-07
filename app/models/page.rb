@@ -1,10 +1,14 @@
 class Page < ActiveRecord::Base
-  attr_accessible :html, :locked_at, :locked_by, :title, :country_id
+  attr_accessible :html, :locked_at, :locked_by, :title, :country_id, :revisions_attributes
 
   belongs_to :country
   belongs_to :editor, :class_name => User, :foreign_key => :locked_by
   has_many :countries
   has_many :initiatives
+  has_many :revisions, :dependent => :destroy
+  has_one :current_revision, :class_name => Revision
+
+  accepts_nested_attributes_for :revisions
   
   validates :country_id, :title, :presence => true
   validates :country_id, :numericality => { :is_integer => true }
