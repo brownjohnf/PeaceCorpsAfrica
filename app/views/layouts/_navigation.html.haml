@@ -1,7 +1,7 @@
 .navbar.navbar-inverse.navbar-fixed-top
   %nav.navbar-inner
     .container-fluid
-      %a.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+      %a.btn.btn-navbar{'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
@@ -62,7 +62,6 @@
                 = link_to pages_path do
                   %span.icon-list-alt
                   All Pages
-      .nav-collapse.pull-right
         = form_tag '', :method => :get, :class => 'navbar-search' do
           = text_field_tag 'q', nil, :class => 'search-query', 'placeholder' => 'search'
         %ul.nav
@@ -73,8 +72,8 @@
           - if signed_in?
             - if @page && !@page.new_record?
               %li.divider-vertical
-              %li= link_to (raw('<span class="icon-lock icon-white"></span>&nbsp;') + @page.editor.name), @page, :rel => 'tooltip', :title => "page locked for editing", 'data-placement' => 'bottom' if @page.locked?
-              %li= link_to raw('<span class="icon-thumbs-up icon-white"></span><span class="icon-pencil icon-white"></span>'), edit_page_path(@page), :rel => 'tooltip', 'data-placement' => 'bottom', :title => "available to edit" unless @page.locked?
+                %li= link_to raw('<span class="icon-lock icon-white"></span>&nbsp;'), @page, :rel => 'tooltip', :title => "#{@page.editor.name} is editing", 'data-placement' => 'bottom' if @page.locked?
+              %li= link_to raw('<span class="icon-pencil icon-white"></span>'), edit_page_path(@page), :rel => 'tooltip', 'data-placement' => 'bottom', :title => "available to edit" unless @page.locked?
           %li.divider-vertical
         %ul.nav
           %li.dropdown
@@ -83,10 +82,20 @@
                 = current_user.name
                 %b.caret
               %ul.dropdown-menu.pull-right
-                %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
-                %li= link_to 'Edit account', edit_user_registration_path
                 - if current_user.has_role? :admin
-                  %li= link_to 'Admin', users_path
+                  %li
+                    = link_to users_path do
+                      %span.icon-user
+                      Users
+                  %li.divider
+                %li
+                  = link_to edit_user_registration_path do
+                    %span.icon-wrench
+                    Edit account
+                %li
+                  = link_to destroy_user_session_path, :method=>'delete' do
+                    %span.icon-remove
+                    Sign out
             - else
               %a.dropdown-toggle{'href' => '#', 'data-toggle' => 'dropdown'}
                 Sign in
