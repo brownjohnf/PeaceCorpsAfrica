@@ -7,6 +7,8 @@
           %small Since #{@country.start_date.year}.
   .row
     .span2
+      - @country.contact_email
+      %h3 Contact
       %address
         %strong= @country.contact_email
     .span6
