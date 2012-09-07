@@ -89,8 +89,9 @@ describe Page do
 
     describe 'current_revision' do
       before :each do
-        @revision = FactoryGirl.create(:revision, :page => @page = FactoryGirl.create(:page))
+        @revision = FactoryGirl.create(:revision, :page => @page)
         @revision2 = FactoryGirl.create(:revision, :page => @page, :content => 'changed content')
+        @page.reload
       end
 
       it 'should be an instance of Revision' do
@@ -159,7 +160,7 @@ describe Page do
 
       it 'should reject if content is blank' do
         lambda do
-          @page.update_attributes!(:revisions_attributes => [{:content => '', :author_id => 1}])
+          @page.update_attributes(:revisions_attributes => [{:content => '', :author_id => 1}])
         end.should_not change(Revision, :count).by(1)
       end
 

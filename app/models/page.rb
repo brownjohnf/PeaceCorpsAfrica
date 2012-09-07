@@ -8,7 +8,7 @@ class Page < ActiveRecord::Base
   has_many :revisions, :dependent => :destroy
   has_one :current_revision, :class_name => Revision
 
-  accepts_nested_attributes_for :revisions, :reject_if => proc { |a| a[:content].blank? }
+  accepts_nested_attributes_for :revisions, :reject_if => Proc.new { |a| a.blank? }
   
   validates :country_id, :title, :presence => true
   validates :country_id, :numericality => { :is_integer => true }

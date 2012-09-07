@@ -3,7 +3,6 @@ class Revision < ActiveRecord::Base
 
   validates :author_id, :page_id, :content, :presence => true
   validates :author_id, :page_id, :numericality => { :is_integer => true }
-  validate :changed_content, :on => :create
 
   belongs_to :page
   belongs_to :author, :class_name => 'User', :foreign_key => :author_id
@@ -16,13 +15,6 @@ class Revision < ActiveRecord::Base
 
     def do_after_save
       self.page.set_html(content)
-    end
-
-    def changed_content
-      existing = Revision.where(:page_id => page_id).limit(1).first
-      if existing
-        errors.add(:content, 'is unchanged') if content == existing.content
-      end
     end
 
 end
