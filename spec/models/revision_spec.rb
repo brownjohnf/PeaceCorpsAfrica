@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe Revision do
   before :each do
+    id = FactoryGirl.create(:page).id
     @attr = {
       :author_id => 1,
-      :page_id => 1,
+      :page_id => id,
       :content => 'Test Content'
     }
   end
@@ -59,8 +60,6 @@ describe Revision do
 
         it 'should not be valid if content is the same as most recent content for given page_id' do
           @revision2 = Revision.new @attr
-          puts @revision.inspect
-          puts @revision2.inspect
           @revision2.should_not be_valid
         end
       end
@@ -114,6 +113,16 @@ describe Revision do
 
       it 'should load the correct page' do
         @revision.page.should be @page
+      end
+
+      it 'should update page.html after save' do
+        @page = @revision.page
+        old_html = @page.html
+        new_html = 'fun, new html!'
+        FactoryGirl.create(:revision, :page => @page, :content => new_html)
+        @page.reload
+        @page.html.should_not eq old_html
+        @page.html.should eq new_html
       end
     end
 

@@ -15,7 +15,7 @@ class Page < ActiveRecord::Base
   validates :locked_by, :numericality => { :is_integer => true }, :allow_blank => true
   validates :title, :length => { :minimum => 3, :maximum => 255 }
 
-  after_save :do_after_save
+  #after_save :do_after_save
 
   def lock(user)
     self.locked_at = Time.now
@@ -25,8 +25,7 @@ class Page < ActiveRecord::Base
   end
 
   def unlock
-    self.locked_at = nil
-    self.save
+    self.update_attributes(:locked_at => nil)
     return self
   end
 
@@ -35,7 +34,7 @@ class Page < ActiveRecord::Base
   end
 
   def set_html(content)
-    self.html = content
+    self.update_attributes(:html => content)
   end
 
   def to_param

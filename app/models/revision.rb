@@ -10,7 +10,13 @@ class Revision < ActiveRecord::Base
 
   default_scope :order => 'id DESC'
 
+  after_save :do_after_save
+
   private
+
+    def do_after_save
+      self.page.set_html(content)
+    end
 
     def changed_content
       existing = Revision.where(:page_id => page_id).limit(1).first

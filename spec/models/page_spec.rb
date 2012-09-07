@@ -116,7 +116,7 @@ describe Page do
         @page.lock(@user).editor.should be @user
       end
 
-      it 'should have an editer after unlocking' do
+      it 'should have an editor after unlocking' do
         @page.lock(@user)
         @page.unlock.editor.should be @user
       end
@@ -260,13 +260,6 @@ describe Page do
         new_html = @page.html + ' spiffy HTML'
         @page.set_html(new_html)
         @page.html.should eq new_html
-      end
-
-      it 'should run after save' do
-        @revision = FactoryGirl.create(:revision, :page => @page, :content => @page.html + 'new content')
-        @page.reload
-        @page.save!
-        @page.html.should eq @revision.content
       end
     end
 
