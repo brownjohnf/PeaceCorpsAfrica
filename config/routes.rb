@@ -1,8 +1,10 @@
 PeaceCorpsAfrica::Application.routes.draw do
 
-  resources :revisions
+  resources :revisions, :only => [:destroy]
 
-  resources :pages
+  resources :pages do
+    resources :revisions, :except => [:destroy]
+  end
 
   resources :initiatives
 
