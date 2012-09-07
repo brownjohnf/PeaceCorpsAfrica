@@ -14,7 +14,11 @@
       = raw @page.html
     .span4
       %ul.nav.nav-tabs.nav-stacked
-        %li= link_to "Visit Peace Corps | #{@country.name}", (@country.site_url.blank? ? country_home_path(@country) : @country.site_url), :target => '_blank'
+        %li
+          - if @country.site_url.blank?
+            = link_to "Visit Peace Corps | #{@country.name}", country_home_path(@country)
+          - else
+            = link_to "Visit Peace Corps | #{@country.name}", @country.site_url, :target => '_blank'
         %li= link_to 'Donate', @country.donate_url, :target => '_blank' unless @country.donate_url.blank?
         - for initiative in @country.initiatives do
           %li= link_to "#{initiative.name} in #{@country.name}", (@country.country_url_for(initiative).blank? ? country_initiative_path(@country, initiative) : @country.country_url_for(initiative))

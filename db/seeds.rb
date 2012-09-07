@@ -175,9 +175,9 @@ Country.create!([{
 },{
   :code => 'SN',
   :start_date => '1963-02-15',
-  :site_url => '',
+  :site_url => 'http://www.pcsenegal.org',
   :donate_url => '',
-  :contact_email => '',
+  :contact_email => 'admin@pcsenegal.org',
   :page_id => 1
 },{
   :code => 'SL',
@@ -292,7 +292,7 @@ CountryInitiative.create!([{
   :country_id => Country.find_by_code('SN').id,
   :initiative_id => Initiative.find_by_abbreviation('FOODSEC').id
 },{
-  :country_id => Country.find_by_code('GH').id,
+  :country_id => Country.find_by_code('BJ').id,
   :initiative_id => Initiative.find_by_abbreviation('FOODSEC').id
 },{
   :country_id => Country.find_by_code('ML').id,
