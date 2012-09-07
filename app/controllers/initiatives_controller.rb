@@ -17,6 +17,7 @@ class InitiativesController < ApplicationController
   # GET /initiatives/1.json
   def show
     @initiative = Initiative.find_by_abbreviation(params[:id].upcase)
+    @page = @initiative.page
 
     respond_to do |format|
       format.html # show.html.erb

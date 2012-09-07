@@ -53,10 +53,19 @@ describe InitiativesController do
   end
 
   describe "GET show" do
+    before :each do
+      @initiative = FactoryGirl.create(:initiative, :page => @page = FactoryGirl.create(:page))
+    end
+
     it "assigns the requested initiative as @initiative" do
       initiative = Initiative.create! valid_attributes
       get :show, {:id => initiative.to_param}
       assigns(:initiative).should eq(initiative)
+    end
+
+    it 'assigns initiative.page as @page' do
+      get :show, :id => @initiative.to_param
+      assigns(:page).should eq @page
     end
   end
 
