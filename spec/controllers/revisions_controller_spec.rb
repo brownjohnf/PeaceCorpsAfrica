@@ -38,11 +38,14 @@ describe RevisionsController do
     {}
   end
 
+  before :each do
+    @revision = FactoryGirl.create :revision
+  end
+
   describe "GET index" do
     it "assigns all revisions as @revisions" do
-      revision = Revision.create! valid_attributes
-      get :index, {}
-      assigns(:revisions).should eq([revision])
+      get :index, :page_id => @revision.page.to_param
+      assigns(:revisions).should eq([@revision])
     end
   end
 
