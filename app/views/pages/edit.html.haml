@@ -11,12 +11,15 @@
         = render 'shared/form_errors', :item => @page if @page.errors.any?
         %legend More than basics
         = render 'shared/form_info'
+        .row
+          .span5
+            %label Page Title
+            = f.text_field :title, :class => 'required span5'
+          .span4
+            %label Country
+            = f.collection_select :country_id, Country.all, :id, :name, {}, { :class => 'required span4' }
         = f.fields_for :revisions do |ff|
           = render 'revisions/fields', :f => ff if ff.object.new_record?
-        %label Country
-        = f.collection_select :country_id, Country.all, :id, :name, {}, { :class => 'required' }
-        %label Page Title
-        = f.text_field :title, :class => 'required'
         .form-actions
           = f.submit 'Save', :class => 'btn btn-primary'
       %h2 Revision History
@@ -26,7 +29,7 @@
             .span9
               %hr
             .span2
-              = revision.author.name
-              = revision.created_at
+              %h4= revision.author.name
+              %p= revision.created_at
             .span7
               = raw(revision.content)
