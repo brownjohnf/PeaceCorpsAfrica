@@ -16,4 +16,8 @@ FactoryGirl.define do
     Carmen.countries[n][1] + Carmen.countries[n+1][1]
   end
 
+  sequence :content do |n|
+    "<p>Fresh content number #{n}!"
+  end
+
 end

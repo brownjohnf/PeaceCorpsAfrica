@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :revision do
     author
-    content "MyText"
+    content
     page
   end
 end

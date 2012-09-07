@@ -8,12 +8,14 @@ class Page < ActiveRecord::Base
   has_many :revisions, :dependent => :destroy
   has_one :current_revision, :class_name => Revision
 
-  accepts_nested_attributes_for :revisions
+  accepts_nested_attributes_for :revisions, :reject_if => proc { |a| a[:content].blank? }
   
   validates :country_id, :title, :presence => true
   validates :country_id, :numericality => { :is_integer => true }
   validates :locked_by, :numericality => { :is_integer => true }, :allow_blank => true
   validates :title, :length => { :minimum => 3, :maximum => 255 }
+
+  after_save :do_after_save
 
   def lock(user)
     self.locked_at = Time.now
@@ -32,8 +34,18 @@ class Page < ActiveRecord::Base
     !locked_at.blank? && locked_at > Time.now - 15.minutes
   end
 
+  def set_html(content)
+    self.html = content
+  end
+
   def to_param
     "#{id}-#{title.parameterize}"
   end
+
+  private
+
+    def do_after_save
+      self.set_html(self.revisions.any? ? self.current_revision.content : '<p>No content.</p>')
+    end
 
 end

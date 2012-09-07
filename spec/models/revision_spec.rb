@@ -46,6 +46,24 @@ describe Revision do
       it 'should require content' do
         Revision.new(@attr.merge(:content => '')).should_not be_valid
       end
+
+      context 'for a given page_id' do
+        before :each do
+          @revision = Revision.create @attr
+        end
+
+        it 'should be valid if content is NOT the same as most recent content for given page_id' do
+          @revision2 = Revision.new @attr.merge(:content => 'new content!')
+          @revision2.should be_valid
+        end
+
+        it 'should not be valid if content is the same as most recent content for given page_id' do
+          @revision2 = Revision.new @attr
+          puts @revision.inspect
+          puts @revision2.inspect
+          @revision2.should_not be_valid
+        end
+      end
     end
 
     describe 'page_id' do

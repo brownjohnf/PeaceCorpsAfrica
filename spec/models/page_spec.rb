@@ -90,7 +90,7 @@ describe Page do
     describe 'current_revision' do
       before :each do
         @revision = FactoryGirl.create(:revision, :page => @page = FactoryGirl.create(:page))
-        @revision2 = FactoryGirl.create(:revision, :page => @page)
+        @revision2 = FactoryGirl.create(:revision, :page => @page, :content => 'changed content')
       end
 
       it 'should be an instance of Revision' do
@@ -138,7 +138,9 @@ describe Page do
 
     describe 'revisions' do
       before :each do
-        @revision = FactoryGirl.create(:revision, :page => @page = FactoryGirl.create(:page))
+        @page = Page.create!(:title => 'test', :country_id => 1)
+        @page.update_attributes(:revisions_attributes => [{:content => 'testing', :author_id => 1}])
+        @revision = @page.revisions.first
       end
 
       it 'should be an instance of Revision' do
@@ -153,6 +155,12 @@ describe Page do
         lambda do
           @page.update_attributes!(:revisions_attributes => [{:content => 'test', :author_id => 1}])
         end.should change(Revision, :count).by(1)
+      end
+
+      it 'should reject if content is blank' do
+        lambda do
+          @page.update_attributes!(:revisions_attributes => [{:content => '', :author_id => 1}])
+        end.should_not change(Revision, :count).by(1)
       end
 
       it 'should destroy revisions on destroy' do
@@ -174,6 +182,10 @@ describe Page do
 
     it 'should respond to unlock' do
       Page.new(@attr).should respond_to :unlock
+    end
+
+    it 'should respond to set_html(content)' do
+      Page.new(@attr).should respond_to(:set_html).with(1).argument
     end
 
     describe 'lock(user)' do
@@ -236,6 +248,25 @@ describe Page do
       it 'should return false after unlocking' do
         @page.lock(FactoryGirl.create(:user))
         @page.unlock.locked?.should_not be_true
+      end
+    end
+
+    describe 'set_html(content)' do
+      before :each do
+        @page = FactoryGirl.create :page
+      end
+
+      it 'should change html' do
+        new_html = @page.html + ' spiffy HTML'
+        @page.set_html(new_html)
+        @page.html.should eq new_html
+      end
+
+      it 'should run after save' do
+        @revision = FactoryGirl.create(:revision, :page => @page, :content => @page.html + 'new content')
+        @page.reload
+        @page.save!
+        @page.html.should eq @revision.content
       end
     end
 

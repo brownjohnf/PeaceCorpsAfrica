@@ -30,6 +30,13 @@ describe PagesController do
     }
   end
 
+  def valid_revision_attributes
+    {
+      :content => 'Some fun, fresh content',
+      :author_id => 1
+    }
+  end
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # PagesController. Be sure to keep this updated too.
@@ -160,7 +167,11 @@ describe PagesController do
   end
 
   describe "PUT update" do
+    before :each do
+      @page = FactoryGirl.create :page
+    end
     login_admin
+
     describe "with valid params" do
       it "updates the requested page" do
         page = Page.create! valid_attributes
@@ -182,6 +193,32 @@ describe PagesController do
         page = Page.create! valid_attributes
         put :update, {:id => page.to_param, :page => valid_attributes}
         response.should redirect_to(page)
+      end
+
+      context 'no current revisions' do
+        it 'should create a new revision' do
+          lambda do
+            put :update, :id => @page.id, :page => valid_attributes.merge(:revisions_attributes => [valid_revision_attributes])
+          end.should change(Revision, :count).by(1)
+        end
+      end
+      
+      context 'with current revisions' do
+        before :each do
+          @revision = FactoryGirl.create(:revision, :page => @page)
+        end
+
+        it 'should create a new revision if revised' do
+          lambda do
+            put :update, :id => @page.id, :page => valid_attributes.merge(:revisions_attributes => [valid_revision_attributes.merge(:content => @revision.content + ' new')])
+          end.should change(Revision, :count).by(1)
+        end
+
+        it 'should not create a new revision if unrevised' do
+          lambda do
+            put :update, :id => @page.to_param, :page => valid_attributes.merge(:revisions_attributes => [valid_revision_attributes.merge(:content => @revision.content)])
+          end.should_not change(Revision, :count).by(1)
+        end
       end
     end
 
