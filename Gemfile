@@ -15,6 +15,7 @@ gem 'carmen'
 gem 'nested_form'
 gem 'bootstrap-will_paginate'
 gem 'pony'
+gem 'redcarpet'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
