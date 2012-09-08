@@ -7,12 +7,12 @@
           %small Since #{@country.start_date.year}.
   .row
     .span2
-      - @country.contact_email
-      %h3 Contact
-      %address
-        %strong= @country.contact_email
+      - unless @country.contact_email.blank?
+        %h3 Contact
+        %address
+          %strong= @country.contact_email
+      &nbsp;
     .span6
-      %h1= @page.title
       = raw @page.html
     .span4
       %ul.nav.nav-tabs.nav-stacked

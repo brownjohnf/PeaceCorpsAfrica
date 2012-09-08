@@ -27,6 +27,9 @@ body {
   #main {
     background-image: url('http://static.pcsenegal.org/photos/pc_logo_500sq_faded.png');
     background-repeat: no-repeat;
+    .hide-overflow {
+      overflow: hidden;
+    }
     .full-height-text {
       font-size: 15em;
       line-height: 100%;

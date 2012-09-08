@@ -6,11 +6,14 @@
           #{@initiative.name}
           %small a Peace Corps Initiative.
   .row
-    .span2
-      %address
-        %strong= @initiative.contact_email
+    .span2.hide-overflow
+      - unless @initiative.contact_email.blank?
+        %h3 Contact
+        %address
+          %strong
+            = link_to @initiative.contact_email, "mailto:#{@initiative.contact_email}"
+      &nbsp;
     .span6
-      %h1= @page.title
       = raw @page.html
     .span4
       %ul.nav.nav-tabs.nav-stacked
