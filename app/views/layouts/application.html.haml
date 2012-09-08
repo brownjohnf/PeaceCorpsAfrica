@@ -15,13 +15,7 @@
     %header
       = render 'layouts/navigation'
     #main{:role => "main"}
-      .container-fluid
-        .row-fluid
-          .span12
-            .alert.alert-error.alert-block.center
-              =link_to 'x', '#', :class => 'close', 'data-dismiss' => 'alert'
-              %strong WARNING!
-              This app is undergoing heavy development. Any and all data may be destroyed at any time. You've been warned.
+      = render 'layouts/developer_messages'
       = render 'layouts/messages' if flash.any?
       = render 'menu' rescue nil
       = yield
