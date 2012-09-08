@@ -1,5 +1,50 @@
-.well.blue
-  %h2 How to format
-  %p Right now, we only offer raw HTML formatting, but soon we'll implement a simpler, easy-to-use markup named Markdown
-  %p Luckily, Markdown is capable of parsing HTML, so any HTML you implement now will continue to function seamlessly.
-%h3 Markdown Style Guide
+%table.table.table-striped.table-hover.table-bordered
+  %thead
+    %th plain text
+    %th effect
+  %tr
+    %td
+      %p Paragraph on new line
+    %td= markdown 'Paragraph on new line'
+  %tr
+    %td
+      %p *emphasis*
+    %td= markdown '*emphasis*'
+  %tr
+    %td
+      %p **strong**
+    %td= markdown('**strong**')
+  %tr
+    %td
+      %p `code`
+    %td= markdown '`code`'
+  %tr
+    %td
+      %p * item 1
+    %td= markdown '* item 1'
+  %tr
+    %td
+      %p 1. numbered item 1
+    %td= markdown '1. numbered item 1'
+  %tr
+    %td [link text](http://example.url)
+    %td= markdown '[link text](http://example.url)'
+  %tr
+    %td ![alt text](image_url)
+    %td= markdown '![alt text](image_url)'
+  %tr
+    %td # H1 header
+    %td= markdown '# H1 header'
+  %tr
+    %td ## H2 header, etc. (1-6)
+    %td= markdown '## H2 header, etc. (1-6)'
+  -#%tr
+    %td
+      %p
+        [End link][0], and [end link][1]
+        %br
+        \...
+        [0]:http://test.com
+        %br
+        [1]:http://test.com
+    %td= markdown ''

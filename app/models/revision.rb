@@ -14,7 +14,7 @@ class Revision < ActiveRecord::Base
   private
 
     def do_after_save
-      self.page.set_html(content)
+      self.page.set_html(Markdown.render(content))
     end
 
 end

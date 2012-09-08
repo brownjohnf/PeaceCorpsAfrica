@@ -58,7 +58,7 @@ describe Revision do
           @revision2.should be_valid
         end
 
-        it 'should not be valid if content is the same as most recent content for given page_id' do
+        pending 'should not be valid if content is the same as most recent content for given page_id' do
           @revision2 = Revision.new @attr
           @revision2.should_not be_valid
         end
@@ -117,8 +117,8 @@ describe Revision do
 
       it 'should update page.html after save' do
         @page = @revision.page
-        old_html = @page.html
-        new_html = 'fun, new html!'
+        old_html = Markdown.render(@page.html)
+        new_html = Markdown.render('fun, new html!')
         FactoryGirl.create(:revision, :page => @page, :content => new_html)
         @page.reload
         @page.html.should_not eq old_html

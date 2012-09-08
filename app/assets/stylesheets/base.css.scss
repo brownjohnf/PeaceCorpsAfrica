@@ -27,6 +27,9 @@ body {
   #main {
     background-image: url('http://static.pcsenegal.org/photos/pc_logo_500sq_faded.png');
     background-repeat: no-repeat;
+    table {
+      background-color: $white;
+    }
     .hide-overflow {
       overflow: hidden;
     }
