@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
   before_filter :handle_cookies
+  before_filter :check_verification
 
   protect_from_forgery
 
@@ -18,6 +19,9 @@ class ApplicationController < ActionController::Base
     else
       cookies[:country] = 'Africa'
     end
+  end
+
+  def check_verification
   end
 
 end

@@ -1,0 +1,23 @@
+%h1 Listing valid_emails
+
+%table
+  %tr
+    %th Email
+    %th Checked in
+    %th Permissions
+    %th
+    %th
+    %th
+
+  - @valid_emails.each do |valid_email|
+    %tr
+      %td= valid_email.email
+      %td= valid_email.checked_in
+      %td= valid_email.permissions
+      %td= link_to 'Show', valid_email
+      %td= link_to 'Edit', edit_valid_email_path(valid_email)
+      %td= link_to 'Destroy', valid_email, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Valid email', new_valid_email_path

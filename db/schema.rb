@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120906212401) do
+ActiveRecord::Schema.define(:version => 20120910115055) do
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20120906212401) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.datetime "verified_at"
     t.string   "invitation_token",       :limit => 60
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
@@ -126,5 +127,13 @@ ActiveRecord::Schema.define(:version => 20120906212401) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+  create_table "valid_emails", :force => true do |t|
+    t.string   "email"
+    t.datetime "checked_in_at"
+    t.string   "permissions",   :default => "volunteer"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
 
 end

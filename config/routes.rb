@@ -1,5 +1,7 @@
 PeaceCorpsAfrica::Application.routes.draw do
 
+  resources :valid_emails
+
   resources :revisions, :only => [:destroy]
 
   resources :pages do

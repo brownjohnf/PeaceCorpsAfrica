@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Email:
+  = @valid_email.email
+%p
+  %b Checked in:
+  = @valid_email.checked_in
+%p
+  %b Permissions:
+  = @valid_email.permissions
+
+= link_to 'Edit', edit_valid_email_path(@valid_email)
+\|
+= link_to 'Back', valid_emails_path
