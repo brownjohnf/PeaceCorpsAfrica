@@ -6,3 +6,7 @@
         User: #{@user.name}
       %p
         Email: #{@user.email if @user.email}
+      %h3 Roles
+      %ul
+        - for role in @user.roles do
+          %li= role.name

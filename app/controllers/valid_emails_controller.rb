@@ -1,5 +1,6 @@
 class ValidEmailsController < ApplicationController
   load_and_authorize_resource
+
   # GET /valid_emails
   # GET /valid_emails.json
   def index

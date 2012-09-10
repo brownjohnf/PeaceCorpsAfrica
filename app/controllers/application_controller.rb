@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
 
   before_filter :handle_cookies
-  before_filter :check_verification
 
   protect_from_forgery
 
@@ -21,7 +20,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_verification
+  def after_sign_in_path_for(resource)
+    unless current_user.verified?
+      current_user.verify
+    else
+      valid_email = ValidEmail.find_by_email(current_user.email)
+      if valid_email && valid_email.checked_in? == false
+        current_user.verify
+      end
+    end
+    user_path(current_user)
   end
 
 end

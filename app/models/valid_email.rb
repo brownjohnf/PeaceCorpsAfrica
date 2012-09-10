@@ -4,12 +4,17 @@ class ValidEmail < ActiveRecord::Base
   validates :email, :presence => true, :email => true
 
   def check_in
-    self.update_attributes(:checked_in_at => Time.now)
+    self.update_attributes(:checked_in_at => Time.now + 1.second)
   end
   
   def checked_in?
-    !checked_in_at.nil?
-
+    if checked_in_at.nil?
+      return false
+    elsif checked_in_at < updated_at
+      return false
+    else
+      return true
+    end
   end
 
 end

@@ -24,7 +24,9 @@ describe ValidEmailsController do
   # ValidEmail. As you add validations to ValidEmail, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {
+      :email => 'user@example.com'
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -37,7 +39,7 @@ describe ValidEmailsController do
   describe "GET index" do
     it "assigns all valid_emails as @valid_emails" do
       valid_email = ValidEmail.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {}
       assigns(:valid_emails).should eq([valid_email])
     end
   end
@@ -45,14 +47,14 @@ describe ValidEmailsController do
   describe "GET show" do
     it "assigns the requested valid_email as @valid_email" do
       valid_email = ValidEmail.create! valid_attributes
-      get :show, {:id => valid_email.to_param}, valid_session
+      get :show, {:id => valid_email.to_param}
       assigns(:valid_email).should eq(valid_email)
     end
   end
 
   describe "GET new" do
     it "assigns a new valid_email as @valid_email" do
-      get :new, {}, valid_session
+      get :new, {}
       assigns(:valid_email).should be_a_new(ValidEmail)
     end
   end
@@ -60,7 +62,7 @@ describe ValidEmailsController do
   describe "GET edit" do
     it "assigns the requested valid_email as @valid_email" do
       valid_email = ValidEmail.create! valid_attributes
-      get :edit, {:id => valid_email.to_param}, valid_session
+      get :edit, {:id => valid_email.to_param}
       assigns(:valid_email).should eq(valid_email)
     end
   end
@@ -69,18 +71,18 @@ describe ValidEmailsController do
     describe "with valid params" do
       it "creates a new ValidEmail" do
         expect {
-          post :create, {:valid_email => valid_attributes}, valid_session
+          post :create, {:valid_email => valid_attributes}
         }.to change(ValidEmail, :count).by(1)
       end
 
       it "assigns a newly created valid_email as @valid_email" do
-        post :create, {:valid_email => valid_attributes}, valid_session
+        post :create, {:valid_email => valid_attributes}
         assigns(:valid_email).should be_a(ValidEmail)
         assigns(:valid_email).should be_persisted
       end
 
       it "redirects to the created valid_email" do
-        post :create, {:valid_email => valid_attributes}, valid_session
+        post :create, {:valid_email => valid_attributes}
         response.should redirect_to(ValidEmail.last)
       end
     end
@@ -89,14 +91,14 @@ describe ValidEmailsController do
       it "assigns a newly created but unsaved valid_email as @valid_email" do
         # Trigger the behavior that occurs when invalid params are submitted
         ValidEmail.any_instance.stub(:save).and_return(false)
-        post :create, {:valid_email => {}}, valid_session
+        post :create, {:valid_email => {}}
         assigns(:valid_email).should be_a_new(ValidEmail)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         ValidEmail.any_instance.stub(:save).and_return(false)
-        post :create, {:valid_email => {}}, valid_session
+        post :create, {:valid_email => {}}
         response.should render_template("new")
       end
     end
@@ -111,18 +113,18 @@ describe ValidEmailsController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         ValidEmail.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => valid_email.to_param, :valid_email => {'these' => 'params'}}, valid_session
+        put :update, {:id => valid_email.to_param, :valid_email => {'these' => 'params'}}
       end
 
       it "assigns the requested valid_email as @valid_email" do
         valid_email = ValidEmail.create! valid_attributes
-        put :update, {:id => valid_email.to_param, :valid_email => valid_attributes}, valid_session
+        put :update, {:id => valid_email.to_param, :valid_email => valid_attributes}
         assigns(:valid_email).should eq(valid_email)
       end
 
       it "redirects to the valid_email" do
         valid_email = ValidEmail.create! valid_attributes
-        put :update, {:id => valid_email.to_param, :valid_email => valid_attributes}, valid_session
+        put :update, {:id => valid_email.to_param, :valid_email => valid_attributes}
         response.should redirect_to(valid_email)
       end
     end
@@ -132,7 +134,7 @@ describe ValidEmailsController do
         valid_email = ValidEmail.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         ValidEmail.any_instance.stub(:save).and_return(false)
-        put :update, {:id => valid_email.to_param, :valid_email => {}}, valid_session
+        put :update, {:id => valid_email.to_param, :valid_email => {}}
         assigns(:valid_email).should eq(valid_email)
       end
 
@@ -140,7 +142,7 @@ describe ValidEmailsController do
         valid_email = ValidEmail.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         ValidEmail.any_instance.stub(:save).and_return(false)
-        put :update, {:id => valid_email.to_param, :valid_email => {}}, valid_session
+        put :update, {:id => valid_email.to_param, :valid_email => {}}
         response.should render_template("edit")
       end
     end
@@ -150,13 +152,13 @@ describe ValidEmailsController do
     it "destroys the requested valid_email" do
       valid_email = ValidEmail.create! valid_attributes
       expect {
-        delete :destroy, {:id => valid_email.to_param}, valid_session
+        delete :destroy, {:id => valid_email.to_param}
       }.to change(ValidEmail, :count).by(-1)
     end
 
     it "redirects to the valid_emails list" do
       valid_email = ValidEmail.create! valid_attributes
-      delete :destroy, {:id => valid_email.to_param}, valid_session
+      delete :destroy, {:id => valid_email.to_param}
       response.should redirect_to(valid_emails_url)
     end
   end

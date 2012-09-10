@@ -3,7 +3,7 @@
 %table
   %tr
     %th Email
-    %th Checked in
+    %th Checked in at
     %th Permissions
     %th
     %th
@@ -12,7 +12,7 @@
   - @valid_emails.each do |valid_email|
     %tr
       %td= valid_email.email
-      %td= valid_email.checked_in
+      %td= valid_email.checked_in_at
       %td= valid_email.permissions
       %td= link_to 'Show', valid_email
       %td= link_to 'Edit', edit_valid_email_path(valid_email)

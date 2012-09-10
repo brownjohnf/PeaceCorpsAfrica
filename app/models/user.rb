@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
       end
       remove_roles.each do |role|
         user.remove_role(role)
-
       end
+      valid_email.check_in
     end
     self.update_attributes(:verified_at => Time.now)
   end

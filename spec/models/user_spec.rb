@@ -94,6 +94,13 @@ describe User do
         @user.verified?.should be_true
       end
 
+      it 'should set verified_at to Time.now' do
+        time = Time.now - 1.second
+        @user.verify
+        @user.reload
+        @user.verified_at.should be > time
+      end
+
       context 'without ValidEmail' do
         it 'should not add any roles' do
           count = @user.roles.count
@@ -125,18 +132,13 @@ describe User do
 
         it 'should remove any extra permissions' do
           extra_roles = ['a','b','c','d']
-
           @valid_email = FactoryGirl.create(:valid_email, :email => @user.email, :permissions => extra_roles.join(','))
-          #puts @valid_email.inspect
-          #puts @user.roles.inspect
           @user.verify
-          #puts @user.roles.inspect
           @valid_email.update_attributes(:permissions => 'nobleman,knight')
-          #puts @valid_email.inspect
-
           @user.verify
-          puts @user.roles.inspect
-          @user.has_any_role? {extra_roles}.should_not be_true
+          extra_roles.each do |role|
+            @user.has_role?(role).should be_false
+          end
           @user.roles.count.should eq @valid_email.permissions.split(',').count
         end
       end
