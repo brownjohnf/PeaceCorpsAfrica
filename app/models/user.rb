@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :verified_at
 
+  has_many :revisions, :foreign_key => :author_id
+
   def verified?
     !verified_at.nil?
   end

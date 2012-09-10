@@ -1,12 +1,19 @@
 .container
   .row
     .span12
-      %h3 User
-      %p
-        User: #{@user.name}
-      %p
-        Email: #{@user.email if @user.email}
-      %h3 Roles
-      %ul
-        - for role in @user.roles do
-          %li= role.name
+      .hero-unit.red
+        %h1
+          = @user.name
+          %small= @user.email
+      - if @user.verified?
+        .page-header
+          %h1 Revisions
+        %p #{@user.name} has made #{pluralize(@user.revisions.count, 'revision')} on the site.
+        .page-header
+          %h1 Roles
+        %ul
+          - for role in @user.roles do
+            %li= role.name
+      - else
+        .hero-unit.blue
+          %h1 This user is not verified.

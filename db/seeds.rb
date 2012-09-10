@@ -15,7 +15,6 @@ user = User.create!(
   :password_confirmation => 'password'
 )
 puts 'New user created: ' << user.name
-user.add_role :admin
 
 user = User.create!(
   :name => 'Chris Hedrick',
@@ -24,7 +23,6 @@ user = User.create!(
   :password_confirmation => 'hedrick'
 )
 puts 'New user created: ' << user.name
-user.add_role :admin
 
 user = User.create!(
   :name => 'Andrew Kistler',
@@ -33,7 +31,20 @@ user = User.create!(
   :password_confirmation => 'kistler'
 )
 puts 'New user created: ' << user.name
-user.add_role :admin
+puts 'Adding default permissions for seed users.'
+ValidEmail.create!([{
+  :email => 'jack@brownjohnf.com',
+  :permissions => 'admin,volunteer'
+},{
+  :email => 'chedrick@peacecorps.gov',
+  :permissions => 'admin,staff'
+},{
+  :email => 'akistler63@gmail.com',
+  :permissions => 'admin,volunteer'
+},{
+  :email => 'danielle.stoermer@gmail.com',
+  :permissions => 'admin,volunteer'
+}])
 
 # create default page
 puts 'CREATING DEFAULT COUNTRIES'
@@ -270,7 +281,7 @@ end
 
 Country.find_by_code('BJ').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 More than 1,800 Volunteers have served in Benin since 1968.  See here for more information about Peace Corps Benin.
 
@@ -279,7 +290,7 @@ HEREDOC
 }])
 Country.find_by_code('BW').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Botswana:
 More than 2,220 Peace Corps Volunteers have served in Botswana since the program was established in 1966. See here for more information about Peace Corps Botswana.
@@ -288,7 +299,7 @@ HEREDOC
 }])
 Country.find_by_code('BF').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Burkina Faso:
 More than 1,740 Peace Corps Volunteers have served in Burkina Faso since the program was established in 1967. See here for more information on Peace Corps Burkina Faso.
@@ -301,7 +312,7 @@ HEREDOC
 }])
 Country.find_by_code('CM').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Cameroon:
 More than 3,280 Peace Corps Volunteers have served in Cameroon since the program was established in 1962. See here for more information about Peace Corps Cameroon.
@@ -311,7 +322,7 @@ HEREDOC
 }])
 Country.find_by_code('CV').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Cape Verde:
 More than 520 Peace Corps Volunteers have served in Cape Verde since the program was established in 1988. See here for more information on Peace Corps Cape Verde.
@@ -322,7 +333,7 @@ HEREDOC
 }])
 Country.find_by_code('ET').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Ethiopia:
 More than 3,150 Peace Corps Volunteers have served in Ethiopia since the program was established in 1962. Currently, 133 volunteers serve in Ethiopia. See here for more information on Peace Corps Ethiopia.
@@ -331,7 +342,7 @@ HEREDOC
 }])
 Country.find_by_code('GH').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Ghana:
 More than 4,190 Peace Corps Volunteers have served in Ghana since the program was established in 1961. Ghana was the first country in Africa  to receive Peace Corps Volunteers. See here for more information on Peace Corps Ghana.
@@ -344,7 +355,7 @@ HEREDOC
 }])
 Country.find_by_code('GN').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Guinea:
 More than 1,320 Peace Corps Volunteers have served in Guinea since the program was established in 1963. See here for more information about Peace Corps Guinea.
@@ -353,7 +364,7 @@ HEREDOC
 }])
 Country.find_by_code('KE').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Kenya:
 More than 5,030 Peace Corps Volunteers have served in Kenya since the program was established in 1964. See here for more information about Peace Corps Kenya.
@@ -364,7 +375,7 @@ HEREDOC
 }])
 Country.find_by_code('LS').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Lesotho:
 More than 2,190 Peace Corps Volunteers have served in Lesotho since the program was established in 1967. See here For more information on Peace Corps Lesotho.
@@ -375,7 +386,7 @@ HEREDOC
 }])
 Country.find_by_code('LR').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Liberia:
 More than 3,910 Peace Corps Volunteers have served in Liberia since the program was established in 1962. See here for more information on Peace Corps Liberia.
@@ -384,7 +395,7 @@ HEREDOC
 }])
 Country.find_by_code('MG').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Madagascar:
 More than 950 Peace Corps Volunteers have served in Madagascar since the program was established in 1993. See here for more information about Peace Corps Madagascar.
@@ -395,7 +406,7 @@ HEREDOC
 }])
 Country.find_by_code('MW').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Malawi:
 More than 2,520 Peace Corps Volunteers have served in Malawi since the program was established in 1963. See here for more information on Peace Corps Malawi.
@@ -405,7 +416,7 @@ HEREDOC
 }])
 Country.find_by_code('MZ').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Mozambique:
 Volunteers in Mozambique work in the areas of education and health. See here for more information on Peace Corps Mozambique.
@@ -417,7 +428,7 @@ HEREDOC
 }])
 Country.find_by_code('RW').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Rwanda:
 More than 330 Peace Corps Volunteers have served in Rwanda since the program was established in 1975. See here for more information on Peace Corps Rwanda.
@@ -432,7 +443,7 @@ HEREDOC
 }])
 Country.find_by_code('ZA').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 South Africa:
 More than 1,050 Peace Corps Volunteers have served in South Africa since the program was established in 1997. See here for more information on Peace Corps South Africa.
@@ -442,7 +453,7 @@ HEREDOC
 }])
 Country.find_by_code('SZ').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Swaziland:
 More than 1,480 Peace Corps Volunteers have served in Swaziland since the program was established in 1969. See here for more information on Peace Corps Swaziland.
@@ -452,7 +463,7 @@ HEREDOC
 }])
 Country.find_by_code('TZ').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Tanzania:
 More than 2,320 Peace Corps Volunteers have served in Tanzania since the program was established in 1961. See here for more information on Peace Corps Tanzania.
@@ -470,7 +481,7 @@ HEREDOC
 }])
 Country.find_by_code('UG').page.update_attributes(
   :revisions_attributes => [{
-    :author_id => 1,
+    :author_id => 3,
     :content => <<HEREDOC
 Uganda:
 More than 1,170 Peace Corps Volunteers have served in Uganda since the program was established in 1964. See here for more information on Peace Corps Uganda.

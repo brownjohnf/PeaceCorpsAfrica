@@ -199,6 +199,26 @@ describe User do
     end
   end
 
+  describe 'associations' do
+    before :each do
+      @user = FactoryGirl.create :user
+    end
+
+    it 'should respond to revisions' do
+      @user.should respond_to :revisions
+    end
+
+    context 'revisions' do
+      before :each do
+        @revision = FactoryGirl.create(:revision, :author => @user)
+      end
+
+      it 'should have the correct revisions' do
+        @user.revisions.should eq [@revision]
+      end
+    end
+  end
+
   describe 'abilities' do
     context 'guest' do
       before :each do
