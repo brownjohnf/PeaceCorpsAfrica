@@ -9,6 +9,7 @@ class ValidEmail < ActiveRecord::Base
   
   def checked_in?
     !checked_in_at.nil?
+
   end
 
 end

@@ -95,16 +95,49 @@ describe User do
       end
 
       context 'without ValidEmail' do
+        it 'should not add any roles' do
+          count = @user.roles.count
+          @user.verify
+          @user.roles.count.should eq count
+        end
       end
 
       context 'with ValidEmail' do
-        before :each do
-          FactoryGirl.create(:valid_email, :email => @user.email)
-        end
-
         it 'should set verified = true' do
+          @valid_email = FactoryGirl.create(:valid_email, :email => @user.email)
           @user.verify
           @user.reload
+        end
+
+        it 'should add default role if no roles are set' do
+          @valid_email = FactoryGirl.create(:valid_email, :email => @user.email)
+          @role = @valid_email.permissions.split(',')
+          @user.verify
+          @user.has_role?(@role[0]).should be_true
+        end
+
+        it 'should add any roles set in ValidEmail' do
+          permissions = ['user','staff']
+          @valid_email = FactoryGirl.create(:valid_email, :email => @user.email, :permissions => permissions.join(','))
+          @user.verify
+          @user.has_all_roles? {permissions}.should be_true
+        end
+
+        it 'should remove any extra permissions' do
+          extra_roles = ['a','b','c','d']
+
+          @valid_email = FactoryGirl.create(:valid_email, :email => @user.email, :permissions => extra_roles.join(','))
+          #puts @valid_email.inspect
+          #puts @user.roles.inspect
+          @user.verify
+          #puts @user.roles.inspect
+          @valid_email.update_attributes(:permissions => 'nobleman,knight')
+          #puts @valid_email.inspect
+
+          @user.verify
+          puts @user.roles.inspect
+          @user.has_any_role? {extra_roles}.should_not be_true
+          @user.roles.count.should eq @valid_email.permissions.split(',').count
         end
       end
     end
