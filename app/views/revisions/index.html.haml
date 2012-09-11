@@ -15,9 +15,9 @@
       %td= revision.content
       %td= revision.page_id
       %td= link_to 'Show', revision
-      %td= link_to 'Edit', edit_revision_path(revision)
+      %td= link_to 'Edit', edit_page_revision_path(revision.page, revision)
       %td= link_to 'Destroy', revision, :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Revision', new_revision_path
+= link_to 'New Revision', new_page_revision_path

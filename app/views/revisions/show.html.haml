@@ -10,6 +10,6 @@
   %b Page:
   = @revision.page_id
 
-= link_to 'Edit', edit_revision_path(@revision)
+= link_to 'Edit', edit_page_revision_path(@revision.page, @revision)
 \|
-= link_to 'Back', revisions_path
+= link_to 'Back', page_revisions_path(@page)

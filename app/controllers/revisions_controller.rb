@@ -1,5 +1,6 @@
 class RevisionsController < ApplicationController
   load_and_authorize_resource
+
   # GET /revisions
   # GET /revisions.json
   def index
@@ -61,7 +62,7 @@ class RevisionsController < ApplicationController
 
     respond_to do |format|
       if @revision.update_attributes(params[:revision])
-        format.html { redirect_to @revision, notice: 'Revision was successfully updated.' }
+        format.html { redirect_to @revision.page, notice: 'Revision was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -77,7 +78,7 @@ class RevisionsController < ApplicationController
     @revision.destroy
 
     respond_to do |format|
-      format.html { redirect_to revisions_url }
+      format.html { redirect_to @revision.page }
       format.json { head :no_content }
     end
   end

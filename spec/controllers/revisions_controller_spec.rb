@@ -39,7 +39,7 @@ describe RevisionsController do
   end
 
   before :each do
-    @revision = FactoryGirl.create :revision
+    @revision = FactoryGirl.create(:revision, :page => @page = FactoryGirl.create(:page))
   end
 
   describe "GET index" do
@@ -51,16 +51,15 @@ describe RevisionsController do
 
   describe "GET show" do
     it "assigns the requested revision as @revision" do
-      revision = Revision.create! valid_attributes
-      get :show, {:id => revision.to_param}
-      assigns(:revision).should eq(revision)
+      get :show, :page_id => @page, :id => @revision.to_param
+      assigns(:revision).should eq(@revision)
     end
   end
 
   describe "GET new" do
     login_admin
     it "assigns a new revision as @revision" do
-      get :new, {}
+      get :new, :page_id => @page
       assigns(:revision).should be_a_new(Revision)
     end
   end
@@ -68,9 +67,8 @@ describe RevisionsController do
   describe "GET edit" do
     login_admin
     it "assigns the requested revision as @revision" do
-      revision = Revision.create! valid_attributes
-      get :edit, {:id => revision.to_param}
-      assigns(:revision).should eq(revision)
+      get :edit, :page_id => @page.id, :id => @revision.to_param
+      assigns(:revision).should eq(@revision)
     end
   end
 
@@ -79,19 +77,19 @@ describe RevisionsController do
     describe "with valid params" do
       it "creates a new Revision" do
         expect {
-          post :create, {:revision => valid_attributes}
+          post :create, :page_id => @page, :revision => valid_attributes.merge(:page_id => @page.id)
         }.to change(Revision, :count).by(1)
       end
 
       it "assigns a newly created revision as @revision" do
-        post :create, {:revision => valid_attributes}
+        post :create, :page_id => @page, :revision => valid_attributes.merge(:page_id => @page.id)
         assigns(:revision).should be_a(Revision)
         assigns(:revision).should be_persisted
       end
 
       it "redirects to the created revision" do
-        post :create, {:revision => valid_attributes}
-        response.should redirect_to(Revision.last)
+        post :create, :page_id => @page, :revision => valid_attributes.merge(:page_id => @page.id)
+        response.should redirect_to(Revision.first)
       end
     end
 
@@ -99,14 +97,14 @@ describe RevisionsController do
       it "assigns a newly created but unsaved revision as @revision" do
         # Trigger the behavior that occurs when invalid params are submitted
         Revision.any_instance.stub(:save).and_return(false)
-        post :create, {:revision => {}}
+        post :create, :page_id => @page, :revision => {}
         assigns(:revision).should be_a_new(Revision)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Revision.any_instance.stub(:save).and_return(false)
-        post :create, {:revision => {}}
+        post :create, :page_id => @page, :revision => {}
         response.should render_template("new")
       end
     end
@@ -116,42 +114,33 @@ describe RevisionsController do
     login_admin
     describe "with valid params" do
       it "updates the requested revision" do
-        revision = Revision.create! valid_attributes
-        # Assuming there are no other revisions in the database, this
-        # specifies that the Revision created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
         Revision.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => revision.to_param, :revision => {'these' => 'params'}}
+        put :update, :page_id => @page, :id => @revision.to_param, :revision => {'these' => 'params'}
       end
 
       it "assigns the requested revision as @revision" do
-        revision = Revision.create! valid_attributes
-        put :update, {:id => revision.to_param, :revision => valid_attributes}
-        assigns(:revision).should eq(revision)
+        put :update, :page_id => @page, :id => @revision.to_param, :revision => valid_attributes.merge(:page_id => nil)
+        assigns(:revision).should eq(@revision)
       end
 
-      it "redirects to the revision" do
-        revision = Revision.create! valid_attributes
-        put :update, {:id => revision.to_param, :revision => valid_attributes}
-        response.should redirect_to(revision)
+      it "redirects to the revision's page" do
+        put :update, :page_id => @page, :id => @revision.to_param, :revision => valid_attributes.merge(:page_id => @page.id)
+        response.should redirect_to(@page)
       end
     end
 
     describe "with invalid params" do
       it "assigns the revision as @revision" do
-        revision = Revision.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Revision.any_instance.stub(:save).and_return(false)
-        put :update, {:id => revision.to_param, :revision => {}}
-        assigns(:revision).should eq(revision)
+        put :update, :page_id => @page, :id => @revision.to_param, :revision => {}
+        assigns(:revision).should eq(@revision)
       end
 
       it "re-renders the 'edit' template" do
-        revision = Revision.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Revision.any_instance.stub(:save).and_return(false)
-        put :update, {:id => revision.to_param, :revision => {}}
+        put :update, :page_id => @page, :id => @revision.to_param, :revision => {}
         response.should render_template("edit")
       end
     end
@@ -160,16 +149,14 @@ describe RevisionsController do
   describe "DELETE destroy" do
     login_admin
     it "destroys the requested revision" do
-      revision = Revision.create! valid_attributes
       expect {
-        delete :destroy, {:id => revision.to_param}
+        delete :destroy, :id => @revision
       }.to change(Revision, :count).by(-1)
     end
 
-    it "redirects to the revisions list" do
-      revision = Revision.create! valid_attributes
-      delete :destroy, {:id => revision.to_param}
-      response.should redirect_to(revisions_url)
+    it "redirects to the revision's page" do
+      delete :destroy, :id => @revision
+      response.should redirect_to(@revision.page)
     end
   end
 

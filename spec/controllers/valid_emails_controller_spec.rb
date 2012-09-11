@@ -37,9 +37,10 @@ describe ValidEmailsController do
   end
 
   describe "GET index" do
+    login_admin
     it "assigns all valid_emails as @valid_emails" do
       valid_email = ValidEmail.create! valid_attributes
-      get :index, {}
+      get :index
       assigns(:valid_emails).should eq([valid_email])
     end
   end
@@ -53,6 +54,7 @@ describe ValidEmailsController do
   end
 
   describe "GET new" do
+    login_admin
     it "assigns a new valid_email as @valid_email" do
       get :new, {}
       assigns(:valid_email).should be_a_new(ValidEmail)
@@ -60,6 +62,7 @@ describe ValidEmailsController do
   end
 
   describe "GET edit" do
+    login_admin
     it "assigns the requested valid_email as @valid_email" do
       valid_email = ValidEmail.create! valid_attributes
       get :edit, {:id => valid_email.to_param}
@@ -68,6 +71,7 @@ describe ValidEmailsController do
   end
 
   describe "POST create" do
+    login_admin
     describe "with valid params" do
       it "creates a new ValidEmail" do
         expect {
@@ -105,6 +109,7 @@ describe ValidEmailsController do
   end
 
   describe "PUT update" do
+    login_admin
     describe "with valid params" do
       it "updates the requested valid_email" do
         valid_email = ValidEmail.create! valid_attributes
@@ -149,6 +154,7 @@ describe ValidEmailsController do
   end
 
   describe "DELETE destroy" do
+    login_admin
     it "destroys the requested valid_email" do
       valid_email = ValidEmail.create! valid_attributes
       expect {

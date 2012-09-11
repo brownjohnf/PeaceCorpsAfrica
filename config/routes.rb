@@ -23,6 +23,7 @@ PeaceCorpsAfrica::Application.routes.draw do
   resources :users, :only => [:show, :index]
 
   namespace :initiative, :path => '/:abbreviation', :constraints => { :abbreviation => /[a-z]{3,7}/i } do
+    resources :countries
     get '/' => 'home#index', :as => :home
   end
 
