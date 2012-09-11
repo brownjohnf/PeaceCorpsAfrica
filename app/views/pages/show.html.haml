@@ -24,7 +24,7 @@
       %hr
       %p
         created
-        = @page.created_at
+        = pretty_time @page.created_at
         = ' | '
         updated
-        = @page.updated_at
+        = pretty_time @page.updated_at
