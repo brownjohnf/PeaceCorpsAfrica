@@ -67,6 +67,27 @@ describe Page do
       Page.new(@attr).should respond_to :revisions
     end
 
+    it 'should respond to authors' do
+      Page.new(@attr).should respond_to :authors
+    end
+
+    it 'should respond to current_author' do
+      Page.new(@attr).should respond_to :current_author
+    end
+
+    describe 'authors' do
+      before :each do
+        FactoryGirl.create(:revision, :page => @page, :author => @user = FactoryGirl.create(:user))
+        FactoryGirl.create(:revision, :page => @page, :content => 'changed content', :author => @user)
+        FactoryGirl.create(:revision, :author => @user)
+        @page.reload
+      end
+
+      it 'should return the correct authors' do
+        @page.authors.should eq [@user]
+      end
+    end
+
     describe 'country' do
       before :each do
         @page = FactoryGirl.create(:page, :country => @country = FactoryGirl.create(:country))
@@ -84,6 +105,19 @@ describe Page do
 
       it 'should return the correct countries' do
         @page.countries.should eq [@country]
+      end
+    end
+
+    describe 'current_author' do
+      before :each do
+        FactoryGirl.create(:revision, :page => @page)
+        FactoryGirl.create(:revision, :page => @page, :content => 'changed content')
+        FactoryGirl.create(:revision, :page => @page, :content => 'yet more changed content', :author => @user = FactoryGirl.create(:user))
+        @page.reload
+      end
+
+      it 'should return the correct author' do
+        @page.current_author.should eq @user
       end
     end
 

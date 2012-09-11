@@ -20,4 +20,9 @@ $(function(){
 
   $('[rel=tooltip]').tooltip();
 
+  /*********************************************/
+  /* jquery.timeago binding */
+  $.timeago.settings.allowFuture = true;
+  $('time.timeago').timeago();  
+
 });

@@ -7,6 +7,8 @@ class Page < ActiveRecord::Base
   has_many :initiatives
   has_many :revisions, :dependent => :destroy
   has_one :current_revision, :class_name => Revision
+  has_many :authors, :through => :revisions, :uniq => true
+  has_one :current_author, :through => :current_revision, :source => :author
 
   accepts_nested_attributes_for :revisions, :reject_if => Proc.new { |a| a.blank? }
   
@@ -14,8 +16,6 @@ class Page < ActiveRecord::Base
   validates :country_id, :numericality => { :is_integer => true }
   validates :locked_by, :numericality => { :is_integer => true }, :allow_blank => true
   validates :title, :length => { :minimum => 3, :maximum => 255 }
-
-  #after_save :do_after_save
 
   def lock(user)
     self.locked_at = Time.now
@@ -42,9 +42,5 @@ class Page < ActiveRecord::Base
   end
 
   private
-
-    def do_after_save
-      self.set_html(self.revisions.any? ? self.current_revision.content : '<p>No content.</p>')
-    end
 
 end

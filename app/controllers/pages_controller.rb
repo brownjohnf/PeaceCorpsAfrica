@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   load_and_authorize_resource
-  before_filter :locked, :only => [:edit, :update, :destroy]
+  before_filter :set_redirect, :only => [:edit]
+  before_filter :lock, :only => [:edit, :update, :destroy]
   after_filter :unlock, :only => [:edit, :update]
 
   # GET /pages
@@ -39,6 +40,7 @@ class PagesController < ApplicationController
   # GET /pages/1/edit
   def edit
     @page.revisions.build(:content => (@page.current_revision.nil? ? '' : @page.current_revision.content))
+    #session[:return_to] = request.url
   end
 
   # POST /pages
@@ -64,7 +66,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.update_attributes(params[:page])
-        format.html { redirect_to @page, notice: 'Page was successfully updated.' }
+        format.html { redirect_to (session[:redirect_to] || @page), notice: 'Page was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -84,12 +86,20 @@ class PagesController < ApplicationController
       format.json { head :no_content }
     end
   end
+    def do_after_save
+      self.set_html(self.revisions.any? ? self.current_revision.content : '<p>No content.</p>')
+    end
+
 
   private
 
-    def locked
+    def set_redirect
+      session[:redirect_to] = request.referrer
+    end
+
+    def lock
       if @page.locked?
-        redirect_to @page unless @page.editor == current_user
+        redirect_to((session[:redirect_to] || @page), :alert => "This page is currently being edited by #{@page.editor.name}.") unless @page.editor == current_user
       else
         @page.lock(current_user)
       end

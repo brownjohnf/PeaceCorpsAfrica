@@ -24,14 +24,23 @@
           = render 'revisions/fields', :f => ff if ff.object.new_record?
         .form-actions
           = f.submit 'Save', :class => 'btn btn-primary'
-      %h2 Revision History
+      %h2
+        Revision History
+        %small
+          = pluralize(@page.revisions.count, 'revision')
+          over
+          = pluralize((Date.today - @page.created_at.to_date).to_s.to_i, 'day')
+          by
+          = pluralize(@page.authors.count, 'author')
       - for revision in @page.revisions do
         - unless revision.new_record?
           .row
             .span9
               %hr
             .span2
-              %h4= revision.author.name
-              %p= revision.created_at
+              %h4
+                = revision.author.name
+                %small= revision.author.email
+              %p= timeago(revision.created_at)
             .span7
-              = raw(revision.content)
+              = markdown(revision.content)
