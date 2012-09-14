@@ -46,7 +46,7 @@ class ValidEmailsController < ApplicationController
 
     respond_to do |format|
       if @valid_email.save
-        format.html { redirect_to @valid_email, notice: 'Valid email was successfully created.' }
+        format.html { redirect_to valid_emails_path, notice: 'Valid email was successfully created.' }
         format.json { render json: @valid_email, status: :created, location: @valid_email }
       else
         format.html { render action: "new" }
@@ -62,7 +62,7 @@ class ValidEmailsController < ApplicationController
 
     respond_to do |format|
       if @valid_email.update_attributes(params[:valid_email])
-        format.html { redirect_to @valid_email, notice: 'Valid email was successfully updated.' }
+        format.html { redirect_to valid_emails_path, notice: 'Valid email was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

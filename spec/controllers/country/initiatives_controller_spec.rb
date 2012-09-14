@@ -27,14 +27,14 @@ describe Country::InitiativesController do
   end
 
   describe "GET index" do
-    it "assigns all associated initiatives as @initiatives" do
-      get :index, { :country_code => @country.to_param }
-      assigns(:initiatives).should eq([@initiative])
-    end
-
     it "assigns current country as @country" do
       get :index, { :country_code => @country.to_param }
       assigns(:country).should eq(@country)
+    end
+
+    it "assigns all associated initiatives as @initiatives" do
+      get :index, { :country_code => @country.to_param }
+      assigns(:initiatives).should eq([@initiative])
     end
   end
 

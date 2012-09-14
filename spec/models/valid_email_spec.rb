@@ -16,6 +16,10 @@ describe ValidEmail do
       ValidEmail.new(@attr).should respond_to :checked_in_at
     end
 
+    it 'should respond to expires_at' do
+      ValidEmail.new(@attr).should respond_to :expires_at
+    end
+
     it 'should respond to permissions' do
       ValidEmail.new(@attr).should respond_to :permissions
     end
@@ -27,6 +31,18 @@ describe ValidEmail do
 
       it 'should be nil by default' do
         @valid_email.checked_in_at.should be_nil
+      end
+    end
+  end
+
+  describe 'scopes' do
+    describe 'default' do
+      before :each do
+        @b = ValidEmail.create(@attr.merge(:email => 'b@example.com'))
+        @a = ValidEmail.create(@attr.merge(:email => 'a@example.com'))
+      end
+      it 'should sort by email ASC' do
+        ValidEmail.all.should eq [@a,@b]
       end
     end
   end

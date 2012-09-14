@@ -1,23 +1,25 @@
-%h1 Listing valid_emails
+.container-fluid
+  .row-fluid
+    .span12
+      = link_to 'add email addresses', new_valid_email_path, :class => 'btn btn-success' if can? :create, ValidEmail
+  .row-fluid
+    .span12
+      %h1 Valid Emails
+      %blockquote
+        %p Once the user has signed in/up for the first time, the 'Checked in' field will have the time since check-in. If no changes to their permission status have been made since check-in, the row will be green.
+      %table.table.table-condensed.table-bordered.table-striped
+        %tr
+          %th
+          %th Email
+          %th Checked in
+          %th Permissions
+          %th
 
-%table
-  %tr
-    %th Email
-    %th Checked in at
-    %th Permissions
-    %th
-    %th
-    %th
-
-  - @valid_emails.each do |valid_email|
-    %tr
-      %td= valid_email.email
-      %td= valid_email.checked_in_at
-      %td= valid_email.permissions
-      %td= link_to 'Show', valid_email
-      %td= link_to 'Edit', edit_valid_email_path(valid_email)
-      %td= link_to 'Destroy', valid_email, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Valid email', new_valid_email_path
+        - @valid_emails.each do |valid_email|
+          %tr{:class => (valid_email.checked_in? ? 'success' : 'warning')}
+            %td= link_to 'Edit', edit_valid_email_path(valid_email)
+            %td= valid_email.email
+            %td
+              = timeago(valid_email.checked_in_at)
+            %td= valid_email.permissions
+            %td= link_to 'Destroy', valid_email, :confirm => 'Are you sure?', :method => :delete

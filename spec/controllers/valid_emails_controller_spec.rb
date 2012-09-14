@@ -85,9 +85,9 @@ describe ValidEmailsController do
         assigns(:valid_email).should be_persisted
       end
 
-      it "redirects to the created valid_email" do
+      it "redirects to valid_emails#index" do
         post :create, {:valid_email => valid_attributes}
-        response.should redirect_to(ValidEmail.last)
+        response.should redirect_to(valid_emails_path)
       end
     end
 
@@ -127,10 +127,10 @@ describe ValidEmailsController do
         assigns(:valid_email).should eq(valid_email)
       end
 
-      it "redirects to the valid_email" do
+      it "redirects to valid_emails#index" do
         valid_email = ValidEmail.create! valid_attributes
         put :update, {:id => valid_email.to_param, :valid_email => valid_attributes}
-        response.should redirect_to(valid_email)
+        response.should redirect_to(valid_emails_path)
       end
     end
 

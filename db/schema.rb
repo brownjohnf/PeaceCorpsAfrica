@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20120910115055) do
   create_table "valid_emails", :force => true do |t|
     t.string   "email"
     t.datetime "checked_in_at"
+    t.datetime "expires_at"
     t.string   "permissions",   :default => "volunteer"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false

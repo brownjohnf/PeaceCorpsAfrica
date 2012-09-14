@@ -11,10 +11,6 @@ describe ValidEmailsController do
       get("/valid_emails/new").should route_to("valid_emails#new")
     end
 
-    it "routes to #show" do
-      get("/valid_emails/1").should route_to("valid_emails#show", :id => "1")
-    end
-
     it "routes to #edit" do
       get("/valid_emails/1/edit").should route_to("valid_emails#edit", :id => "1")
     end

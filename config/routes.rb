@@ -1,6 +1,6 @@
 PeaceCorpsAfrica::Application.routes.draw do
 
-  resources :valid_emails
+  resources :valid_emails, :except => [:show]
 
   resources :revisions, :only => [:destroy]
 

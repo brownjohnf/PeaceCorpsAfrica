@@ -1,5 +1,32 @@
-%h1 New valid_email
-
-= render 'form'
-
-= link_to 'Back', valid_emails_path
+.container
+  .row
+    .span4
+      .well.blue
+        %h1 Info
+    .span8
+      .page-header
+        %h1 Add email addresses
+  .row
+    .span4
+      %ul
+        %li Permissions must be comma separated, and selected from the permissions listed to the right.
+        %li Leave the expiration field blank for a non-expiring permission set.
+        %li You may add multiple emails, separated by any charcter which is invalid in an email address (,;: <>), including line breaks.
+        %li Addresses will be processed and stored individually for later edits.
+        %li All addresses will share the same permission set. If you need variegated permissions, edit them afterwards or input multiple groups separately.
+      = link_to 'Back', valid_emails_path
+    .span8
+      = form_for @valid_email do |f|
+        -if @valid_email.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@valid_email.errors.count, "error")} prohibited this valid_email from being saved:"
+            %ul
+              - @valid_email.errors.full_messages.each do |msg|
+                %li= msg
+        = f.label :permissions
+        = f.text_field :permissions
+        %p.help-inline Options: volunteer, staff, admin, moderator
+        = f.label 'Email addresses'
+        = f.text_area :email, :rows => 10, :class => 'span7'
+        .form-actions
+          = f.submit 'Save'

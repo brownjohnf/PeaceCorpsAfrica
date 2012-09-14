@@ -3,6 +3,7 @@ class CreateValidEmails < ActiveRecord::Migration
     create_table :valid_emails do |t|
       t.string :email
       t.datetime :checked_in_at, :default => nil
+      t.datetime :expires_at, :default => nil
       t.string :permissions, :default => 'volunteer'
 
       t.timestamps

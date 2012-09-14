@@ -1,7 +1,29 @@
-%h1 Editing valid_email
-
-= render 'form'
-
-= link_to 'Show', @valid_email
-\|
-= link_to 'Back', valid_emails_path
+.container
+  .row
+    .span4
+      .well.blue
+        %h1 Info
+    .span8
+      .page-header
+        %h1 Edit email address
+  .row
+    .span4
+      %ul
+        %li Permissions must be comma separated, and selected from the permissions listed to the right.
+        %li You may enter ONLY ONE email address. If you need to add bulk addresses, #{link_to 'create new entries', new_valid_email_path}.
+      = link_to 'Back', valid_emails_path
+    .span8
+      = form_for @valid_email do |f|
+        -if @valid_email.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@valid_email.errors.count, "error")} prohibited this valid_email from being saved:"
+            %ul
+              - @valid_email.errors.full_messages.each do |msg|
+                %li= msg
+        = f.label :permissions
+        = f.text_field :permissions
+        %p.help-inline Options: volunteer, staff, admin, moderator
+        = f.label 'Email address'
+        = f.text_field :email, :class => 'span7'
+        .form-actions
+          = f.submit 'Save'
