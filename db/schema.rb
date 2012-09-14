@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20120910115055) do
   create_table "revisions", :force => true do |t|
     t.integer  "author_id"
     t.text     "content"
+    t.text     "html"
     t.integer  "page_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

@@ -27,8 +27,29 @@ describe Revision do
       @revision.should respond_to :content
     end
 
+    it 'should respond to html' do
+      @revision.should respond_to :html
+    end
+
     it 'should respond to page_id' do
       @revision.should respond_to :page_id
+    end
+
+    describe 'html' do
+      it 'should be blank by default' do
+        Revision.new(@attr).html.should be_blank
+      end
+
+      it 'should be populated before save' do
+        @revision = Revision.new(@attr)
+        @revision.save!
+        @revision.html.should_not be_blank
+      end
+
+      it 'should update html based on content' do
+        @revision.update_attributes(:content => 'super cool content')
+        @revision.html.should =~ /super cool content/i
+      end
     end
   end
 
@@ -62,6 +83,12 @@ describe Revision do
           @revision2 = Revision.new @attr
           @revision2.should_not be_valid
         end
+      end
+    end
+
+    describe 'html' do
+      it 'should always validate' do
+        Revision.new(@attr.merge(:html => '')).should be_valid
       end
     end
 

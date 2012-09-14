@@ -1,7 +1,7 @@
 class Revision < ActiveRecord::Base
-  attr_accessible :author_id, :content, :page_id
+  attr_accessible :author_id, :content, :html, :page_id
 
-  validates :author_id, :page_id, :content, :presence => true
+  validates :author_id, :page_id, :content, :html, :presence => true
   validates :author_id, :page_id, :numericality => { :is_integer => true }
 
   belongs_to :page
@@ -9,12 +9,17 @@ class Revision < ActiveRecord::Base
 
   default_scope :order => 'id DESC'
 
+  before_validation :do_before_validation
   after_save :do_after_save
 
   private
 
+    def do_before_validation
+      self.html = Markdown.render(content)
+    end
+
     def do_after_save
-      self.page.set_html(Markdown.render(content))
+      self.page.set_html(html)
     end
 
 end
