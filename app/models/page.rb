@@ -17,6 +17,8 @@ class Page < ActiveRecord::Base
   validates :locked_by, :numericality => { :is_integer => true }, :allow_blank => true
   validates :title, :length => { :minimum => 3, :maximum => 255 }
 
+  default_scope :order => 'title ASC'
+
   def lock(user)
     self.locked_at = Time.now
     self.editor = user

@@ -374,4 +374,14 @@ describe Page do
       Page.new(@attr.merge(:title => short_title)).should_not be_valid
     end
   end
+
+  describe 'scopes' do
+    describe 'default' do
+      it 'should sort by title ASC' do
+        @page1 = Page.create(@attr.merge(:title => 'Before you leap'))
+        @page2 = Page.create(@attr.merge(:title => 'A bit of heaven'))
+        Page.all.should eq [@page2,@page1]
+      end
+    end
+  end
 end

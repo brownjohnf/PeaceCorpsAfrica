@@ -12,6 +12,14 @@ class Revision < ActiveRecord::Base
   before_validation :do_before_validation
   after_save :do_after_save
 
+  def next
+    Revision.where(:page_id => page_id).where("id > ?", id).limit(1).first
+  end
+
+  def prev
+    Revision.where(:page_id => page_id).where("id < ?", id).limit(1).first
+  end
+
   private
 
     def do_before_validation

@@ -169,5 +169,40 @@ describe Revision do
   end
 
   describe 'methods' do
+    before :each do
+      @revision1 = FactoryGirl.create(:revision, :page => @page = FactoryGirl.create(:page))
+      FactoryGirl.create(:revision)
+      @revision2 = FactoryGirl.create(:revision, :page => @page)
+      FactoryGirl.create(:revision)
+      @revision3 = FactoryGirl.create(:revision, :page => @page)
+    end
+
+    it 'should respond to next' do
+      @revision2.should respond_to :next
+    end
+
+    it 'should respond to prev' do
+      @revision2.should respond_to :prev
+    end
+
+    describe 'next' do
+      it 'should return a revision' do
+        @revision2.next.should be_an_instance_of Revision
+      end
+
+      it 'should return the correct revision' do
+        @revision2.next.should eq @revision3
+      end
+    end
+
+    describe 'prev' do
+      it 'should return a revision' do
+        @revision2.prev.should be_an_instance_of Revision
+      end
+
+      it 'should return the correct revision' do
+        @revision2.prev.should eq @revision1
+      end
+    end
   end
 end

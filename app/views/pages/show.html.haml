@@ -26,5 +26,11 @@
         created
         = pretty_time @page.created_at
         = ' | '
-        updated
-        = pretty_time @page.updated_at
+        last updated
+        = timeago @page.updated_at
+  .row
+    .span9
+      %h1 Revision History
+      - for revision in @page.revisions
+        %hr
+        = raw(markdown(Differ.diff_by_line(revision.content, revision.prev.content).format_as(:html))) if revision.prev

@@ -27,4 +27,4 @@
     .span4
       %pre= @revision.html
     .span4
-      = raw @revision.html
+      = raw markdown(Differ.diff_by_line(@revision.content, @revision.prev.content).format_as(:html))
