@@ -9,11 +9,14 @@
           %small #{pluralize(@revisions.count, 'Revision')} for 
           #{@page.title}
       .row-fluid
-        .span6
-          .well.blue.right
+        .span4
+          .well.blue.center
             %h3 Raw Text
-        .span6
-          .well.red
+        .span4
+          .well.red.center
+            %h3 Raw HTML
+        .span4
+          .well.orange.center
             %h3 Interpreted HTML
       - @revisions.each do |revision|
         .row-fluid
@@ -26,7 +29,9 @@
                 = link_to 'view', [@page,revision]
             %hr
         .row-fluid
-          .span6
+          .span4
             %pre= revision.content
-          .span6
-            = markdown(revision.content)
+          .span4
+            %pre= revision.html
+          .span4
+            = raw revision.html
