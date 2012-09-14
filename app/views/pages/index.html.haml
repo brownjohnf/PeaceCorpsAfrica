@@ -1,12 +1,13 @@
 .container
   .row
-    .span4.offset1
-      .hero-unit
+    .span6.offset3
+      .well.red
         %h1= pluralize(@pages.count, 'Page')
-    .span6
-      %ul
+  .row
+    .span6.offset3
+      %ul.no-bullet
         - for page in @pages do
           %li
             = link_to page.title, page
-            = truncate(page.html, :length => 20)
+            = truncate(page.html, :length => 50)
             = link_to 'edit', edit_page_path(page)

@@ -10,6 +10,9 @@
             = link_to edit_page_path(@page) do
               %span.icon-pencil
               Edit #{@page.title}
+            = link_to page_revisions_path(@page) do
+              %span.icon-globe
+              View Revision History
           - if can? :create, Page
             %li.divider
             %li

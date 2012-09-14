@@ -57,6 +57,11 @@ body {
         }
       }
     }
+    ul {
+      &.no-bullet {
+        list-style-type: none;
+      }
+    }
   }
   footer {
     @include box-shadow(0 -2px 2px $black);
