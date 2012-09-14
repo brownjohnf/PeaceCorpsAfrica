@@ -17,6 +17,8 @@ gem 'bootstrap-will_paginate'
 gem 'pony'
 gem 'redcarpet'
 
+gem 'differ'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
