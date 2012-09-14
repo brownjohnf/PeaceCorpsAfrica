@@ -1,7 +1,7 @@
 class ValidEmail < ActiveRecord::Base
   attr_accessible :checked_in_at, :email, :expires_at, :permissions
 
-  validates :email, :presence => true, :email => true
+  validates :email, :presence => true, :email => true, :uniqueness => true
 
   default_scope :order => 'email ASC'
 

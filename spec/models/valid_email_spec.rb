@@ -34,13 +34,24 @@ describe ValidEmail do
       end
     end
 
-    describe 'expires_at' do
-      before :each do
-        @valid_email = FactoryGirl.create :valid_email
+    describe 'email' do
+      it 'should require an email' do
+        ValidEmail.new(@attr.merge(:email => '')).should_not be_valid
       end
 
+      it 'should reject invalid emails' do
+        ValidEmail.new(@attr.merge(:email => 'bad_email.com')).should_not be_valid
+      end
+
+      it 'should reject duplicate emails' do
+        ValidEmail.create(@attr)
+        ValidEmail.new(@attr).should_not be_valid
+      end
+    end
+
+    describe 'expires_at' do
       it 'should be nil by default' do
-        @valid_email.checked_in_at.should be_nil
+        ValidEmail.create(@attr).checked_in_at.should be_nil
       end
     end
   end

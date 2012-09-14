@@ -64,17 +64,23 @@ describe ValidEmailsController do
 
   describe "POST create" do
     login_admin
-    describe "with valid params" do
-      it "creates a new ValidEmail" do
+    describe "with 1 email and valid params" do
+      it "creates one new ValidEmail" do
         expect {
           post :create, {:valid_email => valid_attributes}
         }.to change(ValidEmail, :count).by(1)
       end
 
-      it "assigns a newly created valid_email as @valid_email" do
-        post :create, {:valid_email => valid_attributes}
-        assigns(:valid_email).should be_a(ValidEmail)
-        assigns(:valid_email).should be_persisted
+      it "creates multiple emails if multiple emails are submitted" do
+        expect {
+          post :create, :valid_email => valid_attributes.merge(:email => "#{FactoryGirl.generate(:email)},#{FactoryGirl.generate(:email)}")
+        }.to change(ValidEmail, :count).by(2)
+      end
+
+      it 'ignores invalid email addresses' do
+        expect {
+          post :create, :valid_email => valid_attributes.merge(:email => "#{FactoryGirl.generate(:email)},#{FactoryGirl.generate(:email)},JA3cK@TE-est99.UNIT.co.uk,woohoo.us,wo@user.us,test3'at.com")
+        }.to change(ValidEmail, :count).by(4)
       end
 
       it "redirects to valid_emails#index" do
@@ -83,19 +89,10 @@ describe ValidEmailsController do
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved valid_email as @valid_email" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        ValidEmail.any_instance.stub(:save).and_return(false)
-        post :create, {:valid_email => {}}
-        assigns(:valid_email).should be_a_new(ValidEmail)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        ValidEmail.any_instance.stub(:save).and_return(false)
-        post :create, {:valid_email => {}}
-        response.should render_template("new")
+    describe "without valid email addresses params" do
+      it "redirects to valid_emails#index" do
+        post :create, :valid_email => {}
+        response.should redirect_to(new_valid_email_path(:valid_email => {}))
       end
     end
   end
