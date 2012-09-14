@@ -1,0 +1,18 @@
+- if @page && can?(:edit, @page)
+  .subnav
+    %ul.nav.nav-pills.pull-right
+      %li.dropdown
+        %a.dropdown-toggle{'data-toggle' => 'dropdown', :href => '#'}
+          Actions
+          %b.caret
+        %ul.dropdown-menu.pull-right
+          %li
+            = link_to edit_page_path(@page) do
+              %span.icon-pencil
+              Edit #{@page.title}
+          - if can? :create, Page
+            %li.divider
+            %li
+              = link_to new_page_path do
+                %span.icon-plus
+                New Page

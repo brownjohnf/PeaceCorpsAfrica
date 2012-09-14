@@ -36,6 +36,12 @@ describe Page do
     it 'should respond to title' do
       @page.should respond_to(:title)
     end
+
+    describe 'to_param' do
+      it 'should include the page title in to_param' do
+        @page.to_param.should eq "#{@page.id}-#{@page.title.parameterize}"
+      end
+    end
   end
 
   describe 'associations' do

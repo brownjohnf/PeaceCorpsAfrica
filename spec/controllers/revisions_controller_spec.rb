@@ -43,106 +43,27 @@ describe RevisionsController do
   end
 
   describe "GET index" do
-    it "assigns all revisions as @revisions" do
-      get :index, :page_id => @revision.page.to_param
+    it 'should assign correct page as @page' do
+      get :index, :page_id => @page.id
+      assigns(:page).should eq @page
+    end
+
+    it "assigns page revisions as @revisions" do
+      FactoryGirl.create(:revision)
+      get :index, :page_id => @page.to_param
       assigns(:revisions).should eq([@revision])
     end
   end
 
   describe "GET show" do
+    it 'should assign correct page as @page' do
+      get :index, :page_id => @page.id
+      assigns(:page).should eq @page
+    end
+
     it "assigns the requested revision as @revision" do
       get :show, :page_id => @page, :id => @revision.to_param
       assigns(:revision).should eq(@revision)
-    end
-  end
-
-  describe "GET new" do
-    login_admin
-    it "assigns a new revision as @revision" do
-      get :new, :page_id => @page
-      assigns(:revision).should be_a_new(Revision)
-    end
-  end
-
-  describe "GET edit" do
-    login_admin
-    it "assigns the requested revision as @revision" do
-      get :edit, :page_id => @page.id, :id => @revision.to_param
-      assigns(:revision).should eq(@revision)
-    end
-  end
-
-  describe "POST create" do
-    login_admin
-    describe "with valid params" do
-      it "creates a new Revision" do
-        expect {
-          post :create, :page_id => @page, :revision => valid_attributes.merge(:page_id => @page.id)
-        }.to change(Revision, :count).by(1)
-      end
-
-      it "assigns a newly created revision as @revision" do
-        post :create, :page_id => @page, :revision => valid_attributes.merge(:page_id => @page.id)
-        assigns(:revision).should be_a(Revision)
-        assigns(:revision).should be_persisted
-      end
-
-      it "redirects to the created revision" do
-        post :create, :page_id => @page, :revision => valid_attributes.merge(:page_id => @page.id)
-        response.should redirect_to(Revision.first)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved revision as @revision" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Revision.any_instance.stub(:save).and_return(false)
-        post :create, :page_id => @page, :revision => {}
-        assigns(:revision).should be_a_new(Revision)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Revision.any_instance.stub(:save).and_return(false)
-        post :create, :page_id => @page, :revision => {}
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    login_admin
-    describe "with valid params" do
-      it "updates the requested revision" do
-        Revision.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :page_id => @page, :id => @revision.to_param, :revision => {'these' => 'params'}
-      end
-
-      it "assigns the requested revision as @revision" do
-        put :update, :page_id => @page, :id => @revision.to_param, :revision => valid_attributes.merge(:page_id => nil)
-        assigns(:revision).should eq(@revision)
-      end
-
-      it "redirects to the revision's page" do
-        put :update, :page_id => @page, :id => @revision.to_param, :revision => valid_attributes.merge(:page_id => @page.id)
-        response.should redirect_to(@page)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the revision as @revision" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Revision.any_instance.stub(:save).and_return(false)
-        put :update, :page_id => @page, :id => @revision.to_param, :revision => {}
-        assigns(:revision).should eq(@revision)
-      end
-
-      it "re-renders the 'edit' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Revision.any_instance.stub(:save).and_return(false)
-        put :update, :page_id => @page, :id => @revision.to_param, :revision => {}
-        response.should render_template("edit")
-      end
     end
   end
 

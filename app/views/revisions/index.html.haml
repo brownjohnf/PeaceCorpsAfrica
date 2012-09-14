@@ -1,23 +1,31 @@
-%h1 Listing revisions
-
-%table
-  %tr
-    %th Author
-    %th Content
-    %th Page
-    %th
-    %th
-    %th
-
-  - @revisions.each do |revision|
-    %tr
-      %td= revision.author_id
-      %td= revision.content
-      %td= revision.page_id
-      %td= link_to 'Show', revision
-      %td= link_to 'Edit', edit_page_revision_path(revision.page, revision)
-      %td= link_to 'Destroy', revision, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Revision', new_page_revision_path
+.container-fluid
+  .row-fluid
+    .span12
+      = render 'pages/menu'
+  .row-fluid
+    .span12
+      .well.green
+        %h1
+          %small #{pluralize(@revisions.count, 'Revision')} for 
+          #{@page.title}
+      .row-fluid
+        .span6
+          .well.blue.right
+            %h3 Raw Text
+        .span6
+          .well.red
+            %h3 Interpreted HTML
+      - @revisions.each do |revision|
+        .row-fluid
+          .span12
+            %h3
+              = timeago(revision.created_at)
+              %small
+                by
+                = revision.author.name
+                = link_to 'view', [@page,revision]
+        .row-fluid
+          .span6
+            %pre= revision.content
+          .span6
+            = markdown(revision.content)

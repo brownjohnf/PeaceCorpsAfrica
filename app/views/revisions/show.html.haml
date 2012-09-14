@@ -1,15 +1,25 @@
-%p#notice= notice
-
-%p
-  %b Author:
-  = @revision.author_id
-%p
-  %b Content:
-  = @revision.content
-%p
-  %b Page:
-  = @revision.page_id
-
-= link_to 'Edit', edit_page_revision_path(@revision.page, @revision)
-\|
-= link_to 'Back', page_revisions_path(@page)
+.container-fluid
+  .row-fluid
+    .span12
+      = render 'pages/menu'
+  .row-fluid
+    .span12
+      .well.green
+        %h1
+          = @page.title
+          %small
+            Authored by
+            = @revision.author.name
+            = timeago(@revision.created_at)
+  .row-fluid
+    .span6
+      .well.blue.right
+        %h3 Raw Text
+    .span6
+      .well.red
+        %h3 Interpreted HTML
+  .row-fluid
+    .span6
+      %pre= @revision.content
+    .span6
+      = markdown(@revision.content)
