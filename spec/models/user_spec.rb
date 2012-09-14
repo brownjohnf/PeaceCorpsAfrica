@@ -110,36 +110,57 @@ describe User do
       end
 
       context 'with ValidEmail' do
-        it 'should set verified = true' do
-          @valid_email = FactoryGirl.create(:valid_email, :email => @user.email)
-          @user.verify
-          @user.reload
-        end
-
-        it 'should add default role if no roles are set' do
-          @valid_email = FactoryGirl.create(:valid_email, :email => @user.email)
-          @role = @valid_email.permissions.split(',')
-          @user.verify
-          @user.has_role?(@role[0]).should be_true
-        end
-
-        it 'should add any roles set in ValidEmail' do
-          permissions = ['user','staff']
-          @valid_email = FactoryGirl.create(:valid_email, :email => @user.email, :permissions => permissions.join(','))
-          @user.verify
-          @user.has_all_roles? {permissions}.should be_true
-        end
-
-        it 'should remove any extra permissions' do
-          extra_roles = ['a','b','c','d']
-          @valid_email = FactoryGirl.create(:valid_email, :email => @user.email, :permissions => extra_roles.join(','))
-          @user.verify
-          @valid_email.update_attributes(:permissions => 'nobleman,knight')
-          @user.verify
-          extra_roles.each do |role|
-            @user.has_role?(role).should be_false
+        describe 'which is not expired' do
+          it 'should set verified? = true' do
+            @valid_email = FactoryGirl.create(:valid_email, :email => @user.email)
+            @user.verify
+            @user.reload
+            @user.verified?.should be_true
           end
-          @user.roles.count.should eq @valid_email.permissions.split(',').count
+
+          it 'should add default role if no roles are set' do
+            @valid_email = FactoryGirl.create(:valid_email, :email => @user.email)
+            @role = @valid_email.permissions.split(',')
+            @user.verify
+            @user.has_role?(@role[0]).should be_true
+          end
+
+          it 'should add any roles set in ValidEmail' do
+            permissions = ['user','staff']
+            @valid_email = FactoryGirl.create(:valid_email, :email => @user.email, :permissions => permissions.join(','))
+            @user.verify
+            @user.has_all_roles? {permissions}.should be_true
+          end
+
+          it 'should remove any extra permissions' do
+            extra_roles = ['a','b','c','d']
+            @valid_email = FactoryGirl.create(:valid_email, :email => @user.email, :permissions => extra_roles.join(','))
+            @user.verify
+            @valid_email.update_attributes(:permissions => 'nobleman,knight')
+            @user.verify
+            extra_roles.each do |role|
+              @user.has_role?(role).should be_false
+            end
+            @user.roles.count.should eq @valid_email.permissions.split(',').count
+          end
+        end
+
+        describe 'which is expired' do
+          it 'should set verified? = true' do
+            @valid_email = FactoryGirl.create(:valid_email, :email => @user.email, :expires_at => Time.now - 1.day)
+            @user.verify
+            @user.reload
+            @user.verified?.should be_true
+          end
+
+          it 'should remove all roles from user' do
+            roles = ['knight','pawn','rook']
+            @valid_email = FactoryGirl.create(:valid_email, :email => @user.email, :permissions => roles.join(','))
+            @user.verify
+            @valid_email.update_attributes(:expires_at => Time.now - 1.day)
+            @user.verify
+            roles.each { |role| @user.has_role?(role).should be_false }
+          end
         end
       end
     end

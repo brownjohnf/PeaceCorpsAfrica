@@ -13,13 +13,15 @@
           %th Email
           %th Checked in
           %th Permissions
+          %th Expires
           %th
 
         - @valid_emails.each do |valid_email|
-          %tr{:class => (valid_email.checked_in? ? 'success' : 'warning')}
+          %tr{:class => (valid_email.expired? ? 'error' : (valid_email.checked_in? ? 'success' : 'alert'))}
             %td= link_to 'Edit', edit_valid_email_path(valid_email)
             %td= valid_email.email
             %td
               = timeago(valid_email.checked_in_at)
             %td= valid_email.permissions
+            %td= valid_email.expires_at.blank? ? 'never' : timeago(valid_email.expires_at)
             %td= link_to 'Destroy', valid_email, :confirm => 'Are you sure?', :method => :delete

@@ -42,7 +42,12 @@ class ValidEmailsController < ApplicationController
   # POST /valid_emails
   # POST /valid_emails.json
   def create
-    @valid_email = ValidEmail.new(params[:valid_email])
+    regex = Regexp.new(/([0-9a-zA-Z-_.]+@{1}[0-9a-zA-Z]+(\.[a-zA-Z]{2,6}){1,2})/i)
+    matchdata = regex.match(params[:valid_email][:email])
+    while matchdata != nil
+      valid_email = ValidEmail.new(params[:valid_email])
+      matchdata = regex.match(matchdata.post_match)
+    end
 
     respond_to do |format|
       if @valid_email.save

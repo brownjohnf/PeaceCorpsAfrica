@@ -33,6 +33,16 @@ describe ValidEmail do
         @valid_email.checked_in_at.should be_nil
       end
     end
+
+    describe 'expires_at' do
+      before :each do
+        @valid_email = FactoryGirl.create :valid_email
+      end
+
+      it 'should be nil by default' do
+        @valid_email.checked_in_at.should be_nil
+      end
+    end
   end
 
   describe 'scopes' do
@@ -54,6 +64,10 @@ describe ValidEmail do
 
     it 'should respond to check_in' do
       ValidEmail.new(@attr).should respond_to :check_in
+    end
+
+    it 'should respond to expired?' do
+      ValidEmail.new(@attr).should respond_to :expired?
     end
 
     describe 'checked_in?' do
@@ -92,6 +106,26 @@ describe ValidEmail do
         @valid_email.check_in
         @valid_email.reload
         @valid_email.checked_in_at.should be > time
+      end
+    end
+
+    describe 'expired?' do
+      before :each do
+        @valid_email = FactoryGirl.create :valid_email
+      end
+
+      it 'should be false by default' do
+        @valid_email.expired?.should be_false
+      end
+
+      it 'should be false if expires_at is in the future' do
+        @valid_email.expires_at = Time.now + 1.day
+        @valid_email.expired?.should be_false
+      end
+
+      it 'should be true if expires_at is in the past' do
+        @valid_email.expires_at = Time.now - 1.day
+        @valid_email.expired?.should be_true
       end
     end
   end

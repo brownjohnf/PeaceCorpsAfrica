@@ -19,4 +19,8 @@ class ValidEmail < ActiveRecord::Base
     end
   end
 
+  def expired?
+    expires_at? ? (expires_at < Time.now) : false
+  end
+
 end

@@ -26,6 +26,8 @@
         = f.label :permissions
         = f.text_field :permissions
         %p.help-inline Options: volunteer, staff, admin, moderator
+        = f.label 'Expiration'
+        = f.text_field :expires_at, :class => 'datepicker'
         = f.label 'Email addresses'
         = f.text_area :email, :rows => 10, :class => 'span7'
         .form-actions

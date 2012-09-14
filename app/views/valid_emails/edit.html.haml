@@ -8,8 +8,12 @@
         %h1 Edit email address
   .row
     .span4
+      .alert.alert-error
+        %h4 WARNING!
+        %p If you remove permissions from yourself, you'll be locked out next time you log in. Be careful.
       %ul
         %li Permissions must be comma separated, and selected from the permissions listed to the right.
+        %li Leave the expiration field blank for a non-expiring permission set.
         %li You may enter ONLY ONE email address. If you need to add bulk addresses, #{link_to 'create new entries', new_valid_email_path}.
       = link_to 'Back', valid_emails_path
     .span8
@@ -23,6 +27,9 @@
         = f.label :permissions
         = f.text_field :permissions
         %p.help-inline Options: volunteer, staff, admin, moderator
+        = f.label 'Expiration'
+        = f.text_field :expires_at, :class => 'datepicker'
+        %p.help-inline= timeago(@valid_email.expires_at)
         = f.label 'Email address'
         = f.text_field :email, :class => 'span7'
         .form-actions

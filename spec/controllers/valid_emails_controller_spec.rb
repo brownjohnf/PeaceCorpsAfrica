@@ -45,14 +45,6 @@ describe ValidEmailsController do
     end
   end
 
-  describe "GET show" do
-    it "assigns the requested valid_email as @valid_email" do
-      valid_email = ValidEmail.create! valid_attributes
-      get :show, {:id => valid_email.to_param}
-      assigns(:valid_email).should eq(valid_email)
-    end
-  end
-
   describe "GET new" do
     login_admin
     it "assigns a new valid_email as @valid_email" do
