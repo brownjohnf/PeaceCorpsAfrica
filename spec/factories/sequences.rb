@@ -20,4 +20,8 @@ FactoryGirl.define do
     "<p>Fresh content number #{n}!"
   end
 
+  sequence :title do |n|
+    "Shiny Title Number #{n}"
+  end
+
 end

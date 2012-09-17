@@ -1,25 +1,21 @@
-.container
-  .row
-    .span12
+.container-fluid
+  .row-fluid
+    .span4
+      = render 'shared/markdown_help'
+    .span8
       .hero-unit.red
         %h1 Edit page
-  .row
-    .span3
-      .well.well-large.blue
-        %h1 How do I...?
-      = render 'shared/markdown_help'
-    .span9
       = form_for @page do |f|
         = render 'shared/form_errors', :item => @page if @page.errors.any?
         %legend More than the basics
         = render 'shared/form_info'
-        .row
-          .span5
+        .row-fluid
+          .span6
             %label Page Title
             = f.text_field :title, :class => 'required span5'
-          .span4
+          .span6
             %label Country
-            = f.collection_select :country_id, Country.all, :id, :name, {}, { :class => 'required span4' }
+            = f.collection_select :country_id, Country.all, :id, :name, {}, { :class => 'required span5' }
         = f.fields_for :revisions do |ff|
           = render 'revisions/fields', :f => ff if ff.object.new_record?
         .form-actions
@@ -34,13 +30,14 @@
           = pluralize(@page.authors.count, 'author')
       - for revision in @page.revisions do
         - unless revision.new_record?
-          .row
-            .span9
+          .row-fluid
+            .span12
               %hr
-            .span2
+          .row-fluid
+            .span3
               %h4
                 = revision.author.name
                 %small= revision.author.email
               %p= timeago(revision.created_at)
-            .span7
+            .span9
               = markdown(revision.content)

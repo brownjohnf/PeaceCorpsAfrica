@@ -48,6 +48,14 @@ body {
         }
       }
     }
+    a {
+      &.disambiguation {
+        color: $orange;
+      }
+      &.missing {
+        color: $red;
+      }
+    }
     .nav {
       &.nav-tabs {
         &.nav-stacked {

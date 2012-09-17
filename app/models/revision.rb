@@ -25,7 +25,25 @@ class Revision < ActiveRecord::Base
     def do_before_validation
       temp = content.gsub(/(\[([a-z]*)\[((https*:\/\/)*[^\[]+)\]\])/) do |match|
         if $4.blank?
-          "<a href=\"/#{($2.blank? ? 'pages' : $2.pluralize)}\">#{$3}</a>"
+          if $2 == 'user'
+            results = User.where("UPPER(name) LIKE UPPER(?)", "%#{$3}%")
+            resource = 'User'
+          else
+            results = Page.where("UPPER(title) LIKE UPPER(?)", "%#{$3}%")
+            resource = 'Page'
+          end
+            
+
+          # if there are no results, set the missing link
+          if results.count < 1
+            "<a class=\"missing\" href=\"/#{resource.parameterize.pluralize}\">#{$3}<span class=\"icon-remove-circle\"></span></a>"
+          # if there are more than 1 result, link to disambiguation
+          elsif results.count > 1
+            "<a class=\"disambiguation\" href=\"/#{resource.parameterize.pluralize}\">#{$3}<span class=\"icon-random\"></span></a>"
+          # if there is only one result, link there
+          else
+            "<a href=\"/#{resource.parameterize.pluralize}/#{results.first.to_param}\">#{$3}</a>"
+          end
         else
           "<a href=\"#{$3}\">#{$3}</a>"
         end

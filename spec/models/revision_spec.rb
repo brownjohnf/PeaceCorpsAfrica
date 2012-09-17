@@ -185,27 +185,6 @@ describe Revision do
       @revision2.should respond_to :prev
     end
 
-    describe 'do_before_validation' do
-      it 'should find and replace non-scoped pca links' do
-        @revision1.update_attributes(:content => 'this is text containing [[a pca link]]')
-        @revision1.html.should =~ />a pca link<\/a>/
-      end
-
-      it 'should find and replace scoped pca links' do
-        @revision1.update_attributes(:content => 'this is text containing [file[a pca link]]')
-        @revision1.html.should =~ />a pca link<\/a>/
-      end
-
-      it 'should find and replace external pca links' do
-        @revision1.update_attributes(:content => 'this is text containing [[http://an.external.link]]')
-        @revision1.html.should =~ /<a href="http:\/\/an\.external\.link">http:\/\/an\.external\.link<\/a>/
-      end
-
-      it 'should ignore markdown links' do
-        @revision1.update_attributes(:content => 'this is text containing [a markdown link](http://test.com)')
-        @revision1.content.should =~ /\[a markdown link\]\(http:\/\/test\.com\)/
-      end
-    end
 
     describe 'next' do
       it 'should return a revision' do
@@ -224,6 +203,100 @@ describe Revision do
 
       it 'should return the correct revision' do
         @revision2.prev.should eq @revision1
+      end
+    end
+  end
+
+  describe 'parsing pca links' do
+    before :each do
+      @revision = FactoryGirl.create :revision
+    end
+
+    it 'should ignore markdown links' do
+      @revision.update_attributes(:content => 'this is text containing [a markdown link](http://test.com)')
+      @revision.content.should =~ /\[a markdown link\]\(http:\/\/test\.com\)/
+    end
+
+    it 'should find and replace non-scoped pca links' do
+      @revision.update_attributes(:content => 'this is text containing [[a pca link]]')
+      @revision.html.should =~ />a pca link.*<\/a>/
+    end
+
+    it 'should find and replace scoped pca links' do
+      @revision.update_attributes(:content => 'this is text containing [file[a pca link]]')
+      @revision.html.should =~ />a pca link.*<\/a>/
+    end
+
+    it 'should find and replace external pca links' do
+      @revision.update_attributes(:content => 'this is text containing [[http://an.external.link]]')
+      @revision.html.should =~ /<a href="http:\/\/an\.external\.link">http:\/\/an\.external\.link<\/a>/
+    end
+
+    it 'should ignore markdown links' do
+      @revision.update_attributes(:content => 'this is text containing [a markdown link](http://test.com)')
+      @revision.content.should =~ /\[a markdown link\]\(http:\/\/test\.com\)/
+    end
+
+    describe 'page-scoped' do
+      context 'with one matching page' do
+        before :each do
+          @page = FactoryGirl.create :page
+          @revision.update_attributes(:content => "this is text containing [page[#{@page.title}]] for testing.")
+        end
+
+        it 'should set the correct path to the page' do
+          @revision.html.should =~ /"\/pages\/#{@page.to_param}"/i
+        end
+      end
+
+      context 'with multiple matching pages' do
+        before :each do
+          @page = FactoryGirl.create :page
+          @revision.update_attributes(:content => "this is text containing [page[shiny title]] for testing.")
+        end
+
+        pending 'should set the path to disambiguation' do
+          @revision.html.should =~ /"\/pages\/#{@page.to_param}"/i
+        end
+
+        it 'should append disambiguation icon to link text' do
+          @revision.html.should =~ /<span class="icon-random"><\/span><\/a>/i
+        end
+
+        it 'should add disambiguation class' do
+          @revision.html.should =~ /class="disambiguation"/i
+        end
+      end
+
+      context 'with no matching pages' do
+        before :each do
+          @revision.update_attributes(:content => "this is text containing [page[no page would have this name, duh!]] for testing.")
+        end
+
+        pending 'should set the path to missing' do
+          @revision.html.should =~ /"\/pages\/#{@page.to_param}"/i
+        end
+
+        it 'should append missing icon to link text' do
+          @revision.html.should =~ /<span class="icon-remove-circle"><\/span><\/a>/i
+        end
+
+        it 'should add missing class' do
+          @revision.html.should =~ /class="missing"/i
+        end
+      end
+    end
+
+    describe 'user-scoped' do
+      context 'with a matching user' do
+        before :each do
+          @user = FactoryGirl.create :user
+          @revision.update_attributes(:content => "this is text containing [user[#{@user.name}]] for testing.")
+        end
+
+        it 'should set the correct path to the user' do
+          @revision.html.should =~ /"\/users\/#{@user.to_param}"/i
+        end
       end
     end
   end

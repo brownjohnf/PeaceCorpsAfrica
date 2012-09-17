@@ -42,6 +42,20 @@ class ValidEmailsController < ApplicationController
   # POST /valid_emails
   # POST /valid_emails.json
   def create
+    regexp = /([0-9a-z\-_.]+@{1}[0-9a-z\-_.]+([a-z]){2,5})/i
+    good_emails = []
+    bad_emails = []
+    if params[:valid_email][:email]
+      params[:valid_email][:email].scan(regexp) do |match|
+        valid_email = ValidEmail.new(params[:valid_email].merge(:email => $1))
+        if valid_email.save
+          good_emails << valid_email.email
+        else
+          bad_emails << valid_email.email
+        end
+      end
+    end
+=begin
     regex = Regexp.new(/([0-9a-z\-_.]+@{1}[0-9a-z\-_.]+([a-z]){2,5})/i)
     matchdata = regex.match(params[:valid_email][:email])
     good_emails = []
@@ -55,6 +69,7 @@ class ValidEmailsController < ApplicationController
       end
       matchdata = regex.match(matchdata.post_match)
     end
+=end
 
     notice = "<p>#{good_emails.count} email(s) were successfully saved.</p><ul><li>#{good_emails.join('; ')}</li></ul>"
     notice += "<p>#{bad_emails.count} email(s) failed to save:</p><li>#{bad_emails.join('</li><li>')}</li></ul>" if bad_emails.any?

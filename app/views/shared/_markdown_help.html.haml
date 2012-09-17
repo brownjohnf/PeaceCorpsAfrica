@@ -1,43 +1,69 @@
+.well.well-small.blue
+  %h2 Internal Links
 %table.table.table-striped.table-hover.table-bordered
   %thead
     %th plain text
     %th effect
-  %tr
-    %td
-      %p Paragraph on new line
-    %td= markdown 'Paragraph on new line'
-  %tr
-    %td
-      %p *emphasis*
-    %td= markdown '*emphasis*'
-  %tr
-    %td
-      %p **strong**
-    %td= markdown('**strong**')
-  %tr
-    %td
-      %p `code`
-    %td= markdown '`code`'
-  %tr
-    %td
-      %p * item 1
-    %td= markdown '* item 1'
-  %tr
-    %td
-      %p 1. numbered item 1
-    %td= markdown '1. numbered item 1'
-  %tr
-    %td [link text](http://example.url)
-    %td= markdown '[link text](http://example.url)'
-  %tr
-    %td ![alt text](image_url)
-    %td= markdown '![alt text](image_url)'
-  %tr
-    %td # H1 header
-    %td= markdown '# H1 header'
-  %tr
-    %td ## H2 header, etc. (1-6)
-    %td= markdown '## H2 header, etc. (1-6)'
+  %tbody
+    %tr
+      %td
+        %pre= "[page[#{Page.first.title}]]\n[user[Jack Brown]]"
+      %td
+        = link_to Page.first.title, Page.first
+        %br
+        = link_to 'Jack Brown', User.find_by_email('jack@brownjohnf.com')
+    %tr
+      %td ![alt text](image_url)
+      %td= markdown '![alt text](image_url)'
+.well.well-small.orange
+  %h2 External Links
+%table.table.table-striped.table-hover.table-bordered
+  %tbody
+    %tr
+      %td
+        %pre [link text](http://example.url)
+      %td= markdown '[link text](http://example.url)'
+    %tr
+      %td ![alt text](image_url)
+      %td= markdown '![alt text](image_url)'
+.well.well-small.green
+  %h2 Text Styles
+%table.table.table-striped.table-hover.table-bordered
+  %tbody
+    %tr
+      %td # H1 header
+      %td= markdown '# H1 header'
+    %tr
+      %td ## H2 header, etc. (1-6)
+      %td= markdown '## H2 header, etc. (1-6)'
+    %tr
+      %td
+        %pre Paragraph on new line
+      %td= markdown 'Paragraph on new line'
+    %tr
+      %td
+        %pre *emphasis*
+      %td= markdown '*emphasis*'
+    %tr
+      %td
+        %pre **strong**
+      %td= markdown('**strong**')
+    %tr
+      %td
+        %pre `code`
+      %td= markdown '`code`'
+.well.well-small.red
+  %h2 Lists
+%table.table.table-striped.table-hover.table-bordered
+  %tbody
+    %tr
+      %td
+        %pre * item 1
+      %td= markdown '* item 1'
+    %tr
+      %td
+        %pre 1. numbered item 1
+      %td= markdown '1. numbered item 1'
   -#%tr
     %td
       %p
