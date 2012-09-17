@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120910115055) do
+ActiveRecord::Schema.define(:version => 20120917130917) do
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -69,6 +69,16 @@ ActiveRecord::Schema.define(:version => 20120910115055) do
 
   add_index "pages", ["title", "country_id"], :name => "index_pages_on_title_and_country_id", :unique => true
   add_index "pages", ["title"], :name => "index_pages_on_title"
+
+  create_table "references", :force => true do |t|
+    t.string   "link_text"
+    t.integer  "link_target_id"
+    t.string   "link_target_type"
+    t.integer  "link_source_id"
+    t.string   "link_source_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "revisions", :force => true do |t|
     t.integer  "author_id"
