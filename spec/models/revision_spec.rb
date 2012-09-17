@@ -185,6 +185,28 @@ describe Revision do
       @revision2.should respond_to :prev
     end
 
+    describe 'do_before_validation' do
+      it 'should find and replace non-scoped pca links' do
+        @revision1.update_attributes(:content => 'this is text containing [[a pca link]]')
+        @revision1.html.should =~ />a pca link<\/a>/
+      end
+
+      it 'should find and replace scoped pca links' do
+        @revision1.update_attributes(:content => 'this is text containing [file[a pca link]]')
+        @revision1.html.should =~ />a pca link<\/a>/
+      end
+
+      it 'should find and replace external pca links' do
+        @revision1.update_attributes(:content => 'this is text containing [[http://an.external.link]]')
+        @revision1.html.should =~ /<a href="http:\/\/an\.external\.link">http:\/\/an\.external\.link<\/a>/
+      end
+
+      it 'should ignore markdown links' do
+        @revision1.update_attributes(:content => 'this is text containing [a markdown link](http://test.com)')
+        @revision1.content.should =~ /\[a markdown link\]\(http:\/\/test\.com\)/
+      end
+    end
+
     describe 'next' do
       it 'should return a revision' do
         @revision2.next.should be_an_instance_of Revision

@@ -23,7 +23,29 @@ class Revision < ActiveRecord::Base
   private
 
     def do_before_validation
-      self.html = Markdown.render(content)
+      temp = content.gsub(/(\[([a-z]*)\[((https*:\/\/)*[^\[]+)\]\])/) do |match|
+        if $4.blank?
+          "<a href=\"/#{($2.blank? ? 'pages' : $2.pluralize)}\">#{$3}</a>"
+        else
+          "<a href=\"#{$3}\">#{$3}</a>"
+        end
+      end
+=begin
+      regex = Regexp.new(/([0-9a-z\-_.]+@{1}[0-9a-z\-_.]+([a-z]){2,5})/i)
+      matchdata = regex.match(params[:valid_email][:email])
+      good_emails = []
+      bad_emails = []
+      while matchdata != nil
+        valid_email = ValidEmail.new(params[:valid_email].merge(:email => matchdata[0]))
+        if valid_email.save
+          good_emails << valid_email.email
+        else
+          bad_emails << valid_email.email
+        end
+        matchdata = regex.match(matchdata.post_match)
+      end
+=end
+      self.html = Markdown.render(temp)
     end
 
     def do_after_save
