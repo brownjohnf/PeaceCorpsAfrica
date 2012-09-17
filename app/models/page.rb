@@ -1,13 +1,34 @@
 class Page < ActiveRecord::Base
   attr_accessible :html, :locked_at, :locked_by, :title, :country_id, :revisions_attributes
 
+  # country of creation, for permission tracking
   belongs_to :country
+
+  # user currently editing the page
   belongs_to :editor, :class_name => User, :foreign_key => :locked_by
+
+  # countries which use this page as their default page
   has_many :countries
+
+  # initiatives which use this page as their default page
   has_many :initiatives
+
+  # links in the page
+  has_many :links_out, :class_name => Reference, :as => :link_source
+
+  # links in other content pointing to this page
+  has_many :links_in, :class_name => Reference, :as => :link_target
+
+  # versions of this page
   has_many :revisions, :dependent => :destroy
+
+  # the most recent revision (unless rolled back - feature yet to come)
   has_one :current_revision, :class_name => Revision
+
+  # various users who have contributed revisions
   has_many :authors, :through => :revisions, :uniq => true
+
+  # author of the current revision
   has_one :current_author, :through => :current_revision, :source => :author
 
   accepts_nested_attributes_for :revisions, :reject_if => Proc.new { |a| a.blank? }

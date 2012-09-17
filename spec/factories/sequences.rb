@@ -17,7 +17,7 @@ FactoryGirl.define do
   end
 
   sequence :content do |n|
-    "<p>Fresh content number #{n}!"
+    "Fresh content number #{n}!"
   end
 
   sequence :title do |n|

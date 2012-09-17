@@ -19,6 +19,16 @@
           %li.nav-header= pluralize(@page.initiatives.count, 'Initiative')
           - for init in @page.initiatives do
             %li= link_to init.name, init
+      %h2 Internal Links
+      %ul.nav.nav-list
+        - if @page.links_in.any?
+          %li.nav-header Inbound
+          - for ref in @page.links_in.to_pages do
+            %li= link_to ref.link_source.title, ref.link_source
+        - if @page.links_out.any?
+          %li.nav-header Outbound
+          - for ref in @page.links_out do
+            %li= link_to ref.link_text, ref.link_target
   .row
     .span9
       %hr

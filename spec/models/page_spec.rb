@@ -69,6 +69,14 @@ describe Page do
       @page.should respond_to :initiatives
     end
 
+    it 'should respond to links_in' do
+      @page.should respond_to :links_in
+    end
+
+    it 'should respond to links_out' do
+      @page.should respond_to :links_out
+    end
+
     it 'should respond to revisions' do
       Page.new(@attr).should respond_to :revisions
     end
@@ -174,6 +182,31 @@ describe Page do
 
       it 'should return the correct initiatives' do
         @page.initiatives.should eq [@initiative]
+      end
+    end
+
+    describe 'links_in' do
+      before :each do
+        @page = FactoryGirl.create :page
+        @revision = FactoryGirl.create(:revision, :content => "content with [page[#{@page.title}]].")
+      end
+
+      it 'should be an instance of Reference' do
+        @page.links_in.first.should be_an_instance_of Reference
+      end
+
+    end
+
+    describe 'links_out' do
+      before :each do
+        @revision = FactoryGirl.create(:revision, :content => 'content with [page[a link]]', :page => @page = FactoryGirl.create(:page))
+        puts @revision.inspect
+        puts @page.inspect
+        puts Reference.all.inspect
+      end
+
+      it 'should be an instance of Reference' do
+        @page.links_out.first.should be_an_instance_of Reference
       end
     end
 
