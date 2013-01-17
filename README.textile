@@ -1,4 +1,4 @@
-h1. Peacecorpsafrica
+h1. Peace Corps Africa
 
 This was an experimental/prototype app for a region-wide Peace Corps site. It was cancelled due to lack of funding and support at Peace Corps HQ.
 
