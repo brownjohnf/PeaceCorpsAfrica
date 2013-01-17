@@ -1,5 +1,7 @@
 h1. Peacecorpsafrica
 
+This was an experimental/prototype app for a region-wide Peace Corps site. It was cancelled due to lack of funding and support at Peace Corps HQ.
+
 This application was generated with the "rails_apps_composer":https://github.com/RailsApps/rails_apps_composer gem provided by the "RailsApps Project":http://railsapps.github.com/.
 
 h2. Diagnostics
@@ -50,15 +52,15 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 h2. Documentation and Support
 
-This is the only documentation.
+This is the only documentation at this time.
 
 h4. Issues
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+None reported. Not currently under development.
 
 h2. Similar Projects
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+This project has been influenced by http://github.com/brownjohnf/pc2, and some of the core components of the wiki system used here are in use in http://github.com/fadidi/DigitalPost.
 
 h2. Contributing
 
@@ -73,8 +75,8 @@ If you add functionality to this application, create an alternative implementati
 
 h2. Credits
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+All development by John F. Brown.
 
 h2. License
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Anyone is free to do anything they want this.
